@@ -8,34 +8,47 @@
 - [x] Vercelに本番デプロイ
 - [x] **MASCODEメディアプラン分析・表作成**
 - [x] **UGCネーミング7条件を全5事例に追加**
+- [x] **用語統一（UGCネーミング→コンセプト）**
+- [x] **評価項目を14項目（マスト7+任意7）に統合**
+- [x] **webappシンプル化（2セクション構成に）**
+- [x] **Vercel本番デプロイ（シンプル化版）**
 
 ### 作業中のタスク
-- [ ] Vercel本番デプロイ（UGCネーミング7条件反映）
+- なし
 
 ## 次のアクション
-1. `vercel --prod` でUGCネーミング7条件を本番反映
-2. 必要に応じてwebappをVercelカスタムドメインに設定
-3. コンセプト事例を追加（新しい商品分析）
+1. 必要に応じてwebappをVercelカスタムドメインに設定
+2. コンセプト事例を追加（新しい商品分析）
 
 ## 未解決の問題
 - **データ同期**: `docs/concept/concept-data.json` と `webapp/src/data/concept-data.json` は手動同期が必要（Turbopackがシンボリックリンク非対応のため）
 
 ## 未コミット変更
 ```
-?? CLAUDE.md
-?? HANDOFF.md
-?? docs/
-?? kwonlege/
-?? webapp/
-?? メディアプラン_MASCODE/
+ D webapp/src/app/concept/definition/page.tsx
+ D webapp/src/app/concept/good-concept/page.tsx
+ M webapp/src/app/concept/page.tsx
+?? webapp/src/app/concept/textbook/
 ```
 
 ## 最新コミット
 ```
-3c1e7d9 Clarify repository purpose and additional resources
+cb99062 feat: add concept learning webapp and documentation
 ```
 
 ## セッション履歴
+
+### 2026-01-20
+- 用語統一: 「UGCネーミング」「タグライン」→「コンセプト」に統一
+- 評価項目を14項目（マスト7+任意7）に統合
+  - 23項目から重複を排除して14項目に
+  - 全5事例を新フォーマットで再評価
+  - ネーミング案を各事例に追加
+- webappシンプル化
+  - 3セクション（定義/良いコンセプト/事例）→ 2セクション（コンセプトとは/事例）に
+  - `/concept/textbook` ページ新規作成（教科書全6章を表示）
+  - `/concept/definition` と `/concept/good-concept` を削除
+- Vercel本番デプロイ: https://webapp-five-bay.vercel.app
 
 ### 2026-01-19 (2)
 - MASCODEメディアプラン（4,000万円）の詳細分析
