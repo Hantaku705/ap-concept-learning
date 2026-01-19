@@ -1,0 +1,59 @@
+# HANDOFF - セッション引き継ぎ
+
+## 現在の状態
+
+### 完了したタスク
+- [x] コンセプト学習資料をAPフォルダに移動（docs/concept/）
+- [x] marketing-onboarding WebアプリをAP/webappに移動
+- [x] Vercelに本番デプロイ
+- [x] **MASCODEメディアプラン分析・表作成**
+- [x] **UGCネーミング7条件を全5事例に追加**
+
+### 作業中のタスク
+- [ ] Vercel本番デプロイ（UGCネーミング7条件反映）
+
+## 次のアクション
+1. `vercel --prod` でUGCネーミング7条件を本番反映
+2. 必要に応じてwebappをVercelカスタムドメインに設定
+3. コンセプト事例を追加（新しい商品分析）
+
+## 未解決の問題
+- **データ同期**: `docs/concept/concept-data.json` と `webapp/src/data/concept-data.json` は手動同期が必要（Turbopackがシンボリックリンク非対応のため）
+
+## 未コミット変更
+```
+?? CLAUDE.md
+?? HANDOFF.md
+?? docs/
+?? kwonlege/
+?? webapp/
+?? メディアプラン_MASCODE/
+```
+
+## 最新コミット
+```
+3c1e7d9 Clarify repository purpose and additional resources
+```
+
+## セッション履歴
+
+### 2026-01-19 (2)
+- MASCODEメディアプラン（4,000万円）の詳細分析
+  - Phase×施策×SNS別の予算・リーチ・投稿数表を作成
+  - `メディアプラン_MASCODE/` フォルダにCSV・MD出力
+- UGCネーミング7条件を全5事例に追加
+  - `docs/concept/concept-data.json` に `ugcNamingEval` 追加
+  - `webapp/src/lib/concept.ts` に型定義追加
+  - `webapp/src/app/concept/examples/[slug]/page.tsx` にUIセクション追加
+- Turbopackシンボリックリンク非対応を発見
+  - 解決策: ファイルコピーで対応（手動同期必要）
+
+### 2026-01-19
+- YouTube動画（コンセプト学習）をGemini APIで分析
+- コンセプト学習資料をMarkdownで作成（docs/concept/）
+  - 01-definition.md（2つの定義）
+  - 02-good-concept.md（7条件・7基準）
+  - examples/（5つの事例）
+- marketing-onboarding Next.jsアプリを作成
+- WebアプリをAP/webappに移動
+- Vercelに本番デプロイ: https://webapp-five-bay.vercel.app
