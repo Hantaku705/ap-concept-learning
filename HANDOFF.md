@@ -44,6 +44,7 @@
 - [x] **Dr.Melaxin 四半期別プランにReach数を追加**（q1-q4.md）
 - [x] **Dr.Melaxin X TopView削除→運用型広告に変更**
 - [x] **Dr.Melaxin Reach計算ロジック・媒体別単価・KOL規模をCLAUDE.mdに追記**
+- [x] **Dr.Melaxin 根拠ファイル（reason files）を6ファイル作成**
 
 ### 作業中のタスク
 - [ ] **MASCODEアイライナー コンセプト作成**（検討中）
@@ -60,23 +61,37 @@
 
 ## 未コミット変更
 ```
- M dr.melaxin/CLAUDE.md
  M dr.melaxin/proposal/CLAUDE.md
- M dr.melaxin/proposal/annual.md
- D dr.melaxin/proposal/june.md
- D dr.melaxin/proposal/march.md
-?? dr.melaxin/proposal/q1.md
-?? dr.melaxin/proposal/q2.md
-?? dr.melaxin/proposal/q3.md
-?? dr.melaxin/proposal/q4.md
+?? dr.melaxin/proposal/annual_reason.md
+?? dr.melaxin/proposal/q1_reason.md
+?? dr.melaxin/proposal/q2_reason.md
+?? dr.melaxin/proposal/q3_reason.md
+?? dr.melaxin/proposal/q4_reason.md
+?? dr.melaxin/proposal/strategy_reason.md
 ```
 
 ## 最新コミット
 ```
-cc54d14 docs: update HANDOFF.md with session 14
+f017b48 fix(dr.melaxin): correct inconsistencies in proposal documents
 ```
 
 ## セッション履歴
+
+### 2026-01-21 (16)
+- **Dr.Melaxin 根拠ファイル（reason files）を6ファイル作成**
+  - `strategy_reason.md`: OGSM設定根拠、ROAS 466%算出、勝ちパターン導出、CSF選定理由
+  - `annual_reason.md`: 年間15.8億円の配分根拠、媒体別投資計算、Reach計算ロジック
+  - `q1_reason.md`: 3月メガ割戦略、TikTok 1,300本算出、RT部隊0.7億円設計、GMV 5-7億円根拠
+  - `q2_reason.md`: ジョングク起用根拠、別枠2.5-3.3億円内訳、Plan B設計、GMV 10億円算出
+  - `q3_reason.md`: Drug Store 9月参入理由、TTS強化（7-8月）根拠、オン×オフ連携設計
+  - `q4_reason.md`: BestCosme獲得戦略、BF全チャネル連動、年間73.6億円達成検証
+- **proposal/CLAUDE.md を更新**
+  - 根拠ファイル一覧を追加
+  - 使い方・用途を記載
+- **根拠ファイルの内容構成**
+  - 市場データからの根拠: 競合売上データ、成功パターン、ベンチマーク数値
+  - 計算根拠: 予算配分計算式、GMV目標の算出、Reach計算ロジック
+  - リスク分析と対策: 発生確率×影響度、具体的な対策
 
 ### 2026-01-20 (15)
 - **Dr.Melaxin 四半期別プランにReach数を追加**（q1-q4.md）
