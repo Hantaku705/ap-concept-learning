@@ -42,18 +42,12 @@
 
 ## 未コミット変更
 ```
- M .gitignore
- M HANDOFF.md
-?? dr.melaxin/Dr Melaxin GTM - Dr.melaxin.csv
-?? dr.melaxin/[ja]Marketing Proposal - Dr.Melaxin（2025.12.23).pptx
-?? dr.melaxin/[ja]Marketing Proposal - Dr.Melaxin（2025.12.23)_compressed.pdf
-?? dr.melaxin/proposal.md
-?? dr.melaxin/slides/
+M HANDOFF.md
 ```
 
 ## 最新コミット
 ```
-9ba2c9e refactor: reorganize AP folder structure by project
+8ac9f58 feat: add Dr.Melaxin marketing proposal analysis
 ```
 
 ## セッション履歴
