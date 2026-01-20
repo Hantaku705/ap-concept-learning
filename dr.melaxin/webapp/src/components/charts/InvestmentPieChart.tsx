@@ -9,28 +9,30 @@ import {
   Legend,
 } from "recharts";
 import type { PieLabelRenderProps } from "recharts";
-import { investmentData } from "@/data/proposal-data";
+import { investmentPieData } from "@/data/strategy-data";
 
 export default function InvestmentPieChart() {
-  const data = investmentData.categories;
+  const data = investmentPieData;
 
   const CustomTooltip = ({
     active,
     payload,
   }: {
     active?: boolean;
-    payload?: Array<{ payload: { name: string; amount: number; percentage: number } }>;
+    payload?: Array<{ payload: { name: string; value: number; color: string } }>;
   }) => {
     if (active && payload && payload.length) {
       const item = payload[0].payload;
+      const total = data.reduce((sum, d) => sum + d.value, 0);
+      const percentage = ((item.value / total) * 100).toFixed(1);
       return (
         <div className="bg-white p-3 rounded-lg shadow-lg border border-gray-200">
           <p className="font-semibold text-gray-900">{item.name}</p>
           <p className="text-gray-600">
-            投資額: <span className="font-bold text-sky-600">{item.amount}億円</span>
+            投資額: <span className="font-bold text-sky-600">{item.value}億円</span>
           </p>
           <p className="text-gray-600">
-            構成比: <span className="font-bold">{item.percentage}%</span>
+            構成比: <span className="font-bold">{percentage}%</span>
           </p>
         </div>
       );
@@ -72,7 +74,7 @@ export default function InvestmentPieChart() {
 
   return (
     <div className="chart-container">
-      <h3 className="card-header">投資配分（総額 38億円）</h3>
+      <h3 className="card-header">投資配分（総額 15.8億円）</h3>
       <ResponsiveContainer width="100%" height={300}>
         <PieChart>
           <Pie
@@ -82,7 +84,7 @@ export default function InvestmentPieChart() {
             labelLine={false}
             label={renderCustomizedLabel}
             outerRadius={100}
-            dataKey="amount"
+            dataKey="value"
             nameKey="name"
           >
             {data.map((entry, index) => (
@@ -100,7 +102,7 @@ export default function InvestmentPieChart() {
           <div key={item.name} className="p-2 bg-gray-50 rounded-lg">
             <p className="text-xs text-gray-500">{item.name}</p>
             <p className="text-lg font-bold" style={{ color: item.color }}>
-              {item.amount}億円
+              {item.value}億円
             </p>
           </div>
         ))}

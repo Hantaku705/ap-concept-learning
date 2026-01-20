@@ -10,20 +10,22 @@ import {
   ResponsiveContainer,
   Cell,
 } from "recharts";
-import { channelData } from "@/data/proposal-data";
+import { channelSalesData } from "@/data/strategy-data";
 
 export default function ChannelBarChart() {
-  const data = channelData.salesByChannel;
+  const data = channelSalesData;
+  const total = data.reduce((sum, d) => sum + d.sales, 0);
 
   const CustomTooltip = ({
     active,
     payload,
   }: {
     active?: boolean;
-    payload?: Array<{ payload: { channel: string; sales: number; percentage: number } }>;
+    payload?: Array<{ payload: { channel: string; sales: number; color: string } }>;
   }) => {
     if (active && payload && payload.length) {
       const item = payload[0].payload;
+      const percentage = ((item.sales / total) * 100).toFixed(1);
       return (
         <div className="bg-white p-3 rounded-lg shadow-lg border border-gray-200">
           <p className="font-semibold text-gray-900">{item.channel}</p>
@@ -31,7 +33,7 @@ export default function ChannelBarChart() {
             売上: <span className="font-bold text-sky-600">{item.sales}億円</span>
           </p>
           <p className="text-gray-600">
-            構成比: <span className="font-bold">{item.percentage}%</span>
+            構成比: <span className="font-bold">{percentage}%</span>
           </p>
         </div>
       );
@@ -41,7 +43,7 @@ export default function ChannelBarChart() {
 
   return (
     <div className="chart-container">
-      <h3 className="card-header">チャネル別売上目標</h3>
+      <h3 className="card-header">チャネル別売上目標（73.6億円）</h3>
       <ResponsiveContainer width="100%" height={300}>
         <BarChart
           data={data}
@@ -73,7 +75,7 @@ export default function ChannelBarChart() {
       <div className="mt-4">
         <div className="alert alert-info">
           <p className="text-sm">
-            <strong>Qoo10が売上の54.9%</strong>を占める最重要チャネル。
+            <strong>Qoo10が売上の38%</strong>を占める最重要チャネル。
             メガ割のタイミングでの売上最大化が鍵。
           </p>
         </div>

@@ -10,10 +10,10 @@ import {
   ResponsiveContainer,
   ReferenceLine,
 } from "recharts";
-import { financialData } from "@/data/proposal-data";
+import { cumulativeSalesData } from "@/data/strategy-data";
 
 export default function SalesChart() {
-  const data = financialData.cumulativeSales;
+  const data = cumulativeSalesData;
 
   return (
     <div className="chart-container">
@@ -30,7 +30,7 @@ export default function SalesChart() {
             tick={{ fontSize: 12, fill: "#64748b" }}
             axisLine={{ stroke: "#e2e8f0" }}
             tickFormatter={(value) => `${value}億`}
-            domain={[0, 130]}
+            domain={[0, 80]}
           />
           <Tooltip
             formatter={(value) => [`${value as number}億円`, "累計売上"]}
@@ -42,11 +42,11 @@ export default function SalesChart() {
             }}
           />
           <ReferenceLine
-            y={120}
+            y={73.6}
             stroke="#16a34a"
             strokeDasharray="5 5"
             label={{
-              value: "目標: 120億円",
+              value: "目標: 73.6億円",
               position: "right",
               fill: "#16a34a",
               fontSize: 12,
@@ -69,7 +69,7 @@ export default function SalesChart() {
         </div>
         <div className="flex items-center gap-2">
           <div className="w-6 h-0.5 bg-green-600" style={{ borderStyle: "dashed" }}></div>
-          <span>目標ライン</span>
+          <span>目標ライン（73.6億円）</span>
         </div>
       </div>
     </div>

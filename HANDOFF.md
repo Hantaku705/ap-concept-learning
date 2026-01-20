@@ -47,41 +47,179 @@
 - [x] **Dr.Melaxin 根拠ファイル（reason files）を6ファイル作成**
 - [x] **Dr.Melaxin annual-matrix.md 作成**（年間マトリックス形式）
 - [x] **Dr.Melaxin q1-q4 matrix ファイル作成**（四半期別マトリックス形式）
+- [x] **Dr.Melaxin Webapp $10M版アップデート**（38億円版→$10M版に全面更新）
+- [x] **新規ページ4つ追加**（提案書/四半期/ダッシュボード/マトリックス）
+- [x] **新規コンポーネント7つ追加**（タブ/アコーディオン/タイムライン/マトリックス/グラフ3種）
+- [x] **TypeScriptビルドエラー10件修正**
+- [x] **Vercel本番デプロイ完了**
+- [x] **Dr.Melaxin Webapp タブUI実装**（Strategy/Tactics/Media Plan/Calendar）
+- [x] **施策一覧（Tactics）タブ追加**（マスターデータ、フィルター/ソート機能）
+- [x] **アクティベーションカレンダータブ追加**（1スライド統合ビュー、ツールチップ）
+- [x] **アンバサダー起用（グク）を施策に追加**
+- [x] **Strategy戦略ページを1スライド化**（374行→94行→79行に圧縮）
+- [x] **CSF順番変更**（Ambassador起用を3番目に追加、KOL Pick刈り取り→Qoo10メガ割KOL Pickに名称変更）
+- [x] **四半期データ・根拠データの整合性修正**
+- [x] **施策一覧に投稿数・フォロワー数を追加**（TacticMaster型拡張、KPIカード6つに拡張）
+- [x] **年間ロードマップをStrategyページに追加**（Q2=6月Ambassadorを年間最大ピークとして可視化）
 
 ### 作業中のタスク
 - [ ] **MASCODEアイライナー コンセプト作成**（検討中）
 
 ## 次のアクション
-1. **Dr.Melaxin 提案資料の社内レビュー**（strategy.md + q1-q4.md）
-2. クライアントとの認識合わせ（GMV目標 73.6億円 vs 120億円の位置づけ）
-3. 3月メガ割に向けた準備開始（TikTok制作発注、RT部隊業者との調整）
-4. 6月ジョングク契約交渉の進捗確認
-5. MASCODEアイライナーのコンセプト案を最終決定
+1. **Dr.Melaxin Webapp変更をコミット＆プッシュ**（30ファイル未コミット）
+2. 施策マスターの最終確認（全11施策の優先度・予算・役割）
+3. クライアントとの認識合わせ（GMV目標 73.6億円 vs 120億円の位置づけ）
+4. 3月メガ割に向けた準備開始（TikTok制作発注、RT部隊業者との調整）
+5. 6月ジョングク契約交渉の進捗確認
 
 ## 未解決の問題
 - **データ同期**: `concept-learning/docs/concept-data.json` と `concept-learning/webapp/src/data/concept-data.json` は手動同期が必要（Turbopackがシンボリックリンク非対応のため）
 
 ## 未コミット変更
 ```
- M dr.melaxin/proposal/CLAUDE.md
- M dr.melaxin/proposal/annual.md
- M dr.melaxin/proposal/q1.md
- M dr.melaxin/proposal/q2.md
- M dr.melaxin/proposal/q3.md
- M dr.melaxin/proposal/q4.md
-?? dr.melaxin/proposal/annual-matrix.md
-?? dr.melaxin/proposal/q1-matrix.md
-?? dr.melaxin/proposal/q2-matrix.md
-?? dr.melaxin/proposal/q3-matrix.md
-?? dr.melaxin/proposal/q4-matrix.md
+ M HANDOFF.md
+ M dr.melaxin/webapp/CLAUDE.md
+ M dr.melaxin/webapp/src/app/page.tsx
+ M dr.melaxin/webapp/src/components/Navigation.tsx
+ M dr.melaxin/webapp/src/components/charts/ChannelBarChart.tsx
+ M dr.melaxin/webapp/src/components/charts/InvestmentPieChart.tsx
+ M dr.melaxin/webapp/src/components/charts/QuarterlyChart.tsx
+ M dr.melaxin/webapp/src/components/charts/SalesChart.tsx
+?? dr.melaxin/webapp/src/app/dashboard/
+?? dr.melaxin/webapp/src/app/mediaplan/
+?? dr.melaxin/webapp/src/app/strategy/
+?? dr.melaxin/webapp/src/components/ActivationCalendarContent.tsx
+?? dr.melaxin/webapp/src/components/FilterableMatrix.tsx
+?? dr.melaxin/webapp/src/components/MediaPlanContent.tsx
+?? dr.melaxin/webapp/src/components/ProposalTabs.tsx
+?? dr.melaxin/webapp/src/components/QuarterDetailView.tsx
+?? dr.melaxin/webapp/src/components/QuarterlyTabs.tsx
+?? dr.melaxin/webapp/src/components/ReasonAccordion.tsx
+?? dr.melaxin/webapp/src/components/SimpleNav.tsx
+?? dr.melaxin/webapp/src/components/StrategyContent.tsx
+?? dr.melaxin/webapp/src/components/TacticsListContent.tsx
+?? dr.melaxin/webapp/src/components/TimelineChart.tsx
+?? dr.melaxin/webapp/src/components/charts/ReachEfficiencyChart.tsx
+?? dr.melaxin/webapp/src/components/charts/ReachTrendChart.tsx
+?? dr.melaxin/webapp/src/components/charts/SnsPieChart.tsx
+?? dr.melaxin/webapp/src/data/matrix-data.ts
+?? dr.melaxin/webapp/src/data/quarterly-data.ts
+?? dr.melaxin/webapp/src/data/reason-data.ts
+?? dr.melaxin/webapp/src/data/strategy-data.ts
+?? dr.melaxin/webapp/src/data/tactics-data.ts
 ```
 
 ## 最新コミット
 ```
-1efe842 docs(dr.melaxin): add reason files for proposal documents
+3b7a265 docs(dr.melaxin): add matrix format media plans for annual and quarterly
 ```
 
 ## セッション履歴
+
+### 2026-01-21 (22)
+- **年間ロードマップをStrategyページに追加**
+  - `strategy-data.ts`: `quarterRoadmap`データ追加
+    - 各四半期: q, period, theme, keyEvent, intensity, isPeak, tactics, gmvTarget
+    - intensity（1-5）で盛り上がり度合いを数値化
+    - Q2（6月メガ割+グク）を`isPeak: true`で年間最大ピークに設定
+  - `StrategyContent.tsx`: 年間ロードマップセクション追加
+    - 盛り上がりバー: intensity×20%の横幅バーで可視化
+    - Q2のみオレンジグラデーション＋ボーダーで強調
+    - 各四半期: テーマ + キーイベントを表示
+  - 四半期別テーマ:
+    - Q1: 市場参入・認知獲得（intensity: 3）
+    - **Q2: Ambassador起用で最大化（intensity: 5, isPeak）**
+    - Q3: オフライン展開（intensity: 4）
+    - Q4: 年間目標達成（intensity: 4）
+- **Vercel本番デプロイ完了**
+  - URL: https://dr-melaxin-proposal.vercel.app
+
+### 2026-01-21 (21)
+- **Strategy戦略ページを1スライド化**
+  - 大幅簡略化: 374行 → 94行 → 79行
+  - `strategy-data.ts`: 不要なエクスポートを削除（marketData, competitorAnalysis, objectiveData等）
+  - `StrategyContent.tsx`: OGSM + KPI + CSFのみの1画面構成に
+  - 削除: 四半期サマリーテーブル、グラフ、フッター
+  - パディング圧縮: mb-8→mb-4, p-6→p-4
+- **CSF（勝ちパターン）の変更**
+  - Ambassador起用（グク）を3番目に追加
+  - 理由: ブランディング→切り抜き→UGC拡散
+  - KOL Pick刈り取り → Qoo10メガ割KOL Pick に名称変更
+- **関連データの整合性修正**
+  - `quarterly-data.ts`: Q1 keyMessageを「Qoo10メガ割KOL Pick」に更新
+  - `reason-data.ts`: CSF優先順位リストを4項目に更新（順番・名称一致）
+- **Vercel本番デプロイ完了**
+  - URL: https://dr-melaxin-proposal.vercel.app
+
+### 2026-01-21 (20)
+- **施策一覧に投稿数・フォロワー数を追加**
+  - `TacticMaster`型に3フィールド追加: `annualPosts`, `totalFollowers`, `creatorCount`
+  - 施策別データ:
+    - グク: フォロワー5,000万人
+    - TikTok大量生成: 7,000本、フォロワー700万人、7,000人
+    - X RT部隊: 500投稿、フォロワー200万人、20人
+    - KOL IG: 8配信、フォロワー40万人、2人
+    - KOL YT: 4配信、フォロワー25万人、1人
+  - KPIカード4→6に拡張: 合計投稿数、合計フォロワー追加
+  - テーブル列3つ追加: 投稿数、フォロワー計、平均フォロワー
+  - フォーマット関数追加: `formatPosts()`, `formatFollowers()`, `formatAvgFollowers()`
+- **Vercel本番デプロイ完了**
+  - URL: https://dr-melaxin-proposal.vercel.app
+
+### 2026-01-21 (19)
+- **Dr.Melaxin Webapp タブUI実装**
+  - 4タブ構成に変更: Strategy → Tactics → Media Plan → Calendar
+  - `ProposalTabs.tsx`: タブ切り替えコンポーネント
+  - 各タブ固有のコンテンツコンポーネント作成
+- **施策一覧（Tactics）タブ追加**
+  - `TacticsListContent.tsx`: フィルター/ソート付きテーブル
+  - `tactics-data.ts`: 施策マスターデータ（11施策）
+  - 表示項目: 施策名/SNS/目的/役割・狙い/優先度/年間予算/年間Reach
+  - フィルター: SNS別、目的別
+  - ソート: 優先順位/予算/Reach
+  - 行クリックでKPI・備考を展開表示
+- **アンバサダー起用（グク）を施策に追加**
+  - 目的: ブランディング・認知・話題化
+  - 役割: ブランディング確立+切り抜きUGC醸成。大量動画のステマ感を軽減
+  - 予算: 3億円（別枠2.5-3.3億円）
+  - Reach: 5億UU
+  - 6月メガ割に合わせて起用
+- **アクティベーションカレンダータブ**
+  - `ActivationCalendarContent.tsx`: 1スライド統合ビュー
+  - Q1-Q4を1テーブルで表示（横スクロール）
+  - Qヘッダーにツールチップ（keyMessage表示）
+  - 施策セルに予算・投稿数・Reach表示
+- **Vercel本番デプロイ完了**
+  - URL: https://dr-melaxin-proposal.vercel.app
+
+### 2026-01-21 (18)
+- **Dr.Melaxin Webapp $10M版アップデート完了**
+  - 38億円版 → $10M版（GMV 73.6億円/投資15.8億円）に全面更新
+  - 新規ページ4つ追加: `/`, `/quarterly`, `/dashboard`, `/matrix`
+  - 新規コンポーネント7つ追加:
+    - `QuarterlyTabs.tsx`: Q1-Q4タブ切り替え
+    - `ReasonAccordion.tsx`: 根拠Q&A展開
+    - `TimelineChart.tsx`: 年間タイムライン
+    - `FilterableMatrix.tsx`: フィルタ付きマトリックステーブル
+    - `ReachTrendChart.tsx`: Reach推移グラフ
+    - `SnsPieChart.tsx`: SNS別ドーナツ図
+    - `ReachEfficiencyChart.tsx`: 投資効率チャート
+  - 新規データファイル4つ追加:
+    - `strategy-data.ts`: OGSM戦略データ
+    - `quarterly-data.ts`: Q1-Q4詳細データ
+    - `matrix-data.ts`: マトリックス形式データ
+    - `reason-data.ts`: 根拠Q&Aデータ
+- **TypeScriptビルドエラー修正**（10件）
+  - `QuarterSummary`型プロパティ修正（`name`, `id`, `keyMessage`, `totalReach`）
+  - `snsSummary/tacticSummary`プロパティ修正（`budget`, `reach`）
+  - Recharts Tooltip formatter型修正
+  - `isMegaSale`プロパティ追加（monthlyInvestmentData）
+  - `PieLabelRenderProps`型インポート＆修正
+  - `MatrixRow`型エクスポート追加
+  - `FilterableMatrix`月マッピング・データ構造修正
+- **Vercel本番デプロイ完了**
+  - URL: https://dr-melaxin-proposal.vercel.app
+  - 4ページ、7コンポーネント、4データファイルすべて動作確認
 
 ### 2026-01-21 (17)
 - **Dr.Melaxin annual-matrix.md 作成**（年間マトリックス形式）

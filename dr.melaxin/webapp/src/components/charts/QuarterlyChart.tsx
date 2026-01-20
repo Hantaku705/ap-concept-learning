@@ -11,10 +11,10 @@ import {
   ResponsiveContainer,
   Legend,
 } from "recharts";
-import { gtmData } from "@/data/proposal-data";
+import { quarterlyChartData } from "@/data/strategy-data";
 
 export default function QuarterlyChart() {
-  const data = gtmData.quarterly;
+  const data = quarterlyChartData;
 
   const CustomTooltip = ({
     active,
@@ -40,16 +40,10 @@ export default function QuarterlyChart() {
             <p key={index} className="text-gray-600">
               {item.name}:{" "}
               <span className="font-bold" style={{ color: item.color }}>
-                {item.value}億円
+                {item.value}{item.name === "ROAS" ? "%" : "億円"}
               </span>
             </p>
           ))}
-          <p className="text-gray-600 mt-1 pt-1 border-t border-gray-200">
-            ROAS:{" "}
-            <span className="font-bold text-emerald-600">
-              {quarter?.roas}%
-            </span>
-          </p>
         </div>
       );
     }
@@ -71,28 +65,46 @@ export default function QuarterlyChart() {
             axisLine={{ stroke: "#e2e8f0" }}
           />
           <YAxis
+            yAxisId="left"
             tick={{ fontSize: 12, fill: "#64748b" }}
             axisLine={{ stroke: "#e2e8f0" }}
             tickFormatter={(value) => `${value}億`}
+          />
+          <YAxis
+            yAxisId="right"
+            orientation="right"
+            tick={{ fontSize: 12, fill: "#64748b" }}
+            axisLine={{ stroke: "#e2e8f0" }}
+            tickFormatter={(value) => `${value}%`}
           />
           <Tooltip content={<CustomTooltip />} />
           <Legend
             formatter={(value) => <span className="text-gray-700">{value}</span>}
           />
           <Bar
+            yAxisId="left"
             dataKey="investment"
             name="投資額"
             fill="#f59e0b"
             radius={[4, 4, 0, 0]}
             barSize={40}
           />
-          <Line
-            type="monotone"
+          <Bar
+            yAxisId="left"
             dataKey="sales"
             name="売上"
-            stroke="#0369a1"
+            fill="#0ea5e9"
+            radius={[4, 4, 0, 0]}
+            barSize={40}
+          />
+          <Line
+            yAxisId="right"
+            type="monotone"
+            dataKey="roas"
+            name="ROAS"
+            stroke="#22c55e"
             strokeWidth={3}
-            dot={{ fill: "#0369a1", strokeWidth: 2, r: 5 }}
+            dot={{ fill: "#22c55e", strokeWidth: 2, r: 5 }}
           />
         </ComposedChart>
       </ResponsiveContainer>
@@ -101,13 +113,13 @@ export default function QuarterlyChart() {
           <div
             key={q.quarter}
             className={`text-center p-2 rounded-lg ${
-              q.roas < 100 ? "bg-amber-50" : "bg-emerald-50"
+              q.roas < 300 ? "bg-amber-50" : "bg-emerald-50"
             }`}
           >
             <p className="text-xs text-gray-500">{q.quarter} ROAS</p>
             <p
               className={`text-lg font-bold ${
-                q.roas < 100 ? "text-amber-600" : "text-emerald-600"
+                q.roas < 300 ? "text-amber-600" : "text-emerald-600"
               }`}
             >
               {q.roas}%
@@ -117,7 +129,7 @@ export default function QuarterlyChart() {
       </div>
       <div className="mt-4 alert alert-warning">
         <p className="text-sm">
-          <strong>Q1は投資先行</strong>（Ambassador 10億円、TV CM 1.5億円等）でROASが低いが、Q2以降で回収
+          <strong>Q1は投資先行</strong>（3月メガ割で基盤構築）でROASが低いが、Q2以降で回収し年間ROAS 466%達成
         </p>
       </div>
     </div>
