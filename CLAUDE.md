@@ -30,9 +30,17 @@ AP/
 ├── phonefarm/              # Phone Farmプロジェクト
 │
 ├── dr.melaxin/             # Dr.Melaxinプロジェクト
-│   ├── webapp/             # Next.js Webアプリ（提案書可視化）
-│   ├── proposal.md         # 提案書サマリー（GTM詳細含む）
-│   └── slides/             # PDF画像変換（65ページ）
+│   ├── CLAUDE.md           # プロジェクト概要
+│   ├── docs/               # 戦略ドキュメント
+│   │   ├── budget-proposal-10m.md  # メイン資料
+│   │   ├── proposal.md
+│   │   └── research.md
+│   ├── media-plan/         # メディアプラン
+│   │   ├── annual.md
+│   │   ├── march.md
+│   │   └── june.md
+│   ├── source/             # 元ファイル（PDF/PPTX/CSV/slides）
+│   └── webapp/             # Next.js Webアプリ
 │
 ├── _archive/               # アーカイブ（用途不明ファイル）
 │
@@ -182,17 +190,38 @@ BRAND501 Corp.のスキンケアブランド「Dr.Melaxin」の日本市場マ�
 | 5 | JT代理店情報 | LAKA/朝鮮美人の課題感 |
 | 6 | Dr.Melaxinへの示唆 | Top Tier共通点、必要アクション |
 
+**フォルダ構成**:
+```
+dr.melaxin/
+├── CLAUDE.md               # プロジェクト概要
+├── docs/                   # 戦略ドキュメント
+│   ├── budget-proposal-10m.md  # メイン資料（$10M予算提案書、704行）
+│   ├── proposal.md         # 提案書サマリー（332行）
+│   ├── research.md         # 競合リサーチ（6セクション）
+│   ├── brief.md            # 案件ブリーフ
+│   └── memo.md             # 社内ミーティングメモ
+├── media-plan/             # メディアプラン
+│   ├── annual.md           # 年間計画
+│   ├── march.md            # 3月メガ割（GMV 5-7億円）
+│   └── june.md             # 6月メガ割（GMV 10億円、ジョングク）
+├── source/                 # 元ファイル・データ
+│   ├── proposal.pdf        # 元PDF（65ページ）
+│   ├── proposal.pptx       # PowerPoint
+│   ├── gtm-original.csv    # 元GTM
+│   ├── gtm-10m.csv         # $10M版GTM
+│   └── slides/             # PDF画像（65枚）
+└── webapp/                 # Next.js提案書可視化アプリ
+```
+
 **Key Files**:
 | ファイル | 用途 |
 |---------|------|
+| `dr.melaxin/docs/budget-proposal-10m.md` | **メイン資料**（$10M予算提案書、704行） |
+| `dr.melaxin/docs/research.md` | 競合リサーチ（整理済み、6セクション） |
+| `dr.melaxin/media-plan/annual.md` | 年間メディアプラン |
+| `dr.melaxin/media-plan/march.md` | 3月メガ割詳細プラン |
+| `dr.melaxin/media-plan/june.md` | 6月メガ割詳細プラン |
 | `dr.melaxin/webapp/src/data/proposal-data.ts` | 提案書データ（構造化） |
-| `dr.melaxin/webapp/src/data/research-data.ts` | 競合リサーチデータ（構造化） |
-| `dr.melaxin/webapp/src/components/charts/` | グラフコンポーネント（4種） |
-| `dr.melaxin/proposal.md` | 提案書サマリー（332行、GTM詳細含む） |
-| `dr.melaxin/research.md` | 競合リサーチ（242行） |
-| `dr.melaxin/budget-proposal-10m.md` | **$10M USD予算提案書（704行）** |
-| `dr.melaxin/gtm-10m-monthly.csv` | $10M GTMスプレッドシート |
-| `dr.melaxin/memo.md` | 社内ミーティングメモ |
 
 **開発コマンド**:
 ```bash
@@ -249,6 +278,8 @@ Claude Codeの設定リファレンス実装。
 
 ## 更新履歴
 
+- 2026-01-20: Dr.Melaxin フォルダ構造整理（docs/, media-plan/, source/に分離）
+- 2026-01-20: Dr.Melaxin メディアプラン作成（年間/3月メガ割/6月メガ割）
 - 2026-01-20: Dr.Melaxin $10M USD予算提案書作成（budget-proposal-10m.md, 704行）
 - 2026-01-20: Dr.Melaxin 競合リサーチページ追加（/research、6セクション）
 - 2026-01-20: Dr.Melaxin Webアプリ作成（9セクション、グラフ4種）

@@ -32,29 +32,60 @@
 - [x] **Dr.Melaxin $10M USD予算提案書作成**（budget-proposal-10m.md, 704行）
 - [x] **memo.md（社内メモ）の知見を反映**
 - [x] **research.md をロジカルに整理（6セクション構成）**
+- [x] **Dr.Melaxin 年間メディアプラン作成**（media-plan-annual.md）
+- [x] **Dr.Melaxin 3月メガ割詳細プラン作成**（media-plan-march.md）
+- [x] **Dr.Melaxin 6月メガ割詳細プラン作成**（media-plan-june.md）
 
 ### 作業中のタスク
 - [ ] **MASCODEアイライナー コンセプト作成**（検討中）
 
 ## 次のアクション
-1. MASCODEアイライナーのコンセプト案を最終決定
-2. Dr.Melaxin予算提案書を社長プレゼン用にレビュー
-3. Phone Farmガイドのフィードバック対応（必要に応じて）
+1. Dr.Melaxinメディアプランを社内レビュー
+2. 3月メガ割に向けた準備開始（TikTok制作発注、RT部隊業者との調整）
+3. 6月ジョングク契約交渉の進捗確認
+4. MASCODEアイライナーのコンセプト案を最終決定
 
 ## 未解決の問題
 - **データ同期**: `concept-learning/docs/concept-data.json` と `concept-learning/webapp/src/data/concept-data.json` は手動同期が必要（Turbopackがシンボリックリンク非対応のため）
 
 ## 未コミット変更
 ```
-（なし）
+?? dr.melaxin/media-plan-annual.md
+?? dr.melaxin/media-plan-june.md
+?? dr.melaxin/media-plan-march.md
 ```
 
 ## 最新コミット
 ```
-96b9eae feat: add Dr.Melaxin webapp with research page
+d2c5ba0 docs: update HANDOFF.md with session 12
 ```
 
 ## セッション履歴
+
+### 2026-01-20 (13)
+- **Dr.Melaxin 年間メディアプラン作成**（media-plan-annual.md）
+  - 月別予算配分（15.8億円）
+  - 媒体別年間戦略（TikTok/X/IG/YT）
+  - 四半期別KPI設定
+  - リスク管理・検証サイクル
+- **Dr.Melaxin 3月メガ割詳細プラン作成**（media-plan-march.md）
+  - 週別タイムライン（2/15〜3/20）
+  - TikTok大量生成（1,000本）
+  - RT部隊全力稼働（トレンド入り5回目標）
+  - KOL Pick配信スケジュール（Aクラス2人契約済み）
+  - YTメガ系KOL Pick（大型YouTuber3配信）
+  - 目標: GMV 5-7億円、Qoo10 Top10
+- **Dr.Melaxin 6月メガ割詳細プラン作成**（media-plan-june.md）
+  - ジョングク起用計画（別枠2.5-3.3億円）
+  - オフラインイベント（ポップアップストア、来場1万人）
+  - Plan B（他K-POP: SEVENTEEN等）
+  - 目標: GMV 10億円、Qoo10 Top5
+- **重要決定事項**
+  - 3月Ambassador: 起用しない（6月に集中）
+  - 6月ジョングク: 別予算確保（$10M枠外）
+  - TikTok制作: Jipanglobal（1本1万円 or 再生保証）
+  - RT部隊: 業者確定済み（顔面工事ちゃん系）
+  - YT戦略: 検証系ミドルではなくメガ系KOL Pickに集中
 
 ### 2026-01-20 (12)
 - **research.md をロジカルに整理**
