@@ -30,6 +30,7 @@ AP/
 ├── phonefarm/              # Phone Farmプロジェクト
 │
 ├── dr.melaxin/             # Dr.Melaxinプロジェクト
+│   ├── webapp/             # Next.js Webアプリ（提案書可視化）
 │   ├── proposal.md         # 提案書サマリー（GTM詳細含む）
 │   └── slides/             # PDF画像変換（65ページ）
 │
@@ -141,16 +142,71 @@ vercel --prod --yes
 
 BRAND501 Corp.のスキンケアブランド「Dr.Melaxin」の日本市場マーケティング提案。
 
+**本番URL**: https://dr-melaxin-proposal.vercel.app
+
 **目標**: 日本市場でGMV 120億円をASAPで達成
+
+**技術スタック**:
+- Next.js 16.1.4 (App Router)
+- React 19
+- TypeScript
+- Tailwind CSS
+- Recharts（グラフ可視化）
+
+**ページ構成**:
+| パス | 内容 |
+|-----|------|
+| `/` | 提案書（9セクション、グラフ4種） |
+| `/research` | 競合リサーチ（6セクション） |
+
+**提案書セクション**（9セクション）:
+| # | セクション | 内容 |
+|---|-----------|------|
+| 1 | 概要 | 基本情報、目標GMV |
+| 2 | 戦略方針 | Plan A vs Plan B比較 |
+| 3 | 財務計画 | 投資38億円、ROAS 316%、累計売上グラフ |
+| 4 | 投資内訳 | Outbound Mass / EC / Offline、円グラフ |
+| 5 | チャネル戦略 | Qoo10、TikTok Shop、チャネル別棒グラフ |
+| 6 | GTMロードマップ | 四半期別投資/売上比較グラフ |
+| 7 | 競合分析 | Anua、medicube比較 |
+| 8 | プロモーション戦略 | オンライン/オフライン施策 |
+| 9 | KOL・TikTok Shop | KOL Pick戦略、事例 |
+
+**リサーチセクション**（6セクション）:
+| # | セクション | 内容 |
+|---|-----------|------|
+| 1 | 市場概況 | ブランドTier別売上、購買傾向 |
+| 2 | 成功パターン | 通常期・メガ割の勝ちパターン |
+| 3 | 競合分析（詳細） | Dalba、Medicube、LAKA |
+| 4 | マーケティング手法 | ホワイト/グレー施策、RT部隊 |
+| 5 | JT代理店情報 | LAKA/朝鮮美人の課題感 |
+| 6 | Dr.Melaxinへの示唆 | Top Tier共通点、必要アクション |
 
 **Key Files**:
 | ファイル | 用途 |
 |---------|------|
+| `dr.melaxin/webapp/src/data/proposal-data.ts` | 提案書データ（構造化） |
+| `dr.melaxin/webapp/src/data/research-data.ts` | 競合リサーチデータ（構造化） |
+| `dr.melaxin/webapp/src/components/charts/` | グラフコンポーネント（4種） |
 | `dr.melaxin/proposal.md` | 提案書サマリー（332行、GTM詳細含む） |
-| `dr.melaxin/Dr Melaxin GTM - Dr.melaxin.csv` | GTMスプレッドシート（月別計画） |
-| `dr.melaxin/slides/` | PDF画像変換（65ページ、150 DPI） |
+| `dr.melaxin/research.md` | 競合リサーチ（242行） |
+| `dr.melaxin/budget-proposal-10m.md` | **$10M USD予算提案書（704行）** |
+| `dr.melaxin/gtm-10m-monthly.csv` | $10M GTMスプレッドシート |
+| `dr.melaxin/memo.md` | 社内ミーティングメモ |
 
-**提案概要**:
+**開発コマンド**:
+```bash
+cd dr.melaxin/webapp
+npm run dev
+```
+
+**デプロイ**:
+```bash
+cd dr.melaxin/webapp
+vercel --prod --yes
+```
+
+**提案概要（元提案 38億円）**:
 | 項目 | 値 |
 |------|-----|
 | マーケティング投資 | 38億円 |
@@ -159,7 +215,18 @@ BRAND501 Corp.のスキンケアブランド「Dr.Melaxin」の日本市場マ�
 | 主力チャネル | Qoo10（売上の55%） |
 | 主力製品 | Serum（美容液） |
 
+**$10M予算提案（15.8億円）**:
+| 項目 | 値 |
+|------|-----|
+| マーケティング投資 | $10M USD（約15.8億円） |
+| 売上目標 | 約45-50億円 |
+| ROAS | 289%（Scenario 2） |
+| 3シナリオ | パフォーマンス重視 / バランス型 / ハイブリッド |
+| 推奨 | Scenario 2（バランス型）- Ambassador 3億円 + パフォーマンス |
+
 **戦略**: Plan B（Vertical Launch）- 初期から積極投資で美容液市場を攻める
+
+**勝ちパターン**: 「通常期で話題を作り、メガ割で刈り取る」
 
 ---
 
@@ -182,6 +249,9 @@ Claude Codeの設定リファレンス実装。
 
 ## 更新履歴
 
+- 2026-01-20: Dr.Melaxin $10M USD予算提案書作成（budget-proposal-10m.md, 704行）
+- 2026-01-20: Dr.Melaxin 競合リサーチページ追加（/research、6セクション）
+- 2026-01-20: Dr.Melaxin Webアプリ作成（9セクション、グラフ4種）
 - 2026-01-20: Dr.Melaxin提案書分析・proposal.md作成（GTM詳細含む332行）
 - 2026-01-20: Phone Farm脅威インテリジェンスレポート・セットアップガイド作成
 - 2026-01-20: フォルダ構造を整理（プロジェクト別に分離）

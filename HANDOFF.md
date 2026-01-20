@@ -27,14 +27,18 @@
 - [x] **Dr.Melaxin マーケティング提案書PDFを分析**
 - [x] **Dr.Melaxin proposal.md 作成（提案書サマリー）**
 - [x] **Dr.Melaxin GTM CSVを分析・proposal.mdに追記**
+- [x] **Dr.Melaxin Webapp作成（9セクション、グラフ4種）**
+- [x] **Dr.Melaxin 競合リサーチページ追加（/research）**
+- [x] **Dr.Melaxin $10M USD予算提案書作成**（budget-proposal-10m.md, 704行）
+- [x] **memo.md（社内メモ）の知見を反映**
+- [x] **research.md をロジカルに整理（6セクション構成）**
 
 ### 作業中のタスク
 - [ ] **MASCODEアイライナー コンセプト作成**（検討中）
-- [ ] **Dr.Melaxin プロジェクト**（資料分析完了、次のアクション待ち）
 
 ## 次のアクション
 1. MASCODEアイライナーのコンセプト案を最終決定
-2. Dr.Melaxin提案書の追加分析・詳細計画の確認
+2. Dr.Melaxin予算提案書を社長プレゼン用にレビュー
 3. Phone Farmガイドのフィードバック対応（必要に応じて）
 
 ## 未解決の問題
@@ -42,15 +46,81 @@
 
 ## 未コミット変更
 ```
-（なし）
+ M CLAUDE.md
+ M HANDOFF.md
+?? dr.melaxin/budget-proposal-10m.md
+?? dr.melaxin/gtm-10m-monthly.csv
+?? dr.melaxin/memo.md
+?? dr.melaxin/research-raw.md
+?? dr.melaxin/research.md
+?? dr.melaxin/webapp/
 ```
 
 ## 最新コミット
 ```
-bf47033 docs: update HANDOFF.md with latest commit info
+2f07503 docs: finalize HANDOFF.md
 ```
 
 ## セッション履歴
+
+### 2026-01-20 (12)
+- **research.md をロジカルに整理**
+  - 散乱していた競合リサーチ情報を6セクション構成でリライト
+  - 構成:
+    1. 市場概況（Tier別売上・購買傾向）
+    2. 成功パターン（通常期・メガ割の共通戦略）
+    3. 競合ブランド別分析（Dalba/Medicube/LAKA/その他）
+    4. マーケティング手法詳細（ホワイト/グレー施策）
+    5. JT代理店情報（参考）
+    6. Dr.Melaxinへの示唆
+  - 重複情報を統合（Dalbaが3箇所→1箇所に）
+  - 表形式で売上規模・施策・ROI評価を整理
+  - 全てのリンクを保持
+- **元データを保存**
+  - `research-raw.md` として元の生データを保存
+
+### 2026-01-20 (11)
+- **budget-proposal-10m.md にmemo.mdの知見を反映**
+  - @cosme/LIPS戦略セクション追加（美容感度高い層向け）
+  - 6月Big KOL検討（ジョングク級）をAmbassador欄に追記
+  - 付録に追加:
+    - Qoo10 1億プラン媒体配分（IG 60% / TT 20% / X 20%）
+    - 具体的施策アイデア（毎日ライブ配信、TT大量動画、X TopView等）
+    - フェーズ別予算配分（Phase1→Phase2→Phase3）
+  - 月別スケジュール6月に「Big KOL検討★」追記
+  - ファイルサイズ: 620行 → 704行（+84行）
+
+### 2026-01-20 (10)
+- **Dr.Melaxin Webapp作成**
+  - Next.js 16.1.4 + Recharts でマーケティング提案書を可視化
+  - 9セクション構成（概要〜KOL戦略）
+  - グラフ4種: 累計売上（LineChart）、投資内訳（PieChart）、チャネル別（BarChart）、四半期別（ComposedChart）
+  - Vercelデプロイ: https://dr-melaxin-proposal.vercel.app
+- **競合リサーチページ追加（/research）**
+  - research.mdの内容を別ページとして追加
+  - 6セクション構成:
+    1. 市場概況（ブランドTier別売上、購買傾向）
+    2. 成功パターン（通常期・メガ割の勝ちパターン）
+    3. 競合分析（Dalba、Medicube、LAKA詳細）
+    4. マーケティング手法（ホワイト/グレー施策、RT部隊）
+    5. JT代理店情報（LAKA/朝鮮美人の課題感）
+    6. Dr.Melaxinへの示唆（Top Tier共通点、必要アクション）
+  - ナビゲーションに「提案書」「リサーチ」切り替えボタン追加
+  - Vercelデプロイ完了
+
+### 2026-01-20 (9)
+- **budget-proposal-10m.md ブラッシュアップ**
+  - research.md（競合リサーチ）の知見を反映
+  - 新セクション追加:
+    - 競合分析（Dalba, Medicube, LAKA詳細）
+    - Qoo10勝ちパターン（「通常期で話題→メガ割で刈り取り」）
+    - X話題形成戦略（ホワイト/グレー施策）
+    - Dr.Melaxin固有の課題と対策
+  - チャネル戦略強化:
+    - Qoo10: 7,000円着地、KOL Pick戦略、競合ベンチマーク追加
+    - TikTok Shop: Qoo10連動戦略追加
+  - 目次更新（8→12セクション）
+  - 約200行追加（424行→620行超）
 
 ### 2026-01-20 (8)
 - **Dr.Melaxin マーケティング提案書分析**
