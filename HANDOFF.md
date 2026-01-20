@@ -41,12 +41,15 @@
 - [x] **Dr.Melaxin 提案書とスライドの比較分析**
 - [x] **Dr.Melaxin 製品ラインナップ詳細を追加**（Serum/Mask/Toner/Eye Phalt/美顔器）
 - [x] **Dr.Melaxin マーケティング予算構成を整理**（棚取り費用を除外）
+- [x] **Dr.Melaxin 四半期別プランにReach数を追加**（q1-q4.md）
+- [x] **Dr.Melaxin X TopView削除→運用型広告に変更**
+- [x] **Dr.Melaxin Reach計算ロジック・媒体別単価・KOL規模をCLAUDE.mdに追記**
 
 ### 作業中のタスク
 - [ ] **MASCODEアイライナー コンセプト作成**（検討中）
 
 ## 次のアクション
-1. **Dr.Melaxin 提案資料の社内レビュー**（strategy.md + annual/march/june.md）
+1. **Dr.Melaxin 提案資料の社内レビュー**（strategy.md + q1-q4.md）
 2. クライアントとの認識合わせ（GMV目標 73.6億円 vs 120億円の位置づけ）
 3. 3月メガ割に向けた準備開始（TikTok制作発注、RT部隊業者との調整）
 4. 6月ジョングク契約交渉の進捗確認
@@ -57,15 +60,43 @@
 
 ## 未コミット変更
 ```
-なし
+ M dr.melaxin/CLAUDE.md
+ M dr.melaxin/proposal/CLAUDE.md
+ M dr.melaxin/proposal/annual.md
+ D dr.melaxin/proposal/june.md
+ D dr.melaxin/proposal/march.md
+?? dr.melaxin/proposal/q1.md
+?? dr.melaxin/proposal/q2.md
+?? dr.melaxin/proposal/q3.md
+?? dr.melaxin/proposal/q4.md
 ```
 
 ## 最新コミット
 ```
-898ca3b feat(dr.melaxin): reorganize proposal folder and enhance strategy docs
+cc54d14 docs: update HANDOFF.md with session 14
 ```
 
 ## セッション履歴
+
+### 2026-01-20 (15)
+- **Dr.Melaxin 四半期別プランにReach数を追加**（q1-q4.md）
+  - 各プランにReachサマリーセクション追加
+  - TikTok / X RT部隊 / X運用型 / IG KOL / YT KOL / TTS GMV MAX のReach算出
+  - 年間Reach: 約6.6億UU（実質1,500-2,000万UU）
+- **X TopView削除→運用型広告に変更**（ユーザーFB）
+  - X TopViewは使用しない（CPMが高い）
+  - X運用型広告（CPM ¥300）で運用
+- **Reach計算ロジックをCLAUDE.mdに追記**
+  - 媒体別単価: TikTok制作¥10,000/本、GMV MAX CPM ¥1,000、X RT部隊 imp単価¥1、X運用型 CPM ¥300
+  - KOL規模: IG Aクラス10-30万、Bクラス5-10万、YTメガ系20-30万登録
+  - RT部隊: 10-20アカウント × 10万フォロワー、100万imp/投稿
+  - Reach計算式: TikTok（再生数×UU率70%）、X RT部隊（予算÷¥1÷freq4）、X運用型（予算÷CPM¥300×1,000÷freq3）等
+- **重要な決定事項**（ユーザーFB）
+  - TikTok GMV MAX CPM: ¥1,000（ROAS 200%）
+  - X運用型広告 CPM: ¥300
+  - X RT部隊 imp単価: ¥1
+  - IG視聴率: 10%、YT視聴率: 40%
+  - TTS GMV MAX freq: 5
 
 ### 2026-01-20 (14)
 - **Dr.Melaxin 戦略資料作成**（strategy.md、OGSM形式）
