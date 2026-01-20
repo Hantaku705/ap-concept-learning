@@ -46,19 +46,12 @@
 
 ## 未コミット変更
 ```
- M CLAUDE.md
- M HANDOFF.md
-?? dr.melaxin/budget-proposal-10m.md
-?? dr.melaxin/gtm-10m-monthly.csv
-?? dr.melaxin/memo.md
-?? dr.melaxin/research-raw.md
-?? dr.melaxin/research.md
-?? dr.melaxin/webapp/
+（なし）
 ```
 
 ## 最新コミット
 ```
-2f07503 docs: finalize HANDOFF.md
+96b9eae feat: add Dr.Melaxin webapp with research page
 ```
 
 ## セッション履歴
