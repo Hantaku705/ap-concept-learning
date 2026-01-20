@@ -35,32 +35,72 @@
 - [x] **Dr.Melaxin 年間メディアプラン作成**（media-plan-annual.md）
 - [x] **Dr.Melaxin 3月メガ割詳細プラン作成**（media-plan-march.md）
 - [x] **Dr.Melaxin 6月メガ割詳細プラン作成**（media-plan-june.md）
+- [x] **Dr.Melaxin 戦略資料作成**（strategy.md、OGSM形式）
+- [x] **Dr.Melaxin proposal/フォルダに提案資料を統合**
+- [x] **Dr.Melaxin 広告配信戦略（運用型/獲得型）を追加**
+- [x] **Dr.Melaxin 提案書とスライドの比較分析**
+- [x] **Dr.Melaxin 製品ラインナップ詳細を追加**（Serum/Mask/Toner/Eye Phalt/美顔器）
+- [x] **Dr.Melaxin マーケティング予算構成を整理**（棚取り費用を除外）
 
 ### 作業中のタスク
 - [ ] **MASCODEアイライナー コンセプト作成**（検討中）
 
 ## 次のアクション
-1. Dr.Melaxinメディアプランを社内レビュー
-2. 3月メガ割に向けた準備開始（TikTok制作発注、RT部隊業者との調整）
-3. 6月ジョングク契約交渉の進捗確認
-4. MASCODEアイライナーのコンセプト案を最終決定
+1. **Dr.Melaxin 提案資料の社内レビュー**（strategy.md + annual/march/june.md）
+2. クライアントとの認識合わせ（GMV目標 73.6億円 vs 120億円の位置づけ）
+3. 3月メガ割に向けた準備開始（TikTok制作発注、RT部隊業者との調整）
+4. 6月ジョングク契約交渉の進捗確認
+5. MASCODEアイライナーのコンセプト案を最終決定
 
 ## 未解決の問題
 - **データ同期**: `concept-learning/docs/concept-data.json` と `concept-learning/webapp/src/data/concept-data.json` は手動同期が必要（Turbopackがシンボリックリンク非対応のため）
 
 ## 未コミット変更
 ```
-?? dr.melaxin/media-plan-annual.md
-?? dr.melaxin/media-plan-june.md
-?? dr.melaxin/media-plan-march.md
+ M dr.melaxin/CLAUDE.md
+ M dr.melaxin/docs/CLAUDE.md
+ D dr.melaxin/docs/strategy.md
+ D dr.melaxin/media-plan/CLAUDE.md
+ D dr.melaxin/media-plan/annual.md
+ D dr.melaxin/media-plan/june.md
+ D dr.melaxin/media-plan/march.md
+?? dr.melaxin/proposal/
 ```
 
 ## 最新コミット
 ```
-d2c5ba0 docs: update HANDOFF.md with session 12
+801fbb0 refactor: reorganize dr.melaxin folder structure
 ```
 
 ## セッション履歴
+
+### 2026-01-20 (14)
+- **Dr.Melaxin 戦略資料作成**（strategy.md、OGSM形式）
+  - エグゼクティブサマリー（OGSM 1ページ）
+  - 市場環境と機会（競合分析含む）
+  - Objective/Goals/Strategy/Measures
+  - 実行体制とNext Steps
+- **Dr.Melaxin proposal/フォルダに提案資料を統合**
+  - strategy.md（戦略資料）+ annual/march/june.md（メディアプラン）
+  - media-plan/フォルダから移動・統合
+- **広告配信戦略（運用型/獲得型）を追加**
+  - 年間広告予算 4.0億円（運用型2.5億 + 獲得型1.5億）
+  - チャネル別戦略（TikTok Spark Ads、IG Reels、X プロモ、Meta リタゲ）
+  - 時期別配分（通常期: 認知重視、メガ割: 刈り取り重視）
+- **提案書とスライドの比較分析**
+  - GMV目標の不一致（スライド120億 vs 提案書73.6億）→ $10M版として明記
+  - 製品詳細の不足 → Serum/Mask/Toner/Eye Phalt/美顔器を追加
+  - TTS戦略の詳細 → 人軸（美容液）vs 商品軸（アイケア）追記
+  - チャネル別ROASの問題 → 誤解を招くため削除、全体ROAS 466%のみ記載
+- **マーケティング予算構成を整理**
+  - マス施策 5.0億（Ambassador、Top KOL、TikTok UGC、Meta Ads）
+  - EC施策 5.3億（Qoo10、TTS、Amazon、楽天）
+  - オフラインマーケ 5.5億（OOH/アドトラック、POP UP、イベント）
+  - 棚取り費用（Drug Store/Variety Store）は営業予算として除外
+- **重要な決定事項**
+  - GMV目標: 73.6億円のまま（$10M版）、フル版（120億）は別途協議
+  - 製品名: Serum/Mask/Toner/Eye Phalt/美顔器で確定
+  - チャネル別ROASは算出しない（認知施策が全チャネルに寄与するため）
 
 ### 2026-01-20 (13)
 - **Dr.Melaxin 年間メディアプラン作成**（media-plan-annual.md）

@@ -1,6 +1,8 @@
-# docs/ - 戦略ドキュメント
+# docs/ - 参考資料・リサーチ
 
-Dr.Melaxin日本市場参入に関する戦略ドキュメント・提案書。
+Dr.Melaxin日本市場参入に関する参考資料・リサーチ。
+
+> **提案資料は `../proposal/` フォルダに移動しました**
 
 ---
 
@@ -8,8 +10,7 @@ Dr.Melaxin日本市場参入に関する戦略ドキュメント・提案書。
 
 | ファイル | 内容 | 行数 |
 |---------|------|------|
-| `strategy.md` | **戦略資料**（クライアント提案用、OGSM形式） | 400行 |
-| `budget-proposal-10m.md` | $10M USD予算提案書（詳細版） | 704行 |
+| `budget-proposal-10m.md` | 予算詳細・3シナリオ比較 | 704行 |
 | `proposal.md` | 提案書サマリー（PDFから抽出） | 332行 |
 | `research.md` | 競合リサーチ（整理済み、6セクション） | 242行 |
 | `research-raw.md` | 競合リサーチ（生データ） | - |
@@ -20,24 +21,9 @@ Dr.Melaxin日本市場参入に関する戦略ドキュメント・提案書。
 
 ## 主要ドキュメント解説
 
-### strategy.md（クライアント提案用）
+### budget-proposal-10m.md
 
-クライアント（Dr.Melaxin / BRAND501）への戦略提案資料。OGSM形式。
-
-**構成**:
-1. エグゼクティブサマリー（OGSM 1ページ完結）
-2. 市場環境と機会（競合の勝ちパターン）
-3. Objective: 目的（ミッション・ビジョン）
-4. Goals: 目標（KGI/KPI）
-5. Strategy: 戦略（勝ち筋・CSF・リスク対策）
-6. Measures: 戦術（施策マップ・優先順位・投資配分）
-7. 実行体制とNext Steps
-
-**用途**: クライアントへの提案・承認取得
-
-### budget-proposal-10m.md（詳細版）
-
-$10M USD（約15.8億円）の年間予算提案書。
+$10M USD（約15.8億円）の年間予算提案書。詳細版。
 
 **構成**:
 1. Executive Summary
@@ -68,8 +54,16 @@ $10M USD（約15.8億円）の年間予算提案書。
 
 ---
 
+## 関連フォルダ
+
+| フォルダ | 内容 |
+|---------|------|
+| `../proposal/` | 提案資料（strategy + media-plan）★メイン |
+| `../source/` | 元ファイル（PDF、CSV等） |
+
+---
+
 ## 更新時の注意
 
-- `budget-proposal-10m.md` がメイン資料。更新はここに反映
-- `research.md` は整理済み。生データ追加時は `research-raw.md` に
-- 社内決定事項は `memo.md` に追記後、メイン資料に反映
+- 社内決定事項は `memo.md` に追記後、`../proposal/strategy.md` に反映
+- 競合情報追加時は `research.md` を更新（生データは `research-raw.md` に）

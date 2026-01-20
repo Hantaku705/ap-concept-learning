@@ -21,44 +21,71 @@
 ```
 dr.melaxin/
 ├── CLAUDE.md           ← このファイル（プロジェクト概要）
-├── docs/               ← 戦略ドキュメント
+├── proposal/           ← 提案資料（メイン）★
 │   ├── CLAUDE.md
-│   ├── strategy.md            ← 戦略資料（クライアント提案用）
-│   ├── budget-proposal-10m.md ← 予算詳細（$10M提案書）
-│   ├── proposal.md
-│   ├── research.md
+│   ├── strategy.md     ← 戦略資料（OGSM形式）
+│   ├── annual.md       ← 年間メディアプラン
+│   ├── march.md        ← 3月メガ割詳細
+│   └── june.md         ← 6月メガ割詳細
+├── docs/               ← 参考資料・リサーチ
+│   ├── CLAUDE.md
+│   ├── budget-proposal-10m.md ← 予算詳細
+│   ├── proposal.md     ← PDFサマリー
+│   ├── research.md     ← 競合リサーチ
 │   ├── research-raw.md
 │   ├── brief.md
 │   └── memo.md
-├── media-plan/         ← メディアプラン
-│   ├── CLAUDE.md
-│   ├── annual.md       ← 年間計画
-│   ├── march.md        ← 3月メガ割
-│   └── june.md         ← 6月メガ割
 ├── source/             ← 元ファイル・データ
-│   ├── CLAUDE.md
 │   ├── proposal.pdf
-│   ├── proposal-compressed.pdf
 │   ├── proposal.pptx
-│   ├── gtm-original.csv
-│   ├── gtm-10m.csv
-│   └── slides/         ← PDF変換画像（65枚）
+│   ├── gtm-*.csv
+│   └── slides/
 └── webapp/             ← 提案書可視化アプリ
-    └── CLAUDE.md
 ```
 
 ---
 
 ## 主要ドキュメント
 
+### 提案資料（proposal/）★メイン
+
 | ファイル | 内容 | 備考 |
 |---------|------|------|
-| `docs/budget-proposal-10m.md` | **$10M USD予算提案書**（メイン資料） | 704行 |
-| `docs/proposal.md` | 提案書サマリー（PDFから抽出） | 332行 |
-| `docs/research.md` | 競合リサーチ（整理済み） | 6セクション |
-| `media-plan/annual.md` | 年間メディアプラン | 月別施策 |
-| `media-plan/march.md` | 3月メガ割詳細 | GMV 5-7億円目標 |
-| `media-plan/june.md` | 6月メガ割詳細 | GMV 10億円目標 |
+| `proposal/strategy.md` | **戦略資料**（OGSM形式） | クライアント提案用 |
+| `proposal/annual.md` | 年間メディアプラン | 月別施策・投資配分 |
+| `proposal/march.md` | 3月メガ割詳細 | GMV 5-7億円目標 |
+| `proposal/june.md` | 6月メガ割詳細 | GMV 10億円目標 |
+
+### 参考資料（docs/）
+
+| ファイル | 内容 | 備考 |
+|---------|------|------|
+| `docs/budget-proposal-10m.md` | 予算詳細・3シナリオ比較 | 704行 |
+| `docs/research.md` | 競合リサーチ | 6セクション |
+| `docs/proposal.md` | PDFサマリー | 332行 |
+
+---
+
+## マーケティング予算構成（15.8億円）
+
+| カテゴリ | 予算 | 内訳 |
+|---------|------|------|
+| **マス施策** | 5.0億 | Ambassador、Top KOL、TikTok UGC、Meta Ads |
+| **EC施策** | 5.3億 | Qoo10、TTS、Amazon、楽天の広告・販促 |
+| **オフラインマーケ** | 5.5億 | OOH/アドトラック、POP UP、イベント |
+
+> **別枠予算**: ジョングク起用 2.5-3.3億円、棚取り費用（営業予算）
+
+---
+
+## 製品ラインナップ
+
+| SKU | 製品 | 役割 |
+|-----|------|------|
+| Main | **Serum（美容液）** | Hero商品、人軸で話題化 |
+| Sub | **Mask & Toner** | セット販売で単価UP |
+| Exclusive (TTS) | **Eye Phalt** | TikTok Shop限定、B/A訴求 |
+| 新製品 | **美顔器** | 12月〜 |
 
 ---
 
@@ -66,12 +93,14 @@ dr.melaxin/
 
 | 項目 | 決定 | 備考 |
 |------|------|------|
+| GMV目標 | 73.6億円（$10M版） | フル版（120億）は別途協議 |
 | 3月Ambassador | 起用しない | 6月ジョングクに集中 |
 | 6月ジョングク | 別予算確保 | $10M枠外で2.5-3.3億円 |
 | TikTok制作 | Jipanglobal | 1本1万円 or 再生保証 |
 | RT部隊 | 積極活用 | 業者確定済み（顔面工事ちゃん系） |
 | KOL Pick Aクラス | 2人契約済み | IG/YT両方 |
 | YT戦略 | メガ系KOL Pick | 検証系ミドルではなく大型に集中 |
+| チャネル別ROAS | 算出しない | 認知施策が全チャネルに寄与するため |
 
 ---
 
@@ -96,6 +125,12 @@ dr.melaxin/
 
 ## 更新履歴
 
+- 2026-01-20: マーケティング予算構成を整理（棚取り費用を除外）
+- 2026-01-20: 製品ラインナップ詳細を追加（Serum/Mask/Toner/Eye Phalt/美顔器）
+- 2026-01-20: 広告配信戦略（運用型/獲得型）を追加
+- 2026-01-20: 提案書とスライドの比較分析・修正
+- 2026-01-20: proposal/ フォルダに提案資料を統合（strategy + media-plan）
+- 2026-01-20: 戦略資料作成（strategy.md、OGSM形式、クライアント提案用）
 - 2026-01-20: フォルダ構造を整理（docs/, media-plan/, source/に分離）
 - 2026-01-20: メディアプラン3ファイル作成（annual/march/june）
 - 2026-01-20: research.md を6セクション構成に整理
