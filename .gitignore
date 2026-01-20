@@ -24,3 +24,9 @@ node_modules/
 # Personal configs (if any)
 personal/
 private/
+phonefarm/webapp/.next/
+
+# Dr.Melaxin large files (can be regenerated)
+dr.melaxin/slides/
+dr.melaxin/*.pptx
+dr.melaxin/*.pdf

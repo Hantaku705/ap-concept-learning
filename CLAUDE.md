@@ -29,6 +29,10 @@ AP/
 │
 ├── phonefarm/              # Phone Farmプロジェクト
 │
+├── dr.melaxin/             # Dr.Melaxinプロジェクト
+│   ├── proposal.md         # 提案書サマリー（GTM詳細含む）
+│   └── slides/             # PDF画像変換（65ページ）
+│
 ├── _archive/               # アーカイブ（用途不明ファイル）
 │
 ├── CLAUDE.md               # このファイル
@@ -133,6 +137,32 @@ vercel --prod --yes
 
 ---
 
+### dr.melaxin（Dr.Melaxinプロジェクト）
+
+BRAND501 Corp.のスキンケアブランド「Dr.Melaxin」の日本市場マーケティング提案。
+
+**目標**: 日本市場でGMV 120億円をASAPで達成
+
+**Key Files**:
+| ファイル | 用途 |
+|---------|------|
+| `dr.melaxin/proposal.md` | 提案書サマリー（332行、GTM詳細含む） |
+| `dr.melaxin/Dr Melaxin GTM - Dr.melaxin.csv` | GTMスプレッドシート（月別計画） |
+| `dr.melaxin/slides/` | PDF画像変換（65ページ、150 DPI） |
+
+**提案概要**:
+| 項目 | 値 |
+|------|-----|
+| マーケティング投資 | 38億円 |
+| 売上目標 | 120億円 |
+| ROAS | 316% |
+| 主力チャネル | Qoo10（売上の55%） |
+| 主力製品 | Serum（美容液） |
+
+**戦略**: Plan B（Vertical Launch）- 初期から積極投資で美容液市場を攻める
+
+---
+
 ### _claude-code（Claude Code設定）
 
 Claude Codeの設定リファレンス実装。
@@ -152,6 +182,7 @@ Claude Codeの設定リファレンス実装。
 
 ## 更新履歴
 
+- 2026-01-20: Dr.Melaxin提案書分析・proposal.md作成（GTM詳細含む332行）
 - 2026-01-20: Phone Farm脅威インテリジェンスレポート・セットアップガイド作成
 - 2026-01-20: フォルダ構造を整理（プロジェクト別に分離）
 - 2026-01-20: GitHubリポジトリ移行（Hantaku705/ap-concept-learning）

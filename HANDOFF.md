@@ -24,38 +24,60 @@
 - [x] **レポートをライトテーマに変更（視認性改善）**
 - [x] **各セクションに目的・補足説明を追加**
 - [x] **セットアップガイドページ作成（/setup-guide）**
+- [x] **Dr.Melaxin マーケティング提案書PDFを分析**
+- [x] **Dr.Melaxin proposal.md 作成（提案書サマリー）**
+- [x] **Dr.Melaxin GTM CSVを分析・proposal.mdに追記**
 
 ### 作業中のタスク
 - [ ] **MASCODEアイライナー コンセプト作成**（検討中）
+- [ ] **Dr.Melaxin プロジェクト**（資料分析完了、次のアクション待ち）
 
 ## 次のアクション
 1. MASCODEアイライナーのコンセプト案を最終決定
-2. Phone Farmガイドのフィードバック対応（必要に応じて）
+2. Dr.Melaxin提案書の追加分析・詳細計画の確認
+3. Phone Farmガイドのフィードバック対応（必要に応じて）
 
 ## 未解決の問題
 - **データ同期**: `concept-learning/docs/concept-data.json` と `concept-learning/webapp/src/data/concept-data.json` は手動同期が必要（Turbopackがシンボリックリンク非対応のため）
 
 ## 未コミット変更
 ```
-M  CLAUDE.md
-M  HANDOFF.md
-D  agents/, commands/, rules/, skills/, hooks/, mcp-configs/, plugins/, examples/
-D  docs/, webapp/, kwonlege/
-D  メディアプラン_MASCODE/
-?? _archive/
-?? _claude-code/
-?? concept-learning/
-?? dr.melaxin/
-?? mascode/
-?? phonefarm/
+ M .gitignore
+ M HANDOFF.md
+?? dr.melaxin/Dr Melaxin GTM - Dr.melaxin.csv
+?? dr.melaxin/[ja]Marketing Proposal - Dr.Melaxin（2025.12.23).pptx
+?? dr.melaxin/[ja]Marketing Proposal - Dr.Melaxin（2025.12.23)_compressed.pdf
+?? dr.melaxin/proposal.md
+?? dr.melaxin/slides/
 ```
 
 ## 最新コミット
 ```
-f83ca08 docs: update HANDOFF.md and CLAUDE.md for session handoff
+9ba2c9e refactor: reorganize AP folder structure by project
 ```
 
 ## セッション履歴
+
+### 2026-01-20 (8)
+- **Dr.Melaxin マーケティング提案書分析**
+  - PDF（65ページ、19.8MB）を画像変換して読み取り
+  - popplerをインストールしてPDF→PNG変換（150 DPI）
+  - 提案書の内容を理解・サマリー作成
+- **proposal.md 作成**（332行）
+  - 基本情報（BRAND501 Corp.、GMV 120億円目標）
+  - 戦略方針（Plan B: Vertical Launch推奨）
+  - FY1財務計画（マーケ投資38億円、ROAS 316%）
+  - 投資内訳（Outbound Mass / EC / Offline）
+  - 販売チャネル戦略（Qoo10 → TikTok Shop → Amazon/楽天 → Offline）
+  - GTMロードマップ
+  - 競合分析（Anua, medicube, ナンバーズイン）
+  - プロモーション戦略・KOL Pick戦略
+- **GTM CSV分析・追記**
+  - 月別イベントカレンダー（メガ割、BF、Best Cosme等）
+  - チャネル別投資・売上・ROAS詳細
+  - 四半期別投資配分（Q1投資先行→Q2以降回収）
+  - 月別投資額・売上目標詳細
+  - 累計売上推移（進捗率付き）
 
 ### 2026-01-20 (7)
 - **Phone Farm 脅威インテリジェンスレポート作成**
