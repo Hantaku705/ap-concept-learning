@@ -72,15 +72,27 @@
 - [x] **データ整合性修正**（annualBudgetMatrix/annualReachMatrix 11行統一）
 - [x] **フィルターUI改善**（チェックマーク、選択数表示、クリアボタン強調）
 - [x] **広告予算調整**（26.7億円 → 15億円、全施策56.18%比例縮小）
+- [x] **The Room FX プロジェクト追加**（ANA ビジネスクラス広告配信）
+- [x] **The Room FX brief/全体.md 作成**（ブリーフ全体像整理）
+- [x] **The Room FX brief/CLAUDE.md 作成**
+- [x] **The Room FX proposal/CLAUDE.md 作成**
+- [x] **/handoff スキル拡張**（CLAUDE.md自動更新ロジック追加）
+- [x] **The Room FX SNSトライブ分析**（Meltwater 5,795件）
+- [x] **The Room FX who.md作成**（ターゲット設定、6セグメント評価、ペルソナ2名）
+- [x] **The Room FX who.md Appendix追加**（SNS UGC分析根拠データ、代表URL）
+- [x] **The Room FX 提案書作成完了**（11ファイル + appendix 2ファイル）
+- [x] **The Room FX who.mdを04_target-strategy.mdに統合**（Appendix追加、who.md削除）
 
 ### 作業中のタスク
 - [ ] **MASCODEアイライナー コンセプト作成**（検討中）
 
 ## 次のアクション
-1. **Dr.Melaxin Webapp変更をコミット＆プッシュ**（3ファイル未コミット）
-2. クライアントとの認識合わせ（GMV目標 45億円 / 予算15億円 / ROAS 300%）
-3. 3月メガ割に向けた準備開始（TikTok制作発注、RT部隊業者との調整）
-4. 6月ジョングク契約交渉の進捗確認
+1. **The Room FX 提案書レビュー＆プレゼン資料化**（2月1週目締切）
+   - proposal/ 11ファイル完成 → スライド化
+2. **Dr.Melaxin Webapp変更をコミット＆プッシュ**（3ファイル未コミット）
+3. クライアントとの認識合わせ（GMV目標 45億円 / 予算15億円 / ROAS 300%）
+4. 3月メガ割に向けた準備開始（TikTok制作発注、RT部隊業者との調整）
+5. 6月ジョングク契約交渉の進捗確認
 
 ## 未解決の問題
 - **データ同期**: `concept-learning/docs/concept-data.json` と `concept-learning/webapp/src/data/concept-data.json` は手動同期が必要（Turbopackがシンボリックリンク非対応のため）
@@ -88,16 +100,82 @@
 ## 未コミット変更
 ```
  M CLAUDE.md
- M src/data/matrix-data.ts
- M src/data/tactics-data.ts
+ M HANDOFF.md
+?? The Room FX/
 ```
 
 ## 最新コミット
 ```
-fdf6320 feat(dr.melaxin): add pivot table "all" mode with SNS/tactic/purpose columns
+e0b2241 feat(dr.melaxin): adjust budget from 26.7B to 15B yen (56.18% scale)
 ```
 
 ## セッション履歴
+
+### 2026-01-21 (31)
+- **The Room FX who.mdを04_target-strategy.mdに統合**
+  - who.mdのAppendix（SNS UGC分析根拠データ）を04_target-strategy.mdの末尾に追加
+  - Appendix内容: A.1データソース、A.2トライブ別口コミ数、A.3代表的URL、A.4参照ファイル
+  - who.md削除（重複解消）
+  - proposal/CLAUDE.md更新（ファイル一覧・更新履歴）
+- **ファイル変更**
+  - 04_target-strategy.md: 239行→約305行（Appendix追加）
+  - who.md: 削除
+  - proposal/CLAUDE.md: who.md参照を04_target-strategy.mdに変更
+
+### 2026-01-21 (30)
+- **The Room FX 提案書11ファイル + appendix 2ファイル作成**
+  - 01_executive-summary.md: エグゼクティブサマリー
+  - 02_our-understanding.md: ブリーフ理解・課題認識
+  - 03_market-insight.md: 市場インサイト（SNS分析5,795件）★差別化の核心
+  - 04_target-strategy.md: ターゲット戦略（6セグメント×トライブ）
+  - 05_media-strategy.md: メディア戦略（PMP、ブランドセーフティ）
+  - 06_budget-allocation.md: 予算配分（4,000万円）
+  - 07_creative-direction.md: クリエイティブ方針
+  - 08_kpi-framework.md: KPI設計
+  - 09_campaign-timeline.md: スケジュール
+  - 10_operation.md: 運用・最適化
+  - 11_why-anymind.md: 差別化ポイント（対アイレップ）
+  - appendix/media-plan-detail.md: 詳細メディアプラン表
+  - appendix/influencer-list.md: インフルエンサーリスト（394名）
+- **差別化の4本柱**
+  1. データドリブン: SNS分析5,795件、394名インフルエンサーリスト
+  2. PMP: Bloomberg、航空専門メディア等プレミアム媒体
+  3. ブランドセーフティ: MFA回避、ホワイトリスト運用
+  4. トライブベース: デモグラではなく行動・関心軸
+- **期待成果**: リーチ1,000万、視聴完了率35%、LP流入10万、ブランドセーフティ95%
+
+### 2026-01-21 (29)
+- **The Room FX who.md Appendix追加**
+  - SNS UGC分析根拠データをアペンディクスとして追加
+  - A.1 データソース（Meltwater、5,795件、2024/1〜2026/1）
+  - A.2 トライブ別口コミ数（7トライブ詳細テーブル）
+  - A.3 代表的な口コミURL（トライブ別・エンゲージメント上位3件）
+    - Tech/Digital: Mike Netter (10,114), pulpo404 (1,127), Imtiaz Mahmood (966)
+    - Travel Enthusiast: Virginie Sigonney (4,918), Sheel Mohnot (3,058), non aesthetic things (2,950)
+    - Business Traveler: Rain Drops Media (71,095), Mike Sington (7,331), Jennifer Grady (3,604)
+  - A.4 データファイル参照
+  - Pythonスクリプトでclean.csvから高エンゲージメント投稿URLを自動抽出
+- **who.md 304行 → 約400行に拡張**
+
+### 2026-01-21 (28)
+- **The Room FX プロジェクト追加**
+  - ANAビジネスクラス「THE Room FX」グローバル広告配信案件
+  - 予算: 4,000万円（3月度）、年間3億円規模
+  - 競合: アイレップ（2社コンペ）
+- **brief/ フォルダ作成**
+  - `全体.md`: ブリーフ全体像（PDF + 0.md + 1.md を統合整理）
+  - `CLAUDE.md`: ブリーフ資料の概要
+  - 元ファイル: PDF、0.md（RFP要約）、1.md（議事録・戦略分析）
+- **proposal/ フォルダ作成**
+  - `CLAUDE.md`: 提案書作成ガイド（差別化ポイント、ターゲット戦略、競合分析）
+- **data/ フォルダ作成**
+  - Slackエクスポートファイル格納
+- **The Room FX/CLAUDE.md 作成**
+  - プロジェクト概要、フォルダ構成、Key Files
+- **/handoff スキル拡張**
+  - CLAUDE.md自動更新ロジック追加
+  - 検出ロジック、更新判定表、シンプルテンプレート
+  - `~/.claude/commands/handoff.md` 更新
 
 ### 2026-01-21 (27)
 - **広告予算を15億円に調整**

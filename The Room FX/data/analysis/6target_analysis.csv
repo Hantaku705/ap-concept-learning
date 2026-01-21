@@ -1,0 +1,7 @@
+code,name,post_count,unique_authors,avg_followers,total_impressions,total_engagement,avg_sentiment,top_topic,top_airline,priority_score,rank
+BC_EU,BC渡航層 × 欧州,668,590,8441.0,1211385,13556,-1.0,Seat & Comfort,British Airways,88.0,1
+BC_NA,BC渡航層 × 北米,1590,1418,128583.0,5580926,141121,-1.54,Seat & Comfort,American Airlines,86.9,2
+ZY_NA,Z/Y世代 × 北米,93,79,5640.0,2030101,7540,-1.29,Seat & Comfort,American Airlines,80.4,3
+JP_NA,訪日検討層 × 北米,40,33,897466.0,20087,216,-0.62,Seat & Comfort,American Airlines,21.8,4
+JP_EU,訪日検討層 × 欧州,17,17,6165.0,1435,32,-0.59,Food & Dining,Delta Air Lines,14.0,5
+ZY_EU,Z/Y世代 × 欧州,15,14,1939.0,10234,172,-0.67,Price & Miles,Lufthansa,13.8,6

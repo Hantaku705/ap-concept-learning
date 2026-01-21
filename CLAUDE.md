@@ -42,6 +42,12 @@ AP/
 │   ├── source/             # 元ファイル（PDF/PPTX/CSV/slides）
 │   └── webapp/             # Next.js Webアプリ
 │
+├── The Room FX/            # ANA THE Room FXプロジェクト
+│   ├── CLAUDE.md           # プロジェクト概要
+│   ├── brief/              # ブリーフ資料
+│   ├── proposal/           # 提案書作成
+│   └── data/               # データファイル
+│
 ├── _archive/               # アーカイブ（用途不明ファイル）
 │
 ├── CLAUDE.md               # このファイル
@@ -259,6 +265,91 @@ vercel --prod --yes
 
 ---
 
+### The Room FX（ANA ビジネスクラス）
+
+ANA新ビジネスクラス「THE Room FX」のグローバル広告配信プロジェクト。
+
+**案件概要**:
+| 項目 | 内容 |
+|------|------|
+| クライアント | ANA（全日空） |
+| 代理店 | AnyMind |
+| プロダクト | THE Room FX（B787-9 新ビジネスクラス） |
+| 予算 | 4,000万円（3月度）、年間3億円規模 |
+| 競合 | アイレップ（2社コンペ） |
+
+**スケジュール**:
+| 日付 | 内容 |
+|------|------|
+| 2026年2月5日 | メディアプラン締切 |
+| 2026年3月2日 | ティーザー配信開始 |
+| 2026年3月9日 | 本プロモーション開始 |
+
+**ターゲット**: 北米（70%）、欧州（30%）、Z/Y世代、訪日検討層
+
+**フォルダ構成**:
+```
+The Room FX/
+├── CLAUDE.md               # プロジェクト概要
+├── brief/                  # ブリーフ資料
+│   ├── 全体.md             # ブリーフ全体像（整理済み）
+│   └── *.pdf               # ANA公式ブリーフ
+├── proposal/               # 提案書（11ファイル + appendix）
+│   ├── 01_executive-summary.md    # エグゼクティブサマリー
+│   ├── 02_our-understanding.md    # ブリーフ理解
+│   ├── 03_market-insight.md       # 市場インサイト ★差別化の核心
+│   ├── 04_target-strategy.md      # ターゲット戦略
+│   ├── 05_media-strategy.md       # メディア戦略
+│   ├── 06_budget-allocation.md    # 予算配分
+│   ├── 07_creative-direction.md   # クリエイティブ方針
+│   ├── 08_kpi-framework.md        # KPI設計
+│   ├── 09_campaign-timeline.md    # スケジュール
+│   ├── 10_operation.md            # 運用・最適化
+│   ├── 11_why-anymind.md          # 差別化ポイント
+│   └── appendix/                  # 付録
+│       ├── media-plan-detail.md   # 詳細メディアプラン表
+│       └── influencer-list.md     # インフルエンサーリスト
+└── data/                   # SNS分析データ
+    ├── processed/          # クリーンデータ（5,795件）
+    ├── summary/            # サマリー（トライブ分布等）
+    └── analysis/           # 分析結果（インサイトレポート）
+```
+
+**Key Files**:
+| ファイル | 用途 |
+|---------|------|
+| `The Room FX/brief/全体.md` | ブリーフ全体像（整理済み） |
+| `The Room FX/proposal/03_market-insight.md` | **市場インサイト**（差別化の核心、SNS分析5,795件） |
+| `The Room FX/proposal/04_target-strategy.md` | **ターゲット戦略**（6セグメント×トライブ） |
+| `The Room FX/proposal/05_media-strategy.md` | **メディア戦略**（PMP、ブランドセーフティ） |
+| `The Room FX/proposal/11_why-anymind.md` | **差別化ポイント**（対アイレップ4本柱） |
+| `The Room FX/data/analysis/tribe_insights.md` | SNSトライブ分析インサイト |
+
+**差別化の4本柱**（対アイレップ）:
+| ポイント | 内容 |
+|---------|------|
+| データドリブン | SNS分析5,795件、394名インフルエンサーリスト |
+| PMP | Bloomberg、航空専門メディア等プレミアム媒体 |
+| ブランドセーフティ | MFA回避、ホワイトリスト運用 |
+| トライブベース | デモグラではなく行動・関心軸でターゲティング |
+
+**SNS UGC分析**:
+| 項目 | 値 |
+|------|-----|
+| データソース | Meltwater（SNSモニタリング） |
+| 総投稿数 | 5,795件 |
+| ターゲット地域投稿数 | 2,623件（US/UK/FR/DE/IT/CA） |
+| 分析期間 | 2024年1月〜2026年1月 |
+
+**トライブ優先度**:
+| 優先度 | トライブ | 理由 |
+|--------|---------|------|
+| 1位 | Travel Enthusiast | 唯一ポジティブ（+0.54）、欧州で強い |
+| 2位 | Tech/Digital | 最大ボリューム（922件）、拡散力高 |
+| 3位 | Business Traveler | エンゲージメント最高、高購買力層 |
+
+---
+
 ### _claude-code（Claude Code設定）
 
 Claude Codeの設定リファレンス実装。
@@ -278,6 +369,11 @@ Claude Codeの設定リファレンス実装。
 
 ## 更新履歴
 
+- 2026-01-21: The Room FX who.mdを04_target-strategy.mdに統合（Appendix追加、重複解消）
+- 2026-01-21: The Room FX 提案書11ファイル+appendix作成（差別化4本柱：データドリブン/PMP/ブランドセーフティ/トライブベース）
+- 2026-01-21: The Room FX who.md作成（ターゲット設定、6セグメント評価、ペルソナ2名、SNS分析Appendix）
+- 2026-01-21: The Room FX SNSトライブ分析（Meltwater 5,795件、トライブ優先度決定）
+- 2026-01-21: The Room FX プロジェクト追加（ANA ビジネスクラス広告配信）
 - 2026-01-20: Dr.Melaxin フォルダ構造整理（docs/, media-plan/, source/に分離）
 - 2026-01-20: Dr.Melaxin メディアプラン作成（年間/3月メガ割/6月メガ割）
 - 2026-01-20: Dr.Melaxin $10M USD予算提案書作成（budget-proposal-10m.md, 704行）
