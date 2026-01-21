@@ -71,13 +71,14 @@
 - [x] **列軸「全て」時に月+四半期計を同時表示**
 - [x] **データ整合性修正**（annualBudgetMatrix/annualReachMatrix 11行統一）
 - [x] **フィルターUI改善**（チェックマーク、選択数表示、クリアボタン強調）
+- [x] **広告予算調整**（26.7億円 → 15億円、全施策56.18%比例縮小）
 
 ### 作業中のタスク
 - [ ] **MASCODEアイライナー コンセプト作成**（検討中）
 
 ## 次のアクション
-1. **Dr.Melaxin Webapp変更をコミット＆プッシュ**（9ファイル未コミット）
-2. クライアントとの認識合わせ（GMV目標 73.6億円 vs 120億円の位置づけ）
+1. **Dr.Melaxin Webapp変更をコミット＆プッシュ**（3ファイル未コミット）
+2. クライアントとの認識合わせ（GMV目標 45億円 / 予算15億円 / ROAS 300%）
 3. 3月メガ割に向けた準備開始（TikTok制作発注、RT部隊業者との調整）
 4. 6月ジョングク契約交渉の進捗確認
 
@@ -86,25 +87,47 @@
 
 ## 未コミット変更
 ```
- M HANDOFF.md
- M concept-learning/docs/CLAUDE.md
- M concept-learning/docs/concept-data.json
- M concept-learning/webapp/src/data/concept-data.json
- M dr.melaxin/webapp/CLAUDE.md
- M dr.melaxin/webapp/src/components/ActivationCalendarContent.tsx
- M dr.melaxin/webapp/src/components/FilterableMatrix.tsx
- M dr.melaxin/webapp/src/components/TacticsListContent.tsx
- M dr.melaxin/webapp/src/data/matrix-data.ts
- M dr.melaxin/webapp/src/data/tactics-data.ts
-?? concept-learning/item/
+ M CLAUDE.md
+ M src/data/matrix-data.ts
+ M src/data/tactics-data.ts
 ```
 
 ## 最新コミット
 ```
-96d9258 feat(dr.melaxin): add 4-tab UI with strategy roadmap and tactics list
+fdf6320 feat(dr.melaxin): add pivot table "all" mode with SNS/tactic/purpose columns
 ```
 
 ## セッション履歴
+
+### 2026-01-21 (27)
+- **広告予算を15億円に調整**
+  - 旧: 26.7億円 → 新: 15億円（56.18%縮小）
+  - 全施策を比例配分で調整
+- **tactics-data.ts 更新**
+  - 全11施策の annualBudget, annualReach を調整
+  - TikTok投稿数: 7,000本 → 3,900本
+  - KPIテキストも更新
+- **matrix-data.ts 更新**
+  - annualBudgetMatrix: 月別予算データを調整
+  - annualReachMatrix: 月別Reachデータを調整
+  - monthlySummary: 月別合計を調整
+  - snsSummary: SNS別合計を調整
+  - tacticSummary: 施策別合計を調整
+  - matrixKpiSummary: KPI数値を調整（GMV 45億円, ROAS 300%）
+  - quarterlyMatrixSummary: 四半期別を調整
+  - monthlyReachTrend: チャート用データを調整
+- **CLAUDE.md 更新**
+  - 主要数値を更新（15億円/45億円/300%/9.5億UU）
+- **Vercel本番デプロイ完了**
+  - URL: https://dr-melaxin-proposal.vercel.app
+- **予算調整後の数値**
+  | 施策 | 旧予算 | 新予算 |
+  |------|--------|--------|
+  | TikTok大量生成 | 7.0億 | 3.93億 |
+  | TTS GMV MAX | 4.3億 | 2.42億 |
+  | X RT部隊 | 3.5億 | 1.97億 |
+  | アンバサダー | 3.0億 | 1.69億 |
+  | KOL Pick（IG） | 2.5億 | 1.40億 |
 
 ### 2026-01-21 (26)
 - **FilterableMatrix ピボットテーブル機能実装**
