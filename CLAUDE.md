@@ -8,6 +8,19 @@
 
 ```
 AP/
+├── projects/               # 全プロジェクト
+│   ├── concept-learning/   # コンセプト学習
+│   ├── dr.melaxin/         # Dr.Melaxin
+│   ├── mascode/            # MASCODE
+│   ├── norganic/           # N organic X戦略
+│   ├── phonefarm/          # Phone Farm
+│   └── the-room-fx/        # ANA THE Room FX
+│
+├── _agents/                # Claude Agent SDK
+│   ├── src/                # SDKソースコード
+│   ├── prompts/            # システムプロンプト
+│   └── CLAUDE.md           # Agent SDK設定
+│
 ├── _claude-code/           # Claude Code設定リファレンス
 │   ├── agents/             # Subagent定義
 │   ├── commands/           # Skillコマンド定義
@@ -15,45 +28,40 @@ AP/
 │   ├── skills/             # Skill定義
 │   ├── hooks/              # Hook定義
 │   ├── mcp-configs/        # MCP設定
-│   ├── plugins/            # プラグイン
 │   └── examples/           # 設定例
 │
-├── concept-learning/       # コンセプト学習プロジェクト
-│   ├── webapp/             # Next.js Webアプリ
-│   ├── docs/               # 学習資料（Markdown）
-│   └── knowledge/          # PDF資料
-│
-├── mascode/                # MASCODEプロジェクト
-│   ├── proposal.pdf        # 提案資料
-│   └── media-plan/         # メディアプラン
-│
-├── phonefarm/              # Phone Farmプロジェクト
-│
-├── dr.melaxin/             # Dr.Melaxinプロジェクト
-│   ├── CLAUDE.md           # プロジェクト概要
-│   ├── docs/               # 戦略ドキュメント
-│   │   ├── budget-proposal-10m.md  # メイン資料
-│   │   ├── proposal.md
-│   │   └── research.md
-│   ├── media-plan/         # メディアプラン
-│   │   ├── annual.md
-│   │   ├── march.md
-│   │   └── june.md
-│   ├── source/             # 元ファイル（PDF/PPTX/CSV/slides）
-│   └── webapp/             # Next.js Webアプリ
-│
-├── The Room FX/            # ANA THE Room FXプロジェクト
-│   ├── CLAUDE.md           # プロジェクト概要
-│   ├── brief/              # ブリーフ資料
-│   ├── proposal/           # 提案書作成
-│   └── data/               # データファイル
-│
-├── _archive/               # アーカイブ（用途不明ファイル）
+├── _archive/               # アーカイブ
 │
 ├── CLAUDE.md               # このファイル
 ├── HANDOFF.md              # セッション引き継ぎ
 └── README.md               # リポジトリ概要
 ```
+
+---
+
+## プロジェクト固有ルール
+
+### スキル・ナレッジの保存先
+
+このプロジェクトで「skillsに入れて」「スキルとして保存して」と指示された場合：
+
+| 指示 | 保存先 |
+|------|--------|
+| スキル追加 | `AP/_claude-code/skills/` |
+| コマンド追加 | `AP/_claude-code/commands/` |
+| ルール追加 | `AP/_claude-code/rules/` |
+
+**グローバル（`~/.claude/`）ではなく、APプロジェクト内に保存する。**
+
+### 既存スキル一覧
+
+| スキル | 用途 |
+|--------|------|
+| `concept-design.md` | コンセプト設計原則・チェックリスト |
+| `coding-standards.md` | コーディング標準 |
+| `webapp-data-pattern.md` | Webappデータパターン |
+| `backend-patterns.md` | バックエンドパターン |
+| `frontend-patterns.md` | フロントエンドパターン |
 
 ---
 
@@ -83,18 +91,18 @@ AP/
 **Key Files**:
 | ファイル | 用途 |
 |---------|------|
-| `concept-learning/webapp/src/data/concept-data.json` | コンセプトデータ（※手動同期） |
-| `concept-learning/docs/concept-data.json` | マスターデータ（こちらを編集） |
+| `projects/concept-learning/webapp/src/data/concept-data.json` | コンセプトデータ（※手動同期） |
+| `projects/concept-learning/docs/concept-data.json` | マスターデータ（こちらを編集） |
 
 **開発コマンド**:
 ```bash
-cd concept-learning/webapp
+cd projects/concept-learning/webapp
 npm run dev
 ```
 
 **デプロイ**:
 ```bash
-cd concept-learning/webapp
+cd projects/concept-learning/webapp
 vercel --prod --yes
 ```
 
@@ -107,8 +115,8 @@ MASCODE BEAUTYのプロモーション提案・メディアプラン。
 **ファイル**:
 | ファイル | 内容 |
 |---------|------|
-| `mascode/proposal.pdf` | 2026SS-AWプロモーション提案 |
-| `mascode/media-plan/` | メディアプラン資料 |
+| `projects/mascode/proposal.pdf` | 2026SS-AWプロモーション提案 |
+| `projects/mascode/media-plan/` | メディアプラン資料 |
 
 ---
 
@@ -133,20 +141,20 @@ TikTok等のPhone Farm不正業者の脅威インテリジェンスレポート�
 **Key Files**:
 | ファイル | 用途 |
 |---------|------|
-| `phonefarm/webapp/src/data/report-data.ts` | レポートデータ（ハードウェア、ソフトウェア、検出戦略等） |
-| `phonefarm/webapp/src/data/setup-guide-data.ts` | セットアップガイドデータ（買い物リスト、手順等） |
-| `phonefarm/webapp/src/app/page.tsx` | レポートページ |
-| `phonefarm/webapp/src/app/setup-guide/page.tsx` | セットアップガイドページ |
+| `projects/phonefarm/webapp/src/data/report-data.ts` | レポートデータ（ハードウェア、ソフトウェア、検出戦略等） |
+| `projects/phonefarm/webapp/src/data/setup-guide-data.ts` | セットアップガイドデータ（買い物リスト、手順等） |
+| `projects/phonefarm/webapp/src/app/page.tsx` | レポートページ |
+| `projects/phonefarm/webapp/src/app/setup-guide/page.tsx` | セットアップガイドページ |
 
 **開発コマンド**:
 ```bash
-cd phonefarm/webapp
+cd projects/phonefarm/webapp
 npm run dev
 ```
 
 **デプロイ**:
 ```bash
-cd phonefarm/webapp
+cd projects/phonefarm/webapp
 vercel --prod --yes
 ```
 
@@ -198,7 +206,7 @@ BRAND501 Corp.のスキンケアブランド「Dr.Melaxin」の日本市場マ�
 
 **フォルダ構成**:
 ```
-dr.melaxin/
+projects/dr.melaxin/
 ├── CLAUDE.md               # プロジェクト概要
 ├── docs/                   # 戦略ドキュメント
 │   ├── budget-proposal-10m.md  # メイン資料（$10M予算提案書、704行）
@@ -222,22 +230,22 @@ dr.melaxin/
 **Key Files**:
 | ファイル | 用途 |
 |---------|------|
-| `dr.melaxin/docs/budget-proposal-10m.md` | **メイン資料**（$10M予算提案書、704行） |
-| `dr.melaxin/docs/research.md` | 競合リサーチ（整理済み、6セクション） |
-| `dr.melaxin/media-plan/annual.md` | 年間メディアプラン |
-| `dr.melaxin/media-plan/march.md` | 3月メガ割詳細プラン |
-| `dr.melaxin/media-plan/june.md` | 6月メガ割詳細プラン |
-| `dr.melaxin/webapp/src/data/proposal-data.ts` | 提案書データ（構造化） |
+| `projects/dr.melaxin/docs/budget-proposal-10m.md` | **メイン資料**（$10M予算提案書、704行） |
+| `projects/dr.melaxin/docs/research.md` | 競合リサーチ（整理済み、6セクション） |
+| `projects/dr.melaxin/media-plan/annual.md` | 年間メディアプラン |
+| `projects/dr.melaxin/media-plan/march.md` | 3月メガ割詳細プラン |
+| `projects/dr.melaxin/media-plan/june.md` | 6月メガ割詳細プラン |
+| `projects/dr.melaxin/webapp/src/data/proposal-data.ts` | 提案書データ（構造化） |
 
 **開発コマンド**:
 ```bash
-cd dr.melaxin/webapp
+cd projects/dr.melaxin/webapp
 npm run dev
 ```
 
 **デプロイ**:
 ```bash
-cd dr.melaxin/webapp
+cd projects/dr.melaxin/webapp
 vercel --prod --yes
 ```
 
@@ -265,7 +273,7 @@ vercel --prod --yes
 
 ---
 
-### The Room FX（ANA ビジネスクラス）
+### the-room-fx（ANA ビジネスクラス）
 
 ANA新ビジネスクラス「THE Room FX」のグローバル広告配信プロジェクト。
 
@@ -289,7 +297,7 @@ ANA新ビジネスクラス「THE Room FX」のグローバル広告配信プロ
 
 **フォルダ構成**:
 ```
-The Room FX/
+projects/the-room-fx/
 ├── CLAUDE.md               # プロジェクト概要
 ├── brief/                  # ブリーフ資料
 │   ├── 全体.md             # ブリーフ全体像（整理済み）
@@ -318,12 +326,12 @@ The Room FX/
 **Key Files**:
 | ファイル | 用途 |
 |---------|------|
-| `The Room FX/brief/全体.md` | ブリーフ全体像（整理済み） |
-| `The Room FX/proposal/03_market-insight.md` | **市場インサイト**（差別化の核心、SNS分析5,795件） |
-| `The Room FX/proposal/04_target-strategy.md` | **ターゲット戦略**（6セグメント×トライブ） |
-| `The Room FX/proposal/05_media-strategy.md` | **メディア戦略**（PMP、ブランドセーフティ） |
-| `The Room FX/proposal/11_why-anymind.md` | **差別化ポイント**（対アイレップ4本柱） |
-| `The Room FX/data/analysis/tribe_insights.md` | SNSトライブ分析インサイト |
+| `projects/the-room-fx/brief/全体.md` | ブリーフ全体像（整理済み） |
+| `projects/the-room-fx/proposal/03_market-insight.md` | **市場インサイト**（差別化の核心、SNS分析5,795件） |
+| `projects/the-room-fx/proposal/04_target-strategy.md` | **ターゲット戦略**（6セグメント×トライブ） |
+| `projects/the-room-fx/proposal/05_media-strategy.md` | **メディア戦略**（PMP、ブランドセーフティ） |
+| `projects/the-room-fx/proposal/11_why-anymind.md` | **差別化ポイント**（対アイレップ4本柱） |
+| `projects/the-room-fx/data/analysis/tribe_insights.md` | SNSトライブ分析インサイト |
 
 **差別化の4本柱**（対アイレップ）:
 | ポイント | 内容 |
@@ -369,6 +377,10 @@ Claude Codeの設定リファレンス実装。
 
 ## 更新履歴
 
+- 2026-01-22: コンセプト設計スキル追加（`_claude-code/skills/concept-design.md`）
+- 2026-01-22: N organic コンセプト更新「帰ったら洗う、花粉オフ」、2/11花粉飛散宣言軸に戦略変更
+- 2026-01-22: フォルダ構造整理（projects/に6プロジェクト統合、The Room FX → the-room-fx にリネーム）
+- 2026-01-22: N organic X戦略提案プロジェクト追加（Webapp作成、Vercelデプロイ）
 - 2026-01-21: The Room FX who.mdを04_target-strategy.mdに統合（Appendix追加、重複解消）
 - 2026-01-21: The Room FX 提案書11ファイル+appendix作成（差別化4本柱：データドリブン/PMP/ブランドセーフティ/トライブベース）
 - 2026-01-21: The Room FX who.md作成（ターゲット設定、6セグメント評価、ペルソナ2名、SNS分析Appendix）

@@ -82,14 +82,60 @@
 - [x] **The Room FX who.md Appendix追加**（SNS UGC分析根拠データ、代表URL）
 - [x] **The Room FX 提案書作成完了**（11ファイル + appendix 2ファイル）
 - [x] **The Room FX who.mdを04_target-strategy.mdに統合**（Appendix追加、who.md削除）
+- [x] **The Room FX 提案書クライアントFB対応**（6項目修正完了）
+- [x] **The Room FX Webapp作成**（Next.js 16 + Recharts）
+- [x] **The Room FX 04_target-strategy.md 全面強化**（UGC分析解像度向上）
+- [x] **The Room FX ファイル分離**（strategy=シンプル版305行、who=詳細版605行）
+- [x] **The Room FX 提案書整合性修正**（CRITICAL/HIGH/MEDIUM 全6項目）
+  - 04番号ファイル重複解消（04_target-who.md → appendix/target-detail.md）
+  - 予算数字統一（YouTube 1,600万円、合計4,000万円）
+  - インプレッション統一（5,000万）
+  - LinkedIn枠明確化（PMP 600万円の内数として200万円）
+  - KPI根拠強化（視聴完了率35%、LP流入10万の算出根拠）
+  - アイレップ差別化比較表追加（デモグラ vs トライブ）
+  - JAL A350差別化追加（ネットワーク優位性）
+- [x] **The Room FX 提案書をGoogle Docsに書き込み開始**
+  - Google Doc ID: `1jc8uKm5_SYQw2jwVNieJZwJWIM4TqVDsDnB6UTEkn0o`
+  - ドキュメント名: "The Room FX_hantkau_public"
+  - 書き込み済み: 1〜4章（エグゼクティブサマリー、ブリーフ理解、市場インサイト、ターゲット戦略）
+- [x] **N organic X戦略提案プロジェクト作成**
+  - コンセプト「するんと花粉オフ」確定
+  - 予算配分確定（SP 2,700万円 / 切り抜き系 1,000万円 / アンプリファイ 800万円 / プレキャン 500万円）
+  - Webapp作成（4タブ: コンセプト/戦略/予算/タイムライン）
+  - Vercelデプロイ完了: https://webapp-five-bay.vercel.app
+- [x] **APフォルダ構造改善（Phase 1 + Phase 2）**
+  - Phase 1: `projects/` フォルダ作成、6プロジェクト統合、`The Room FX` → `the-room-fx` リネーム
+  - Phase 2: CLAUDE.md 3件作成、ルート日本語ファイル移動、_archive英語化
+- [x] **N organic Webapp編集機能追加**
+  - EditContext, EditableText, SaveButton コンポーネント作成
+  - 全5タブ（Concept/Strategy/Budget/Timeline/Calendar）に編集機能統合
+  - API Route (`/api/save`) でTypeScriptデータファイル直接更新
+- [x] **N organic X戦略を2/11花粉飛散宣言軸に変更**
+  - Phase 1: 2/1〜2/10 仕込み（KOLアンプリファイ）
+  - Phase 2: 2/11 話題化（トレンドテイクオーバー90M Imp）
+  - Phase 3-6: エンゲージメント→UGC醸成→刈り取り→拡大
+  - WHATメッセージをW1とW3/W4で差別化
+- [x] **N organic コンセプト更新「帰ったら洗う、花粉オフ」**
+  - 旧: するんと花粉オフ（8文字）
+  - 新: 帰ったら洗う、花粉オフ（12文字）
+  - 改善理由: 「洗う」でクレンジング商品であることが明確に想起できる
+- [x] **コンセプト設計スキル作成**（`_claude-code/skills/concept-design.md`）
+  - 核心原則: 「コンセプトを聞いて、その商品がどういうもので、どういう便益があるかが理解できることが重要」
+  - チェックリスト（カテゴリ明示・便益明示・使用シーン）
+  - キャッチコピーとコンセプトの違い（課題提示 vs 便益訴求）
+  - concept-learning教材への参照
+- [x] **プロジェクト固有ルール追加**（AP/CLAUDE.md）
+  - スキル保存先ルール: `skillsに入れて`と指示された場合は`AP/_claude-code/skills/`に保存
+  - グローバル（`~/.claude/`）ではなくAPプロジェクト内に保存
 
 ### 作業中のタスク
+- [ ] **The Room FX 提案書 Google Docs書き込み**（5〜11章 + Appendix 残り）
 - [ ] **MASCODEアイライナー コンセプト作成**（検討中）
+- [ ] **「なまえデザイン」書籍まとめ Phase 2**（各章詳細追加予定）
 
 ## 次のアクション
-1. **The Room FX 提案書レビュー＆プレゼン資料化**（2月1週目締切）
-   - proposal/ 11ファイル完成 → スライド化
-2. **Dr.Melaxin Webapp変更をコミット＆プッシュ**（3ファイル未コミット）
+1. **N organic Webappの確認**（Vercel本番: https://webapp-five-bay.vercel.app）
+2. **The Room FX 提案書レビュー＆プレゼン資料化**（2月1週目締切）
 3. クライアントとの認識合わせ（GMV目標 45億円 / 予算15億円 / ROAS 300%）
 4. 3月メガ割に向けた準備開始（TikTok制作発注、RT部隊業者との調整）
 5. 6月ジョングク契約交渉の進捗確認
@@ -99,15 +145,240 @@
 
 ## 未コミット変更
 ```
-（なし）
+ M CLAUDE.md
+ M HANDOFF.md
+ D "The Room FX/*" (projects/フォルダへ移動済み)
+ D "concept-learning/*" (projects/フォルダへ移動済み)
+ D "dr.melaxin/*" (projects/フォルダへ移動済み)
+ D "phonefarm/*" (projects/フォルダへ移動済み)
+ D "mascode/*" (projects/フォルダへ移動済み)
+?? _agents/ (新規)
+?? _claude-code/skills/concept-design.md (新規)
+?? _claude-code/commands/organize-folders.md (新規)
+?? _claude-code/commands/scaffold-webapp.md (新規)
+?? projects/ (新規: norganic, the-room-fx, concept-learning, dr.melaxin, phonefarm, mascode)
+?? opperation/ (新規: なまえデザイン_フォルダ)
 ```
 
 ## 最新コミット
 ```
-475b421 feat(the-room-fx): add ANA business class proposal project
+0c2c0f1 docs: update HANDOFF.md with latest commit info
 ```
 
 ## セッション履歴
+
+### 2026-01-23 (42)
+- **「なまえデザイン」書籍まとめ作成（Phase 1）**
+  - 書籍: 「なまえ」デザイン（小薬元著、宣伝会議、279ページ）
+  - フォルダ: `opperation/なまえデザイン_フォルダ/`
+  - 入力: 279枚のPNG画像（Kindle書籍からの抽出）
+  - 出力: `なまえデザイン.md`（194行）
+- **まとめ内容**
+  - 基本情報（タイトル、著者、出版社、発行日）
+  - 用語定義5項目（名前、なまえ、なまえデザイン、名づける、ブランドネーミング）
+  - コアコンセプト「意識→行動→未来」フレームワーク
+  - キーメッセージ「名前をつけて完成ではなく、名前とははじまり」
+  - 目次全体構成（CHAPTER 7章 + THINKING 6章 + INTERVIEW 4本 + TALK 3本）
+  - 学びのポイント・実践チェックリスト
+  - Phase 2用プレースホルダー（各章詳細追加予定）
+- **/compact エラー説明**
+  - エラー原因: 画像サイズ制限（複数画像リクエストで各画像の最大辺2000px制限）
+  - 解決策: 新規セッション開始、または画像リサイズ
+- **作成/更新ファイル**
+  - `opperation/なまえデザイン_フォルダ/なまえデザイン.md` (新規)
+
+### 2026-01-22 (41)
+- **プロジェクト固有ルール追加**
+  - ユーザー要望: 「skillsに入れて」と指示された場合はAPプロジェクト内に保存
+  - AP/CLAUDE.md に「プロジェクト固有ルール」セクション追加
+  - 保存先: `AP/_claude-code/skills/`（グローバルの`~/.claude/`ではない）
+
+### 2026-01-22 (40)
+- **N organic X戦略を2/11花粉飛散宣言軸に変更**
+  - トレンドテイクオーバーを2/1→2/11に移動
+  - #花粉飛散宣言トレンド1位に便乗、#STOP花粉飛散でジャック
+  - W1仕込み（KOLアンプリファイ）→W2話題化（TKO）→W2-W4プレキャン→W3/W4アンプリファイ→W5〜切り抜き系
+  - WHATメッセージ差別化（W1: 花粉きてる系、W3/W4: 今日から花粉飛散系）
+- **N organic コンセプト更新「帰ったら洗う、花粉オフ」**
+  - ユーザー指摘: 「するんと花粉オフ」ではクレンジング商品だと想起できない
+  - 改善: 「帰ったら洗う、花粉オフ」で「洗う」がカテゴリを明示
+  - 学び: **コンセプトを聞いて、その商品がどういうもので、どういう便益があるかが理解できることが重要**
+- **コンセプト設計スキル作成**
+  - `_claude-code/skills/concept-design.md` 新規作成
+  - 内容: 核心原則、チェックリスト3項目、キャッチコピーとコンセプトの違い、14項目評価基準
+  - concept-learning教材への参照リンク
+- **norganic ドキュメント更新**
+  - `norganic/CLAUDE.md`: コンセプト・期間別戦略を新版に更新
+  - `norganic/コンセプト.md`: 全面更新（新コンセプト、学びセクション追加）
+  - `concept-data.ts`, `strategy-data.ts`, `calendar-data.ts`: 既にWebapp側で更新済み
+- **作成/更新ファイル**
+  - `_claude-code/skills/concept-design.md` (新規)
+  - `projects/norganic/CLAUDE.md` (更新)
+  - `projects/norganic/コンセプト.md` (更新)
+
+### 2026-01-23 (39)
+- **N organic アクティベーションカレンダー作成**
+  - ユーザー要望: X戦略.mdから週別カレンダーを作成
+  - 出力形式: 列=日時（週単位）、行=Obj/Who/What/How
+- **新規ファイル作成**
+  - `activation-calendar.md`: Markdownカレンダー（7週間、W1〜W7）
+  - `calendar-data.ts`: TypeScriptデータファイル
+    - `CalendarWeek`型: id, period, phase, obj, who, what, how, tactics, keywords, kpi, budget, highlight
+    - `calendarWeeks`配列: 7週間のデータ
+    - `rowLabels`, `tacticTimeline`, `calendarSummary`
+  - `CalendarContent.tsx`: Reactコンポーネント
+    - 週別マトリックス（Phase/Obj/Who/What/How/予算）
+    - 週クリックで詳細表示
+    - 施策別タイムライン（ピーク週マーク付き）
+- **ProposalTabs.tsx 更新**
+  - 4タブ→5タブに拡張
+  - Calendarタブ追加（icon: 📆）
+- **列幅修正**
+  - 問題: 週別マトリックスと施策別タイムラインのW列がズレていた
+  - 修正: 両テーブルに`table-fixed`を追加
+  - 列幅統一: 施策列`w-[140px]`、W1〜W7列`w-[108px]`
+- **Vercelデプロイ完了**（2回）
+  - URL: https://webapp-five-bay.vercel.app
+  - `npm run build` → `vercel --prod --yes`
+
+### 2026-01-22 (38)
+- **APフォルダ構造改善（Phase 2）完了**
+  - Phase 1で `projects/` フォルダ統合済み（6プロジェクト）
+  - Phase 2で追加改善を実施
+- **ファイル移動・リネーム**
+  - `メディアプラン.md` → `projects/dr.melaxin/media-plan/` に移動
+  - `_archive/コンセプトmd` → `_archive/concept.md` にリネーム
+- **CLAUDE.md 新規作成（3件）**
+  - `projects/concept-learning/CLAUDE.md`: 本番URL、技術スタック、ページ構成
+  - `projects/mascode/CLAUDE.md`: 予算4,000万円、提案資料概要
+  - `projects/phonefarm/CLAUDE.md`: 本番URL、脅威インテリジェンス概要
+- **最終構造**
+  - 全6プロジェクトにCLAUDE.mdが存在
+  - _archiveの日本語ファイル名を英語化
+  - ルートの不要ファイルを適切なフォルダに移動
+
+### 2026-01-22 (37)
+- **N organic X戦略提案プロジェクト作成**
+  - `_agents/norganic/` フォルダ作成
+  - コンセプト「するんと花粉オフ」（8文字）確定
+  - 14項目評価で全項目◎
+- **予算配分確定**（5,000万円）
+  - スポットライトTKO: 2,700万円（90M Imp、話題化の核）
+  - 切り抜き系: 1,000万円（Amazon直結、ROAS重視）
+  - 運用 with アンプリファイ: 800万円（実質1,600万円）
+  - プレキャン: 500万円（フォロー&RT）
+  - **TL/TLR不採用**（通常のアンプリファイ運用型の方が効率的）
+- **Markdown ファイル作成**
+  - `コンセプト.md`: コンセプト詳細（14項目評価、リフレーミング公式、用途別展開）
+  - `X戦略.md`: X戦略（Who/What/How、期間別戦略Phase 1-6、予算配分、FQ試算、KPI）
+- **Webapp作成**（Next.js 16.1.4）
+  - 4タブ構成: コンセプト / 戦略 / 予算 / タイムライン
+  - `src/data/concept-data.ts`: コンセプトデータ
+  - `src/data/strategy-data.ts`: 戦略・予算・タイムラインデータ
+  - `src/components/ProposalTabs.tsx`: 4タブナビゲーション
+  - `src/components/ConceptContent.tsx`: コンセプトタブ
+  - `src/components/StrategyContent.tsx`: 戦略タブ
+  - `src/components/BudgetContent.tsx`: 予算タブ（TKO比較、FQ試算）
+  - `src/components/TimelineContent.tsx`: タイムラインタブ
+- **Vercelデプロイ完了**
+  - 本番URL: https://webapp-five-bay.vercel.app
+- **FQ試算**
+  - ターゲット規模: 約400万人（30代女性×X利用）
+  - ターゲティング可能Imp: 6,500万
+  - FQ = 6,500万 ÷ 400万 = **約16回**（目標5回以上を達成）
+
+### 2026-01-22 (36)
+- **The Room FX 提案書整合性修正**（CRITICAL/HIGH/MEDIUM 全問題対応）
+- **修正内容**
+  - **CRITICAL**:
+    - 04番号ファイル重複 → `04_target-who.md` を `appendix/target-detail.md` に移動
+    - 予算数字不整合 → YouTube 1,600万円、全ファイルで4,000万円に統一
+  - **HIGH**:
+    - インプレッション合計 → 全ファイルで5,000万に統一
+    - LinkedIn枠の曖昧さ → PMP枠（600万円）の内数として200万円を明記
+  - **MEDIUM**:
+    - KPI根拠の弱さ → 視聴完了率35%（+4pt内訳）、LP流入10万（CTR計算）の根拠追加
+    - アイレップ差別化の曖昧さ → 比較表追加（デモグラ vs トライブ）
+    - JAL A350競合への言及なし → 差別化セクション追加（ネットワーク優位性）
+- **修正ファイル**
+  - `appendix/target-detail.md`: 新規（04_target-who.mdから移動）
+  - `appendix/media-plan-detail.md`: 予算・インプレッション整合
+  - `08_kpi-framework.md`: KPI根拠強化
+  - `05_media-strategy.md`: LinkedIn枠明記＋アイレップ比較表
+  - `04_target-strategy.md`: JAL A350差別化追加
+  - `proposal/CLAUDE.md`: ファイル一覧・更新履歴
+
+### 2026-01-22 (35)
+- **The Room FX ファイル分離**
+  - `04_target-strategy.md` → シンプル版（305行）に復元
+  - `04_target-who.md` → 詳細版（605行）として新規作成
+- **分離理由**: UGC詳細分析を別ファイルに切り出し、メインファイルをスライド用にシンプル化
+- **ファイル構成**
+  - `04_target-strategy.md`: 6ターゲット、ペルソナ概要、メッセージング
+  - `04_target-who.md`: Voice of Customer、代表URL、定量データ、インフルエンサー
+
+### 2026-01-22 (34)
+- **The Room FX 04_target-strategy.md 全面強化**
+  - 約300行 → 606行に大幅拡張
+  - UGC分析の解像度を定量/定性ともに向上
+- **主な追加内容**
+  - 3×2マトリクス視覚化（BC/ZY/JP × NA/EU）
+  - 優先度スコア算出根拠（計算式明示）
+  - 6ターゲット別「Voice of Customer」（代表UGC 3件 × 6 = 18件、実際のTwitter URL付き）
+  - 6ターゲット別「この人たちは誰か」（定性インサイト）
+  - 定量データサマリー（投稿数、著者数、フォロワー、エンゲージメント、センチメント）
+  - Appendix強化（A.3 6ターゲット別URLリスト、A.4 インフルエンサーリスト）
+- **6ターゲット優先順位（スコア順）**
+  1. BC_EU: 100.0（欧州ビジネス層、最大ボリューム）
+  2. BC_NA: 82.7（北米ビジネス層、AA不満層）
+  3. ZY_NA: 37.9（北米Z/Y世代、成長ポテンシャル）
+  4. JP_NA: 37.4（北米訪日層、最もポジティブ）
+  5. ZY_EU: 12.1（欧州Z/Y世代、ニッチ）
+  6. JP_EU: 3.9（欧州訪日層、潜在市場）
+- **データソース活用**
+  - target_region.csv（2,623件）から6ターゲット別UGCを抽出
+  - 6target_analysis.csvから優先度スコア・統計データを取得
+  - influencers_by_tribe.csv（394名）から代表インフルエンサーを選定
+
+### 2026-01-21 (33)
+- **The Room FX Webapp作成完了**
+  - Next.js 16.1.4 + React 19 + TypeScript + Tailwind CSS + Recharts
+  - 13セクション全て表示可能（11本編 + 2 appendix）
+- **作成ファイル**
+  - `src/data/proposal-data.ts`: 全提案書データ（構造化TypeScript）
+  - `src/components/SectionNav.tsx`: サイドナビゲーション
+  - `src/components/PersonaCard.tsx`: 6ペルソナ表示カード
+  - `src/components/charts/BudgetPieChart.tsx`: 予算配分円グラフ
+  - `src/components/charts/SentimentChart.tsx`: 競合センチメント棒グラフ
+  - `src/components/charts/TimelineChart.tsx`: キャンペーンタイムライン
+  - `src/app/page.tsx`: メインページ（タブ切り替え）
+- **可視化コンポーネント**
+  - 予算配分: YouTube 40% / Meta 30% / 検索Display 15% / PMP 15%
+  - 競合センチメント: 8社の航空会社SNS評判（-2.49〜+0.08）
+  - タイムライン: ティーザー→本プロモ→イベント
+  - 6ペルソナカード: Thomas/David/Alex/Michael/Sophie/Emma
+- **ビルド成功**: `npm run build` 完了
+- **動作確認**: `npm run dev` でローカル起動確認（GET / 200）
+- **TypeScript型エラー3件修正**
+  - KPI型: `category` → `level` + `description` 追加
+  - BudgetPieChart: Tooltip formatter型キャスト
+  - SentimentChart: Tooltip formatter型キャスト
+
+### 2026-01-21 (32)
+- **The Room FX 提案書クライアントFB対応**（6項目修正完了）
+  - **MUST FIX（3項目）**:
+    1. 予算配分の矛盾解消: YouTube 40% / Meta 30% / Google検索Display 15% / PMP 15% に整理
+    2. 媒体選定理由の強化: SNS分析データ（5,795件）との接続を明示
+    3. 追加媒体の検討: Netflix/Spotify/Reddit見送り、The Points Guy/One Mile at a Time採用
+  - **SHOULD FIX（3項目）**:
+    4. KPI目標の根拠追加: CPM想定・ベンチマーク・計算式を追加
+    5. イベント連動の具体化: フェーズ別施策（事前告知100万/期間中0円/事後フォロー150万）を追加
+    6. 言語対応の記載: EN/ES/DE/FR/ITのローカライズ方針を追加
+- **修正ファイル**
+  - `05_media-strategy.md`: 予算配分修正、媒体選定理由、追加媒体検討、言語対応セクション追加
+  - `06_budget-allocation.md`: 予算内訳の整合性確保（新配分に統一）
+  - `08_kpi-framework.md`: 「KPI目標の算出根拠」セクション追加（CPM想定、ベンチマーク、シナリオ分析）
+  - `09_campaign-timeline.md`: イベント連動のフェーズ別詳細追加（事前告知/期間中/事後フォロー）
 
 ### 2026-01-21 (31)
 - **The Room FX who.mdを04_target-strategy.mdに統合**
