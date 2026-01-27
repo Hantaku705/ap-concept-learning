@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useLocalStorage } from './hooks/useLocalStorage';
+import { useProgress } from './hooks/useProgress';
 import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
 import { MissionBanner } from './components/sections/MissionBanner';
@@ -22,10 +22,7 @@ function getDefaultTab(level: LevelType): string {
 export default function Home() {
   const [selectedLevel, setSelectedLevel] = useState<LevelType>('beginner');
   const [activeTab, setActiveTab] = useState(getDefaultTab('beginner'));
-  const [checkedItems, setCheckedItems] = useLocalStorage<Record<string, boolean>>(
-    'cc-onboarding-checks',
-    {},
-  );
+  const { progress: checkedItems, updateProgress } = useProgress();
 
   const handleLevelChange = (level: LevelType) => {
     setSelectedLevel(level);
@@ -34,7 +31,7 @@ export default function Home() {
 
   const handleToggleCheck = (level: LevelType, idx: number) => {
     const key = `${level}-${idx}`;
-    setCheckedItems((prev) => ({ ...prev, [key]: !prev[key] }));
+    updateProgress(key, !checkedItems[key]);
   };
 
   const levelComplete = Object.fromEntries(

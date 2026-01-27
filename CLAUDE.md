@@ -567,6 +567,8 @@ vercel --prod --yes
 
 ## 更新履歴
 
+- 2026-01-28: `_claude-code/` → `.claude/` 一括コピー（commands 14, rules 9, skills 10, agents 9）、ゴミフォルダ削除（`-p/`, `-type/`）
+- 2026-01-28: シャンプータグライン 全86ブランドFC完了（84/86確認）、sourceUrl追加、タグライン13件修正、FCリンク化デプロイ
 - 2026-01-27: CLAUDECODE Webapp Getting Started/Starter KitをLv.1専用に修正、multi-agent → `_claude-code/` 移動
 - 2026-01-27: **DynamicBranding → opperation/ 移行**（味の素ブランディングフレームワーク、.git削除しAPリポジトリに統合）
 - 2026-01-27: **nanobanana MCP設定**（Gemini 2.5 Flash画像生成、`claude mcp add nanobanana-mcp`）

@@ -2,6 +2,7 @@
 
 import { cn } from '../../lib/cn';
 import { tabs as allTabs, levels, type LevelType } from '../../data/onboarding-data';
+import { LoginButton } from '../ui/LoginButton';
 
 const LEVELS = [
   { id: 'beginner' as const, label: 'Lv.1', icon: '🌱' },
@@ -54,14 +55,17 @@ export function Header({
             ))}
           </div>
 
-          <a
-            href="https://docs.anthropic.com/en/docs/claude-code"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm text-zinc-500 hover:text-indigo-500 transition-colors"
-          >
-            Docs
-          </a>
+          <div className="flex items-center gap-4">
+            <LoginButton />
+            <a
+              href="https://docs.anthropic.com/en/docs/claude-code"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-zinc-500 hover:text-indigo-500 transition-colors"
+            >
+              Docs
+            </a>
+          </div>
         </div>
 
         {/* Row 2: Tab navigation (dynamic per level) */}

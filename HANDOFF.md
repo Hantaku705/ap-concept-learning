@@ -21,11 +21,40 @@
 | フォルダ移行 | 100回目 | DynamicBranding → opperation/ 移行（.git削除、CLAUDE.md更新） | 1件 |
 | CLAUDECODE修正 | 101回目 | Getting Started/Starter KitをLv.1専用に修正、multi-agent移動 | 1件 |
 | 将軍ダッシュボード | 102-103回目 | ゲーム性UI改善、skills-map構築、**v3.1スキルパネル（巻物庫）**、**v3.2陣形/統計/アチーブメントUI**、**セルフブラッシュアップ方針策定** | 4件 |
-| シャンプータグライン | 105-114回目 | タグライン収集（35→86ブランド）、ポジショニングマップWebapp作成・デプロイ、PR TIMESデータ追加、workflow整備、URL追加・テーブルリンク化、ファクトチェック、キャッチコピー追加、catchcopyスキル作成、4象限表示、Meltwater CSV分析→17ブランド追加 | 9件 |
+| シャンプータグライン | 105-120回目 | タグライン収集（35→86ブランド）、ポジショニングマップWebapp作成・デプロイ、PR TIMESデータ追加、workflow整備、URL追加・テーブルリンク化、ファクトチェック、キャッチコピー追加、catchcopyスキル作成、4象限表示、Meltwater CSV分析→17ブランド追加、全86ブランドFC完了・sourceUrl追加・FCリンク化、**FC分離（TL/CC個別化）・catchcopyFC実行**、**テーブルソート・軸別ソート＆フィルター** | 12件 |
+| スキル・コマンド管理 | 115, 117回目 | `/should-skill`コマンド作成、CLAUDE.md自動提案ルール追加、Command提案基準厳格化、**rules/auto-skills.md作成**（スキル自動適用マッピング） | 2件 |
 
 詳細は [HANDOFF_ARCHIVE.md](./HANDOFF_ARCHIVE.md) を参照。
 
 ### 直近の完了タスク
+- [x] **シャンプータグライン テーブルソート＋軸別ソート＆フィルター（セッション120）**
+  - 全列ソート機能追加（ブランド、メーカー、価格帯、価格、タグライン、TL/CC）
+  - 象限列 → 訴求軸（x値）+ 世界観（y値）の2列に分割、独立ソート可能
+  - 軸フィルターボタン追加（機能訴求/情緒訴求/日常/特別感、複数選択可）
+  - catchcopyスキル更新を検討（定義明確化）→ 次セッションへ持ち越し
+  - ビルド成功・Vercelデプロイ完了
+- [x] **_claude-code/ → .claude/ 一括コピー + ゴミフォルダ削除（セッション119）**
+  - `_claude-code/` のリファレンス定義を `.claude/` にコピー（commands 14個、rules 9個、skills 10個、agents 9個）
+  - ゴミフォルダ削除: `-p/`、`-type/`（コマンド誤実行で生成された空ディレクトリ）
+- [x] **シャンプータグライン FC分離（TL/CC個別化）+ catchcopyFC実行（セッション118）**
+  - データ構造変更: `factChecked`/`sourceUrl` → `taglineFC`/`taglineSourceUrl` + `catchcopyFC`/`catchcopySourceUrl`
+  - TaglineTable: FC列 → TL + CC 2列に分離（✓リンク/黄?/灰-の3状態）
+  - 2並列subagentでcatchcopyFC実行: 6/20確認済み（h&s, YOLU, anummy, REVIAS, ケラリス ノワール, OLES）
+  - ビルド成功・Vercelデプロイ完了
+- [x] **rules/auto-skills.md作成 + Claude Code設定体系の理解整理（セッション117）**
+  - `_claude-code/rules/auto-skills.md` 新規作成（スキル自動適用マッピング5件）
+  - Claude Code設定体系の整理: CLAUDE.md / rules/ / skills/ / commands/ / hooks/ の違いと使い分け
+- [x] **シャンプータグライン 全86ブランド ファクトチェック完了（セッション116）**
+  - 3並列subagentでプチプラ/ドラコス/美容専売品を同時検証
+  - 84/86ブランド確認済み（未確認: SALA=販売終了、マシェリ）
+  - `sourceUrl`フィールド追加、FC列✓をクリック可能リンク化
+  - タグライン13件修正（いち髪、TSUBAKI、エッセンシャル等）
+  - Vercelデプロイ完了: https://webapp-five-bay.vercel.app
+- [x] **`/should-skill`コマンド作成・自動提案ルール整備（セッション115）**
+  - `/should-skill`コマンド新規作成（`_claude-code/commands/should-skill.md`）
+  - CLAUDE.mdに「スキル・コマンド自動提案ルール（常時適用）」追加
+  - Command提案基準を厳格化（5条件+普遍性必須、迷ったらSkill）
+  - `_claude-code/commands/CLAUDE.md`にshould-skill追加
 - [x] **シャンプータグライン Meltwater CSV分析→17ブランド追加（セッション114）**
   - Meltwater CSV（10,000件SNS投稿）を分析、Webapp未登録ブランドを特定
   - 17ブランド追加（69→86ブランド）: プチプラ6、ドラコス6、美容専売品5
@@ -200,6 +229,7 @@
 ```
  M CLAUDE.md
  M HANDOFF.md
+ M _claude-code/commands/CLAUDE.md
  m _claude-code/multi-agent
  M _claude-code/skills/CLAUDE.md
  M opperation/CLAUDECODE/CLAUDE.md
@@ -208,9 +238,16 @@
  M opperation/CLAUDECODE/webapp/app/page.tsx
  M opperation/CLAUDECODE/webapp/package-lock.json
  M opperation/CLAUDECODE/webapp/package.json
- M projects/シャンプータグライン/webapp/src/data/tagline-data.ts
  D phonefarm/3c.md
+ M projects/シャンプータグライン/CLAUDE.md
+ M projects/シャンプータグライン/webapp/src/components/TaglineTable.tsx
+ M projects/シャンプータグライン/webapp/src/data/tagline-data.ts
+?? .claude/agents/
+?? .claude/commands/
+?? .claude/rules/
+?? .claude/skills/
 ?? _claude-code/commands/should-skill.md
+?? _claude-code/rules/auto-skills.md
 ?? _claude-code/skills/catchcopy.md
 ?? opperation/CLAUDECODE/webapp/app/api/
 ?? opperation/CLAUDECODE/webapp/app/auth/
@@ -226,10 +263,56 @@
 
 ## 最新コミット
 ```
-bc3b802 feat: add skills-map webapp and enhance shogun dashboard UI
+a1f8df5 feat: add 17 shampoo brands from Meltwater CSV analysis (69→86)
 ```
 
 ## セッション履歴（直近10回分）
+
+### 2026-01-28 (119)
+- **_claude-code/ → .claude/ 一括コピー**
+  - `_claude-code/` がリファレンス集のみで `.claude/` に未登録だったことを発見
+  - commands 14個、rules 9個、skills 10個、agents 9個を `.claude/` にコピー
+  - Claude Codeが全コマンド・ルール・スキル・エージェントを認識可能に
+- **ゴミフォルダ削除**: `-p/`、`-type/`（コマンド誤実行で生成された空ディレクトリ）を削除
+
+### 2026-01-28 (117)
+- **rules/auto-skills.md作成 + Claude Code設定体系の理解整理**
+  - ユーザー依頼: スキルが自動で使われる仕組みを構築したい
+  - **`_claude-code/rules/auto-skills.md` 新規作成**: 5スキルのトリガー→自動適用マッピング
+    - 商品コンセプト→concept-design.md、キャッチコピー→catchcopy.md 等
+  - **設定体系の整理**（Q&A形式で理解を共有）:
+    - CLAUDE.md = プロジェクト設定（常時読み込み）
+    - rules/ = テーマ別ルール（常時読み込み、CLAUDE.mdの分割版）
+    - skills/ = 知識・フレームワーク（`/スキル名`で手動実行、またはrules/マッピングで自動）
+    - commands/ = 実行手順（`/コマンド名`で手動実行）
+    - hooks/ = ツール実行前後の自動シェルコマンド（settings.json）
+  - **Skills vs Subagent判断基準**: 対話が必要→rules/マッピング、丸投げ可能→subagent
+
+### 2026-01-28 (116)
+- **シャンプータグライン 全86ブランド ファクトチェック完了 + FCリンク化**
+  - ユーザー依頼: 全ブランドのタグライン/キャッチコピーを公式サイトで検証し、チェックマーク（✓）クリックでソースに飛べるようにする
+  - **3並列subagent実行**: プチプラ(18)/ドラコス(26)/美容専売品(42)を同時検証
+  - **結果**: 84/86ブランド確認済み（未確認: SALA=販売終了、マシェリ=ブランド名のみ）
+  - **データ変更** (`tagline-data.ts`):
+    - `sourceUrl?: string` フィールド追加（82ブランドにURL設定）
+    - タグライン修正13件: いち髪、TSUBAKI、エッセンシャル、カウブランド、ルシードエル、fino、DROAS、anummy、KUNDAL、haru、ハホニコ、シュワルツコフ、MEMEME
+    - キャッチコピー修正: OLES(70%→80%)、YOLU(忙しい→いそがしい)
+    - `factChecked`更新: いち髪/LUX/ダヴ → true、ルシードエル/ハホニコ/シュワルツコフ → true
+  - **UI変更** (`TaglineTable.tsx`): FC列✓を`<a>`リンク化（sourceUrlがある場合クリックで新タブ）
+  - **Vercelデプロイ完了**: https://webapp-five-bay.vercel.app
+
+### 2026-01-28 (115)
+- **`/should-skill`コマンド作成・自動提案ルール整備**
+  - ユーザー依頼: セッション中にスキル/コマンド化すべきパターンを判定・提案する仕組みを構築
+  - **`/should-skill`コマンド作成**: `_claude-code/commands/should-skill.md`
+    - 5条件で判定（3回以上繰り返し/複数PJ再利用/5ステップ以上/判断基準含む/忘れやすい）
+    - 3つ以上該当→Skill提案、Command提案はさらに厳格条件あり
+  - **CLAUDE.md自動提案ルール追加**: 「スキル・コマンド自動提案ルール（常時適用）」セクション
+    - 全セッションで自動的にパターン検出→提案（`/should-skill`不要）
+  - **Command提案基準厳格化**: ユーザーFB「commandが多くても覚えられない」
+    - 5条件3つ以上 + プロジェクト横断 + 毎セッション級頻度 + `/handoff`レベル普遍性
+    - 「迷ったらSkillにする」原則
+  - **変更ファイル**: `should-skill.md`(新規), `AP/CLAUDE.md`(更新), `commands/CLAUDE.md`(更新)
 
 ### 2026-01-28 (114)
 - **シャンプータグライン Meltwater CSV分析→17ブランド追加**

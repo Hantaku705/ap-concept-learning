@@ -7,8 +7,9 @@ Claude Code導入・説明会用のWebアプリケーション。
 | 項目 | 値 |
 |------|-----|
 | 本番URL | https://claude-code-onboarding-ten.vercel.app |
-| 技術スタック | Next.js 16 + React 19 + Tailwind CSS |
+| 技術スタック | Next.js 16 + React 19 + Tailwind CSS + Supabase Auth |
 | 対象者 | 完全初心者（CLI/ターミナル未経験者向け） |
+| 認証 | Google ログイン（オプション、ミッション進捗の保存） |
 
 ## レベル構成（3段階）
 
@@ -98,6 +99,53 @@ npm run build    # ビルド
 vercel --prod    # 本番デプロイ
 ```
 
+## 認証機能（Google ログイン）
+
+オプションのGoogle ログイン機能。ログインなしでも利用可能。
+
+| 状態 | 進捗保存先 | 特徴 |
+|------|-----------|------|
+| 未ログイン | localStorage | デバイス固有、キャッシュクリアで消失 |
+| ログイン済 | Supabase | クラウド保存、デバイス間同期 |
+
+### セットアップ手順
+
+1. **Supabaseプロジェクト作成**
+   - https://supabase.com でプロジェクト作成
+   - Project Settings → API でURL/Keyを取得
+
+2. **Google OAuth設定**
+   - GCP Console で OAuth Client ID 作成
+   - Supabase Dashboard → Auth → Providers → Google 有効化
+
+3. **データベーステーブル作成**
+   - SQL Editor で `supabase/migrations/001_user_progress.sql` を実行
+
+4. **環境変数設定**
+   ```bash
+   # .env.local
+   NEXT_PUBLIC_SUPABASE_URL=https://xxx.supabase.co
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJ...
+   ```
+
+5. **Vercel環境変数設定**
+   ```bash
+   vercel env add NEXT_PUBLIC_SUPABASE_URL production
+   vercel env add NEXT_PUBLIC_SUPABASE_ANON_KEY production
+   ```
+
+### 認証関連ファイル
+
+| ファイル | 用途 |
+|---------|------|
+| `app/lib/supabase/client.ts` | ブラウザ用Supabaseクライアント |
+| `app/lib/supabase/server.ts` | サーバー用Supabaseクライアント |
+| `app/contexts/AuthContext.tsx` | 認証状態管理 |
+| `app/hooks/useProgress.ts` | ハイブリッド進捗管理 |
+| `app/components/ui/LoginButton.tsx` | ログインボタンUI |
+| `app/auth/callback/route.ts` | OAuthコールバック |
+| `app/api/progress/route.ts` | 進捗API |
+
 ## フォルダ構成
 
 ```
@@ -106,9 +154,26 @@ opperation/CLAUDECODE/
 └── webapp/
     ├── app/
     │   ├── page.tsx             # メインページ（7タブ）
-    │   ├── layout.tsx           # レイアウト
+    │   ├── layout.tsx           # レイアウト + AuthProvider
+    │   ├── api/                 # API Routes
+    │   │   └── progress/        # 進捗保存API
+    │   ├── auth/                # OAuth
+    │   │   └── callback/        # コールバック
+    │   ├── contexts/            # Context
+    │   │   └── AuthContext.tsx  # 認証状態管理
+    │   ├── hooks/               # Hooks
+    │   │   ├── useLocalStorage.ts
+    │   │   └── useProgress.ts   # ハイブリッド進捗管理
+    │   ├── lib/                 # Utilities
+    │   │   └── supabase/        # Supabaseクライアント
+    │   ├── components/
+    │   │   └── ui/
+    │   │       └── LoginButton.tsx
     │   └── data/
-    │       └── onboarding-data.ts  # 全データ（型定義含む）
+    │       └── onboarding-data.ts
+    ├── supabase/
+    │   └── migrations/          # SQLマイグレーション
+    ├── .env.example             # 環境変数テンプレート
     ├── package.json
     └── tailwind.config.ts
 ```
@@ -157,6 +222,7 @@ Claude Codeを構成する7要素の定義と役割を解説。
 
 ## 更新履歴
 
+- 2026-01-27: **Google ログイン機能追加**（Supabase Auth、ミッション進捗クラウド保存、デバイス間同期、未ログイン時はlocalStorage継続）
 - 2026-01-27: Progate風ミッション形式化（Step-by-Step展開、全10ミッション、ミッションタブ化、Buildタブ追加、Skills中級者移動、参考サイトリンク追加）
 - 2026-01-27: 用語説明＆ペルソナ＆ゴール追加（Glossary 7件、3レベル分のペルソナ＆卒業条件、ヘッダー下バナー）
 - 2026-01-27: Starter Kit に Claude Agent SDK Docs 追加（docs/agent-sdk.md、Stats 4列化、Docsセクション）
