@@ -14,14 +14,14 @@ import {
   type LevelType,
 } from '../../data/onboarding-data';
 
-export function CustomizeTab({ selectedLevel }: { selectedLevel: LevelType }) {
+export function CustomizeTab({ selectedLevel, showSection }: { selectedLevel: LevelType; showSection?: 'skills' | 'tips' | 'compare' }) {
   const [filter, setFilter] = useState('all');
   const filteredSkills = recommendedSkills.filter((s) => filter === 'all' || s.category === filter);
 
   return (
     <div className="space-y-16">
       {/* Recommended Skills */}
-      <section>
+      {(!showSection || showSection === 'skills') && <section>
         <h2 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 mb-2">
           Custom Skills
         </h2>
@@ -46,10 +46,10 @@ export function CustomizeTab({ selectedLevel }: { selectedLevel: LevelType }) {
             <SkillCard key={skill.id} skill={skill} />
           ))}
         </div>
-      </section>
+      </section>}
 
-      {/* Tips (intermediate+) */}
-      {(selectedLevel === 'intermediate' || selectedLevel === 'advanced') && (
+      {/* Tips */}
+      {(!showSection || showSection === 'tips') && (
         <section>
           <h2 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 mb-2">
             Advanced Tips
@@ -68,8 +68,8 @@ export function CustomizeTab({ selectedLevel }: { selectedLevel: LevelType }) {
         </section>
       )}
 
-      {/* Compare (intermediate+) */}
-      {(selectedLevel === 'intermediate' || selectedLevel === 'advanced') && (
+      {/* Compare */}
+      {(!showSection || showSection === 'compare') && (
         <section>
           <h2 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 mb-6">
             Compare Tools

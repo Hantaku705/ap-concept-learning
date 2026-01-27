@@ -970,6 +970,7 @@ export interface Tab {
 export const tabs: Tab[] = [
   // Lv.1 初心者
   { id: 'mission-beginner', label: 'ミッション', level: 'beginner' },
+  { id: 'key-terms', label: 'Key Terms', level: 'beginner' },
   { id: 'getting-started', label: 'Getting Started', level: 'beginner' },
   { id: 'starter-kit', label: 'Starter Kit', level: 'beginner' },
   // Lv.2 中級者
@@ -994,7 +995,7 @@ export interface Level {
 }
 
 export const levels: Level[] = [
-  { id: 'beginner', label: '初心者', icon: '🌱', description: 'ミッション + Getting Started + Starter Kit', tabs: ['mission-beginner', 'getting-started', 'starter-kit'] },
+  { id: 'beginner', label: '初心者', icon: '🌱', description: 'ミッション + Key Terms + Getting Started + Starter Kit', tabs: ['mission-beginner', 'key-terms', 'getting-started', 'starter-kit'] },
   { id: 'intermediate', label: '中級者', icon: '🌿', description: 'ミッション + Features + Examples + Architecture + Compare + Skills', tabs: ['mission-intermediate', 'features', 'examples', 'architecture', 'compare', 'skills'] },
   { id: 'advanced', label: '上級者', icon: '🌳', description: 'ミッション + Build + Tips', tabs: ['mission-advanced', 'build', 'tips'] },
 ];
@@ -1110,6 +1111,8 @@ export interface MissionStep {
   title: string;
   description?: string;
   code?: string;
+  linkTab?: string;
+  linkLabel?: string;
 }
 
 export interface Mission {
@@ -1131,6 +1134,15 @@ export const levelGoals: LevelGoal[] = [
     level: 'beginner',
     goalTitle: '中級者へ',
     missions: [
+      {
+        title: 'Starter Kitを導入してプロの設定を体感した',
+        steps: [
+          { title: 'Starter Kitとは', description: 'プロが作った12コマンド + 8エージェント + 6ルールが1コマンドで入る。0から自分で作る必要なし', linkTab: 'starter-kit', linkLabel: 'Starter Kitタブで詳しく見る →' },
+          { title: 'インストール実行', description: 'Claude Code内で以下を入力するだけ', code: 'claude /install-github-plugin Hantaku705/claude-code-starter' },
+          { title: '何が入ったか確認', description: 'インストールされたファイルを見てみよう', code: '# コマンド一覧\nls ~/.claude/commands/\n\n# エージェント一覧\nls ~/.claude/agents/\n\n# ルール一覧\nls ~/.claude/rules/' },
+          { title: '試しに使ってみる', description: 'Claude Code内でスラッシュコマンドを実行', code: '# 例1: 高速コミット\n/quick-commit\n\n# 例2: コードレビュー\n/code-review\n\n# 例3: セッション終了\n/handoff' },
+        ],
+      },
       {
         title: 'Claude Codeをインストールして認証できた',
         steps: [
@@ -1166,15 +1178,6 @@ export const levelGoals: LevelGoal[] = [
           { title: 'git add + commit で保存', description: '変更をステージング（選択）してコミット（保存）する', code: '# 全ファイルをステージング\ngit add .\n\n# コミット（セーブポイント作成）\ngit commit -m "initial commit"' },
           { title: 'GitHubにリポジトリを作成', description: 'gh コマンドでGitHubにリポジトリを作り、コードをアップロード', code: '# GitHub CLIで認証（初回のみ）\ngh auth login\n\n# リポジトリ作成＆プッシュ\ngh repo create my-first-project --public --source=. --remote=origin --push' },
           { title: 'Claude Codeに「コミットして」と依頼', description: 'Claude Codeはgit操作もやってくれる。「変更をコミットして」と言うだけ' },
-        ],
-      },
-      {
-        title: 'Starter Kitを導入してプロの設定を体感した',
-        steps: [
-          { title: 'Starter Kitとは', description: 'プロが作った12コマンド + 8エージェント + 6ルールが1コマンドで入る。0から自分で作る必要なし' },
-          { title: 'インストール実行', description: 'Claude Code内で以下を入力するだけ', code: 'claude /install-github-plugin Hantaku705/claude-code-starter' },
-          { title: '何が入ったか確認', description: 'インストールされたファイルを見てみよう', code: '# コマンド一覧\nls ~/.claude/commands/\n\n# エージェント一覧\nls ~/.claude/agents/\n\n# ルール一覧\nls ~/.claude/rules/' },
-          { title: '試しに使ってみる', description: 'Claude Code内でスラッシュコマンドを実行', code: '# 例1: 高速コミット\n/quick-commit\n\n# 例2: コードレビュー\n/code-review\n\n# 例3: セッション終了\n/handoff' },
         ],
       },
       {

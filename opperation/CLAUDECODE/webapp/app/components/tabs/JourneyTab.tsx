@@ -65,8 +65,8 @@ export function JourneyTab({
         </section>
       )}
 
-      {/* Getting Started Steps */}
-      <section>
+      {/* Getting Started Steps (beginner only) */}
+      {selectedLevel === 'beginner' && <section>
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
             Getting Started
@@ -120,10 +120,10 @@ export function JourneyTab({
             Next
           </button>
         </div>
-      </section>
+      </section>}
 
       {/* Starter Kit (beginner + intermediate) */}
-      {(selectedLevel === 'beginner' || selectedLevel === 'intermediate') && (
+      {selectedLevel === 'beginner' && (
         <section>
           <div className="text-center p-10 rounded-2xl bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/30 dark:to-teal-950/30 border border-emerald-200/60 dark:border-emerald-800/60">
             <h2 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 mb-3">

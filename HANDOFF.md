@@ -19,10 +19,21 @@
 | 将軍Claude Code化 | 97回目 | /shogunスキルをTask toolベースに書き換え（tmux不要化）、動作テスト成功 | 1件 |
 | nanobanana + tmux版復活 | 99回目 | nanobanana MCP設定、tmux版multi-agent-shogunパス修正・フル起動成功（10インスタンス） | 2件 |
 | フォルダ移行 | 100回目 | DynamicBranding → opperation/ 移行（.git削除、CLAUDE.md更新） | 1件 |
+| CLAUDECODE修正 | 101回目 | Getting Started/Starter KitをLv.1専用に修正、multi-agent移動 | 1件 |
+| 将軍ダッシュボード | 102回目 | ゲーム性UI改善（プログレスバー、足軽陣形、リアルタイムログ）、skills-map Webapp構築 | 2件 |
 
 詳細は [HANDOFF_ARCHIVE.md](./HANDOFF_ARCHIVE.md) を参照。
 
 ### 直近の完了タスク
+- [x] **将軍ダッシュボードUI大幅改善 + skills-map Webapp構築（セッション102）**
+  - ダッシュボード: プログレスバー、足軽陣形（8人カード）、リアルタイムログ、召喚アニメーション
+  - skills-map: 型定義、UIコンポーネント、データ41件、検索フック、タブ、メインページ統合
+  - http://localhost:3333 で戦況をリアルタイム表示
+- [x] **CLAUDECODE Webapp レベル表示修正 + multi-agent移動（セッション101）**
+  - Getting StartedセクションをLv.1のみ表示に修正（`JourneyTab.tsx`に`selectedLevel === 'beginner'`条件追加）
+  - Starter KitセクションをLv.1のみ表示に修正（`beginner || intermediate` → `beginner`のみ）
+  - multi-agent/ を `opperation/` → `_claude-code/` に移動
+  - Vercelデプロイ完了: https://claude-code-onboarding-ten.vercel.app
 - [x] **DynamicBranding → opperation/ 移行（セッション100）**
   - `/Users/hantaku/Downloads/DynamicBranding` → `opperation/DynamicBranding` に移動
   - `.git` フォルダ削除（APリポジトリに統合）
@@ -105,17 +116,18 @@
   - Vercelデプロイ完了: https://claude-code-onboarding-ten.vercel.app
 
 ### 作業中のタスク
-- [x] ~~**Multi-Agent System テスト・検証**~~ → **完了**（Task tool版に移行完了）
+- [ ] **skills-map Webapp CLAUDE.md作成**（残り1タスク、次セッションで完了予定）
 - [ ] **Clawdbot リアクション機能設定**（`reactions:write` をBot Token Scopesに追加）
 - [ ] **The Room FX 提案書 Google Docs書き込み**（5〜11章 + Appendix 残り）
 - [ ] **MASCODEアイライナー コンセプト作成**（検討中）
 - [ ] **「なまえデザイン」書籍まとめ Phase 3**（各章詳細追加予定）
 
 ## 次のアクション
-1. **tmux版Multi-Agent Shogun運用開始**（`tmux attach -t shogun` で将軍にアタッチ→指示出し、`tmux attach -t multiagent` で家老・足軽の動きを観察）
-2. **Clawdbot Gmail/Calendar連携**（Google Cloud ConsoleでOAuth設定 → `gog auth` 実行）
-3. **NADESHIKOアルゴリズム実践**（ksf.md、algorithm.md参照）
-4. **The Room FX 提案書レビュー＆プレゼン資料化**（2月1週目締切）
+1. **skills-map CLAUDE.md作成＆Vercelデプロイ**（残り1タスク→本番公開）
+2. **/shogun で並列タスク実行テスト**（http://localhost:3333 でリアルタイム監視）
+3. **Clawdbot Gmail/Calendar連携**（Google Cloud ConsoleでOAuth設定 → `gog auth` 実行）
+4. **NADESHIKOアルゴリズム実践**（ksf.md、algorithm.md参照）
+5. **The Room FX 提案書レビュー＆プレゼン資料化**（2月1週目締切）
 
 ## 未解決の問題
 - **データ同期**: `concept-learning/docs/concept-data.json` と `concept-learning/webapp/src/data/concept-data.json` は手動同期が必要（Turbopackがシンボリックリンク非対応のため）
@@ -124,21 +136,52 @@
 ```
 M .claude/commands/shogun.md
 M CLAUDE.md
-M HANDOFF.md
 M _claude-code/commands/shogun.md
+M _claude-code/multi-agent/dashboard.html (ゲーム性UI改善)
+M _claude-code/multi-agent/dashboard.md
 M opperation/CLAUDE.md
-M opperation/multi-agent/dashboard.md
-?? opperation/DynamicBranding/
-?? opperation/multi-agent/dashboard-server.js
-?? opperation/multi-agent/dashboard.html
+M opperation/CLAUDECODE/webapp/app/components/tabs/*.tsx
+?? opperation/skills-map/ (新規Webapp、7/8タスク完了)
 ```
 
 ## 最新コミット
 ```
-c3027d5 feat(claudecode): full UI/UX redesign with component architecture and mission expansion
+2f25020 feat: migrate DynamicBranding to opperation/ folder
 ```
 
 ## セッション履歴（直近10回分）
+
+### 2026-01-27 (102)
+- **将軍ダッシュボードUI大幅改善**
+  - ユーザー依頼: http://localhost:3333 が全然更新されない、ゲーム性がほしい
+  - **改善内容**:
+    - プログレスバー追加（作戦進捗: N/M 完了、%表示）
+    - 足軽陣形ビュー追加（8人のカード表示、状態で色が変わる）
+    - リアルタイムログパネル追加（戦況ログ、出陣/完了を自動追加）
+    - 召喚アニメーション追加（出陣時にくるっと回転）
+    - 状態表示: ⚔️実行中(黄色パルス) / ✅完了(緑) / ⏳待機(青) / 👤待機中(グレー)
+  - **変更ファイル**: `_claude-code/multi-agent/dashboard.html`（約700行に大幅拡張）
+- **skills-map Webapp構築（7/8タスク完了）**
+  - Claude Codeのskills/commands/agents/rulesを可視化するダッシュボード
+  - **将軍システムで並列実行**:
+    - 家老: タスク分解（8サブタスクに分解）
+    - 足軽1: 型定義作成（types/index.ts）
+    - 足軽2: UIコンポーネント（Card, Badge, TabButton, SearchInput）
+    - 足軽3: データ作成（skills-data.ts、41件）
+    - 足軽4: 検索フック（useSearch.ts）
+    - 足軽5: タブコンポーネント（ItemGrid, ItemDetail, CategoryTab）
+    - 足軽7: メインページ統合（page.tsx、242行）
+    - 足軽8: CLAUDE.md作成 ← **中断**
+  - **作成ファイル**: `opperation/skills-map/src/app/`
+  - **次セッション**: CLAUDE.md作成 → Vercelデプロイ
+
+### 2026-01-27 (101)
+- **CLAUDECODE Webapp レベル表示修正**
+  - Getting StartedセクションをLv.1専用に（Lv.2/Lv.3で非表示）
+  - Starter KitセクションをLv.1専用に（Lv.2で非表示に）
+  - `JourneyTab.tsx`: `selectedLevel === 'beginner'` 条件ラップ追加
+  - Vercelデプロイ完了: https://claude-code-onboarding-ten.vercel.app
+- **multi-agent/ → _claude-code/ 移動**（opperation/CLAUDE.md、AP/CLAUDE.md更新済み）
 
 ### 2026-01-27 (100)
 - **DynamicBranding → opperation/ 移行**

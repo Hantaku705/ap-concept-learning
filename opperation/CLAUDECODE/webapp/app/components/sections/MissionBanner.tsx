@@ -11,10 +11,12 @@ export function MissionBanner({
   selectedLevel,
   checkedItems,
   onToggleCheck,
+  onTabChange,
 }: {
   selectedLevel: LevelType;
   checkedItems: Record<string, boolean>;
   onToggleCheck: (level: LevelType, idx: number) => void;
+  onTabChange?: (tab: string) => void;
 }) {
   const [expandedIdx, setExpandedIdx] = useState<number | null>(null);
   const persona = personas.find(p => p.level === selectedLevel);
@@ -71,6 +73,7 @@ export function MissionBanner({
                 onToggleCheck(selectedLevel, idx);
                 setExpandedIdx(null);
               }}
+              onTabChange={onTabChange}
             />
           );
         })}
@@ -92,6 +95,7 @@ function MissionItem({
   isExpanded,
   onToggle,
   onComplete,
+  onTabChange,
 }: {
   mission: Mission;
   index: number;
@@ -99,6 +103,7 @@ function MissionItem({
   isExpanded: boolean;
   onToggle: () => void;
   onComplete: () => void;
+  onTabChange?: (tab: string) => void;
 }) {
   return (
     <div className={cn(
@@ -164,6 +169,14 @@ function MissionItem({
                           <CopyButton text={step.code} />
                         </div>
                       </div>
+                    )}
+                    {step.linkTab && onTabChange && (
+                      <button
+                        onClick={() => onTabChange(step.linkTab!)}
+                        className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors"
+                      >
+                        {step.linkLabel ?? `${step.linkTab} →`}
+                      </button>
                     )}
                   </div>
                 </li>

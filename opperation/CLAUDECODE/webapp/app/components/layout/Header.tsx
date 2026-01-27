@@ -1,21 +1,7 @@
 'use client';
 
 import { cn } from '../../lib/cn';
-import type { LevelType } from '../../data/onboarding-data';
-
-interface Tab {
-  id: string;
-  label: string;
-  icon: string;
-}
-
-const TABS: Tab[] = [
-  { id: 'journey', label: 'Journey', icon: '🚀' },
-  { id: 'explore', label: 'Explore', icon: '🔍' },
-  { id: 'practice', label: 'Practice', icon: '💡' },
-  { id: 'customize', label: 'Customize', icon: '⚙️' },
-  { id: 'reference', label: 'Reference', icon: '📚' },
-];
+import { tabs as allTabs, levels, type LevelType } from '../../data/onboarding-data';
 
 const LEVELS = [
   { id: 'beginner' as const, label: 'Lv.1', icon: '🌱' },
@@ -36,6 +22,9 @@ export function Header({
   onTabChange: (tab: string) => void;
   levelComplete: Record<LevelType, boolean>;
 }) {
+  const currentLevel = levels.find((l) => l.id === selectedLevel);
+  const visibleTabs = allTabs.filter((t) => currentLevel?.tabs.includes(t.id));
+
   return (
     <header className="sticky top-0 z-50 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-xl border-b border-zinc-200/50 dark:border-zinc-800/50">
       <div className="max-w-5xl mx-auto px-6 sm:px-8">
@@ -75,9 +64,9 @@ export function Header({
           </a>
         </div>
 
-        {/* Row 2: Tab navigation */}
+        {/* Row 2: Tab navigation (dynamic per level) */}
         <nav className="flex gap-1 -mb-px overflow-x-auto scrollbar-none">
-          {TABS.map((tab) => (
+          {visibleTabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => onTabChange(tab.id)}
@@ -88,7 +77,6 @@ export function Header({
                   : 'border-transparent text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200 hover:border-zinc-300'
               )}
             >
-              <span className="mr-2">{tab.icon}</span>
               {tab.label}
             </button>
           ))}
@@ -97,5 +85,3 @@ export function Header({
     </header>
   );
 }
-
-export { TABS };

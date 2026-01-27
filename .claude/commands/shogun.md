@@ -14,9 +14,11 @@ tmux不要。Claude Code内で完結。
 
 ## ダッシュボード
 
-パス: `opperation/multi-agent/dashboard.md`
+パス: `_claude-code/multi-agent/dashboard.md`
 
-**全STEPでダッシュボードをリアルタイム更新せよ。**
+**全STEPでダッシュボードをリアルタイム更新せよ。省略禁止。**
+
+dashboard.md を Edit ツールで更新すると、localhost:3333 のブラウザに即座に反映される（WebSocket経由）。
 
 ## 実行手順
 
@@ -25,7 +27,6 @@ tmux不要。Claude Code内で完結。
 Bash ツールでサーバーが起動済みか確認し、未起動なら起動する：
 
 ```bash
-# 起動済み確認
 curl -s -o /dev/null -w "%{http_code}" http://localhost:3333
 ```
 
@@ -33,7 +34,7 @@ curl -s -o /dev/null -w "%{http_code}" http://localhost:3333
 - 接続失敗 → 起動する：
 
 ```bash
-node /Users/hantaku/Downloads/AP/opperation/multi-agent/dashboard-server.js &
+node /Users/hantaku/Downloads/AP/_claude-code/multi-agent/dashboard-server.js &
 ```
 
 起動後、ユーザーに「ダッシュボード: http://localhost:3333」を案内する。
@@ -42,18 +43,22 @@ node /Users/hantaku/Downloads/AP/opperation/multi-agent/dashboard-server.js &
 
 ユーザーの指示（ARGUMENTS）を確認する。引数がなければ AskUserQuestion で聞く。
 
-### STEP 2: ダッシュボード更新（開始）
-
-dashboard.md の「🔄 進行中」セクションに記載：
+**ダッシュボード更新**: Edit ツールで「🔄 進行中」セクションを更新：
 
 ```markdown
 ## 🔄 進行中 - 只今、戦闘中でござる
 | 任務 | 状態 | 担当 |
 |------|------|------|
-| {指示の要約} | 🟡 家老にタスク分解を指示中 | 将軍 |
+| {指示の要約} | 🔵 指示受領 | 将軍 |
 ```
 
-Edit ツールで「なし」を上記テーブルに置換する。
+### STEP 2: 家老召喚開始
+
+**ダッシュボード更新**: Edit ツールで進行中テーブルの状態を変更：
+
+```markdown
+| {指示の要約} | 🟡 家老にタスク分解を指示中... | 将軍 |
+```
 
 ### STEP 3: 家老を召喚（タスク分解）
 
@@ -107,9 +112,15 @@ Task tool:
     ```
 ```
 
+**家老返却後、ダッシュボード更新**: Edit ツールで進行中テーブルの状態を変更：
+
+```markdown
+| {指示の要約} | ✅ 家老分解完了: {N}件のサブタスク | 将軍 |
+```
+
 ### STEP 4: ダッシュボード更新（足軽配置）
 
-家老の分解結果を受けて、dashboard.md の「🔄 進行中」を更新：
+家老の分解結果を受けて、dashboard.md の「🔄 進行中」テーブルを**足軽一覧に書き換え**：
 
 ```markdown
 ## 🔄 進行中 - 只今、戦闘中でござる
@@ -117,8 +128,12 @@ Task tool:
 |------|------|------|
 | {subtask_001の説明} | 🟡 実行中 | 足軽1 |
 | {subtask_002の説明} | 🟡 実行中 | 足軽2 |
+| {subtask_003の説明} | ⏳ 待機（依存あり） | 足軽3 |
 | ... | ... | ... |
 ```
+
+- `depends_on: null` → `🟡 実行中`
+- `depends_on: subtask_xxx` → `⏳ 待機（依存あり）`
 
 ### STEP 5: 足軽を並列召喚（タスク実行）
 
@@ -164,11 +179,37 @@ Task tool:
     ```
 ```
 
+**🔴 足軽の個別完了時のダッシュボード更新（超重要）**:
+
+各足軽の Task tool が結果を返すたびに、**即座に** Edit ツールで dashboard.md の該当行を更新：
+
+```markdown
+| {subtask説明} | 🟢 完了 | 足軽{N} |
+```
+
+例: 足軽1と足軽3が完了、足軽2と足軽4がまだ実行中の場合：
+```markdown
+| skills/ スキル抽出 | 🟢 完了 | 足軽1 |
+| commands/ コマンド抽出 | 🟡 実行中 | 足軽2 |
+| グローバルコマンド抽出 | 🟢 完了 | 足軽3 |
+| Next.js scaffold | 🟡 実行中 | 足軽4 |
+```
+
+依存タスクの起動時も更新：
+```markdown
+| データ統合 | 🟡 実行中 | 足軽5 |
+```
+（`⏳ 待機` → `🟡 実行中` に変更）
+
 ### STEP 6: ダッシュボード更新（完了）
 
 全足軽の結果を集約し、dashboard.md を更新する。
 
-1. 「🔄 進行中」を「なし」に戻す
+1. 「🔄 進行中」の内容を以下に書き換え：
+```markdown
+## 🔄 進行中 - 只今、戦闘中でござる
+なし
+```
 2. 「✅ 本日の戦果」テーブルに各タスクの結果を追記
 3. スキル化候補があれば「🎯 スキル化候補」に記載
 4. 「最終更新」のタイムスタンプを更新
@@ -183,3 +224,4 @@ Task tool:
 - API使用量はタスク数に比例（常時10インスタンスではない）
 - 依存タスクは順次実行、独立タスクは並列実行
 - **ダッシュボードは各STEPで必ず更新せよ（省略禁止）**
+- **足軽の個別完了は即座に反映せよ（全完了を待たない）**

@@ -8,7 +8,7 @@ import { Card } from '../ui/Card';
 import { CopyButton } from '../ui/CopyButton';
 import { examples, buildGuideSections, type LevelType } from '../../data/onboarding-data';
 
-export function PracticeTab({ selectedLevel }: { selectedLevel: LevelType }) {
+export function PracticeTab({ selectedLevel, showSection }: { selectedLevel: LevelType; showSection?: 'examples' | 'build' }) {
   const [filter, setFilter] = useState('all');
   const categories = ['all', ...Array.from(new Set(examples.map((e) => e.category)))];
   const filteredExamples = examples.filter((e) => filter === 'all' || e.category === filter);
@@ -16,7 +16,7 @@ export function PracticeTab({ selectedLevel }: { selectedLevel: LevelType }) {
   return (
     <div className="space-y-16">
       {/* Prompt Examples */}
-      <section>
+      {(!showSection || showSection === 'examples') && <section>
         <h2 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 mb-2">
           Prompt Examples
         </h2>
@@ -35,10 +35,10 @@ export function PracticeTab({ selectedLevel }: { selectedLevel: LevelType }) {
             <ExampleCard key={ex.id} example={ex} />
           ))}
         </div>
-      </section>
+      </section>}
 
       {/* Build Guide (advanced) */}
-      {(selectedLevel === 'intermediate' || selectedLevel === 'advanced') && (
+      {(!showSection || showSection === 'build') && (
         <section>
           <h2 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 mb-2">
             Build Guide

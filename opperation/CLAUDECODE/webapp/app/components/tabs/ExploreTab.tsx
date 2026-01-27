@@ -13,10 +13,10 @@ import {
   type LevelType,
 } from '../../data/onboarding-data';
 
-export function ExploreTab({ selectedLevel }: { selectedLevel: LevelType }) {
+export function ExploreTab({ selectedLevel, defaultSection = 'features' }: { selectedLevel: LevelType; defaultSection?: 'features' | 'architecture' }) {
   const [filter, setFilter] = useState('all');
   const [search, setSearch] = useState('');
-  const [section, setSection] = useState<'features' | 'architecture'>('features');
+  const [section, setSection] = useState<'features' | 'architecture'>(defaultSection);
 
   const filteredFeatures = features.filter((f) => {
     const matchesCategory = filter === 'all' || f.category === filter;
