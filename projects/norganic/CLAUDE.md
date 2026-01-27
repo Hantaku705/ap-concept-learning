@@ -56,26 +56,21 @@ N organicクレンジングジェルの花粉シーズン向けX（Twitter）マ
 ```
 norganic/
 ├── CLAUDE.md                      # このファイル
-├── コンセプト.md                  # コンセプト詳細（14項目評価）
-├── X戦略.md                       # X戦略詳細（Who/What/How）
-├── media-plan.md                  # メディアプラン（クライアント提出用）
-├── タグライン.md                  # タグライン候補
-├── タグライン欄.md                # タグライン欄の検討
-├── [ブリーフ資料]_Norganic_26SS.pdf  # 元ブリーフ
+├── docs/
+│   └── proposal/                  # 提案資料
+│       ├── コンセプト.md          # コンセプト詳細（14項目評価）
+│       ├── X戦略.md               # X戦略詳細（Who/What/How）
+│       ├── media-plan.md          # メディアプラン（クライアント提出用）
+│       ├── タグライン.md          # タグライン候補
+│       ├── タグライン欄.md        # タグライン欄の検討
+│       └── activation-calendar.md # アクティベーションカレンダー
+├── source/                        # 元資料
+│   └── [ブリーフ資料]_Norganic_26SS.pdf  # 元ブリーフ
 └── webapp/                        # Next.js Webアプリ
     ├── src/
     │   ├── app/page.tsx           # メインページ
     │   ├── components/            # UIコンポーネント
-    │   │   ├── ProposalTabs.tsx   # 5タブナビゲーション
-    │   │   ├── ConceptContent.tsx # コンセプトタブ
-    │   │   ├── StrategyContent.tsx # 戦略タブ
-    │   │   ├── BudgetContent.tsx  # 予算タブ
-    │   │   ├── TimelineContent.tsx # タイムラインタブ
-    │   │   └── CalendarContent.tsx # カレンダータブ（メディアプラン統合）
     │   └── data/                  # データファイル
-    │       ├── concept-data.ts    # コンセプトデータ
-    │       ├── strategy-data.ts   # 戦略・予算データ
-    │       └── calendar-data.ts   # カレンダー・メディアプランデータ
     └── package.json
 ```
 
@@ -85,9 +80,10 @@ norganic/
 
 | ファイル | 用途 |
 |---------|------|
-| `コンセプト.md` | コンセプト詳細（14項目評価、リフレーミング公式） |
-| `X戦略.md` | X戦略（Who/What/How、期間別戦略、予算配分、KPI） |
-| `media-plan.md` | メディアプラン（クライアント提出用Markdown） |
+| `docs/proposal/コンセプト.md` | コンセプト詳細（14項目評価、リフレーミング公式） |
+| `docs/proposal/X戦略.md` | X戦略（Who/What/How、期間別戦略、予算配分、KPI） |
+| `docs/proposal/media-plan.md` | メディアプラン（クライアント提出用Markdown） |
+| `source/[ブリーフ資料]_Norganic_26SS.pdf` | 元ブリーフPDF |
 | `webapp/src/data/concept-data.ts` | Webアプリ用コンセプトデータ |
 | `webapp/src/data/strategy-data.ts` | Webアプリ用戦略・予算データ |
 | `webapp/src/data/calendar-data.ts` | カレンダー・施策×週別予算データ |

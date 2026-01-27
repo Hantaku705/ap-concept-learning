@@ -487,6 +487,20 @@ export function filterByLastNDays(
 }
 
 /**
+ * 直近N投稿を取得（新しい順にN件）
+ */
+export function filterByLastNPosts(
+  records: ViewRecord[],
+  count: number
+): ViewRecord[] {
+  // 投稿日時で降順ソート → 直近N件取得 → 昇順に戻す
+  const sorted = [...records].sort((a, b) =>
+    b.postDate.localeCompare(a.postDate)
+  );
+  return sorted.slice(0, count).reverse();
+}
+
+/**
  * 日別集計（単一アカウント詳細）
  */
 export function calculateDailyViewsForAccount(
@@ -565,4 +579,283 @@ export function calculateDailyViewsMultiAccount(
   }
 
   return result;
+}
+
+// ============================================
+// 投稿単位データ・移動平均（散布図用）
+// ============================================
+
+// 投稿単位データ（散布図用：1投稿 = 1点）
+export interface PostViewRecord {
+  postIndex: number;       // 時系列インデックス（X軸用）
+  postDate: string;        // "2026-01-15"
+  postDateTime: string;    // "2026-01-15 10:30:00"
+  accountName: string;
+  views: number;
+  likes: number;
+  title: string;
+}
+
+// 移動平均付きデータ
+export interface PostWithMA {
+  postIndex: number;
+  postDate: string;
+  accountName: string;
+  views: number;
+  title: string;
+  ma7: number | null;      // 7投稿移動平均（短期）
+  ma14: number | null;     // 14投稿移動平均
+  ma28: number | null;     // 28投稿移動平均
+  ma42: number | null;     // 42投稿移動平均
+  ma56: number | null;     // 56投稿移動平均（長期）
+  ma100: number | null;    // 100投稿移動平均（超長期）
+}
+
+/**
+ * 投稿単位データ取得（散布図用）
+ * アカウント名を指定しない場合は全アカウント
+ */
+export function getPostViewRecords(
+  records: ViewRecord[],
+  accountName?: string
+): PostViewRecord[] {
+  const filtered = accountName
+    ? records.filter(r => r.accountName === accountName)
+    : records;
+
+  // 投稿日時でソート
+  const sorted = [...filtered].sort((a, b) =>
+    a.postDate.localeCompare(b.postDate)
+  );
+
+  return sorted.map((r, index) => ({
+    postIndex: index,
+    postDate: r.postDate.slice(0, 10),
+    postDateTime: r.postDate,
+    accountName: r.accountName,
+    views: r.views || 0,
+    likes: r.likes || 0,
+    title: r.title || '',
+  }));
+}
+
+/**
+ * 移動平均を計算
+ * @param data 投稿データ配列（時系列順）
+ * @param window 移動平均の期間（投稿数）
+ */
+export function calculateMovingAverage(
+  data: PostViewRecord[],
+  window: number
+): (number | null)[] {
+  const result: (number | null)[] = [];
+
+  for (let i = 0; i < data.length; i++) {
+    if (i < window - 1) {
+      result.push(null);
+    } else {
+      let sum = 0;
+      for (let j = 0; j < window; j++) {
+        sum += data[i - j].views;
+      }
+      result.push(sum / window);
+    }
+  }
+
+  return result;
+}
+
+/**
+ * 投稿単位データに移動平均を付与
+ */
+export function getPostsWithMovingAverage(
+  records: ViewRecord[],
+  accountName?: string
+): PostWithMA[] {
+  const posts = getPostViewRecords(records, accountName);
+  const ma7 = calculateMovingAverage(posts, 7);
+  const ma14 = calculateMovingAverage(posts, 14);
+  const ma28 = calculateMovingAverage(posts, 28);
+  const ma42 = calculateMovingAverage(posts, 42);
+  const ma56 = calculateMovingAverage(posts, 56);
+  const ma100 = calculateMovingAverage(posts, 100);
+
+  return posts.map((post, i) => ({
+    postIndex: post.postIndex,
+    postDate: post.postDate,
+    accountName: post.accountName,
+    views: post.views,
+    title: post.title,
+    ma7: ma7[i],
+    ma14: ma14[i],
+    ma28: ma28[i],
+    ma42: ma42[i],
+    ma56: ma56[i],
+    ma100: ma100[i],
+  }));
+}
+
+/**
+ * パーセンタイルを計算
+ * @param values 数値配列
+ * @param percentile パーセンタイル (0-100)
+ */
+export function calculatePercentile(values: number[], percentile: number): number {
+  if (values.length === 0) return 0;
+  const sorted = [...values].sort((a, b) => a - b);
+  const index = Math.ceil(sorted.length * (percentile / 100)) - 1;
+  return sorted[Math.max(0, index)];
+}
+
+// ============================================
+// アカウント別MAトレンド一覧
+// ============================================
+
+// アカウント別MAトレンドデータ
+export interface AccountMATrend {
+  accountName: string;
+  postCount: number;          // 投稿数
+  latestMA14: number | null;  // 最新の14投稿MA（短期）
+  latestMA28: number | null;  // 最新の28投稿MA（約1ヶ月）
+  latestMA42: number | null;  // 最新の42投稿MA（中期）
+  latestMA100: number | null; // 最新の100投稿MA（長期）
+  trend14: 'up' | 'down' | 'stable' | null;   // 14MAトレンド（短期）
+  trend28: 'up' | 'down' | 'stable' | null;   // 28MAトレンド（約1ヶ月）
+  trend42: 'up' | 'down' | 'stable' | null;   // 42MAトレンド（中期）
+  trend100: 'up' | 'down' | 'stable' | null;  // 100MAトレンド（長期）
+  change14: number | null;    // 14MA変化率(%)
+  change28: number | null;    // 28MA変化率(%)
+  change42: number | null;    // 42MA変化率(%)
+  change100: number | null;   // 100MA変化率(%)
+}
+
+/**
+ * 全アカウントのMAトレンドを計算
+ * @param records 全レコード
+ * @param lookbackPosts トレンド判定用の比較投稿数（デフォルト: 7）
+ * @param threshold 変化率閾値（デフォルト: 5% = 0.05）
+ */
+export function calculateAccountMATrends(
+  records: ViewRecord[],
+  lookbackPosts: number = 7,
+  threshold: number = 0.05
+): AccountMATrend[] {
+  // トレンド判定関数（共通で使用）
+  const getTrend = (
+    current: number | null,
+    previous: number | null,
+    thresh: number
+  ): { trend: 'up' | 'down' | 'stable' | null; change: number | null } => {
+    if (current === null || previous === null || previous === 0) {
+      return { trend: null, change: null };
+    }
+    const changeRate = (current - previous) / previous;
+    let trend: 'up' | 'down' | 'stable';
+    if (changeRate > thresh) {
+      trend = 'up';
+    } else if (changeRate < -thresh) {
+      trend = 'down';
+    } else {
+      trend = 'stable';
+    }
+    return { trend, change: changeRate * 100 };
+  };
+
+  // 1. アカウント一覧を取得
+  const accounts = [...new Set(records.map(r => r.accountName))].sort();
+
+  // 2. 各アカウントごとにMAを計算
+  const results: AccountMATrend[] = [];
+
+  // 3. 「全員」（全アカウント合算）を先頭に追加
+  const allPostsWithMA = getPostsWithMovingAverage(records, undefined);
+  if (allPostsWithMA.length > 0) {
+    const latestAll = allPostsWithMA[allPostsWithMA.length - 1];
+    // 各MAに応じた期間で比較（14MA→14投稿前、28MA→28投稿前、42MA→42投稿前、100MA→100投稿前）
+    const compare14All = allPostsWithMA[Math.max(0, allPostsWithMA.length - 1 - 14)];
+    const compare28All = allPostsWithMA[Math.max(0, allPostsWithMA.length - 1 - 28)];
+    const compare42All = allPostsWithMA[Math.max(0, allPostsWithMA.length - 1 - 42)];
+    const compare100All = allPostsWithMA[Math.max(0, allPostsWithMA.length - 1 - 100)];
+
+    const trend14All = getTrend(latestAll.ma14, compare14All.ma14, threshold);
+    const trend28All = getTrend(latestAll.ma28, compare28All.ma28, threshold);
+    const trend42All = getTrend(latestAll.ma42, compare42All.ma42, threshold);
+    const trend100All = getTrend(latestAll.ma100, compare100All.ma100, threshold);
+
+    results.push({
+      accountName: '全員',
+      postCount: allPostsWithMA.length,
+      latestMA14: latestAll.ma14,
+      latestMA28: latestAll.ma28,
+      latestMA42: latestAll.ma42,
+      latestMA100: latestAll.ma100,
+      trend14: trend14All.trend,
+      trend28: trend28All.trend,
+      trend42: trend42All.trend,
+      trend100: trend100All.trend,
+      change14: trend14All.change,
+      change28: trend28All.change,
+      change42: trend42All.change,
+      change100: trend100All.change,
+    });
+  }
+
+  for (const accountName of accounts) {
+    const accountRecords = records.filter(r => r.accountName === accountName);
+    // 既にフィルタ済みなのでaccountNameは不要（冗長なフィルタ回避）
+    const postsWithMA = getPostsWithMovingAverage(accountRecords, undefined);
+
+    if (postsWithMA.length === 0) {
+      results.push({
+        accountName,
+        postCount: 0,
+        latestMA14: null,
+        latestMA28: null,
+        latestMA42: null,
+        latestMA100: null,
+        trend14: null,
+        trend28: null,
+        trend42: null,
+        trend100: null,
+        change14: null,
+        change28: null,
+        change42: null,
+        change100: null,
+      });
+      continue;
+    }
+
+    // 最新データ
+    const latest = postsWithMA[postsWithMA.length - 1];
+
+    // 各MAに応じた期間で比較（14MA→14投稿前、28MA→28投稿前、42MA→42投稿前、100MA→100投稿前）
+    const compare14 = postsWithMA[Math.max(0, postsWithMA.length - 1 - 14)];
+    const compare28 = postsWithMA[Math.max(0, postsWithMA.length - 1 - 28)];
+    const compare42 = postsWithMA[Math.max(0, postsWithMA.length - 1 - 42)];
+    const compare100 = postsWithMA[Math.max(0, postsWithMA.length - 1 - 100)];
+
+    const trend14Result = getTrend(latest.ma14, compare14.ma14, threshold);
+    const trend28Result = getTrend(latest.ma28, compare28.ma28, threshold);
+    const trend42Result = getTrend(latest.ma42, compare42.ma42, threshold);
+    const trend100Result = getTrend(latest.ma100, compare100.ma100, threshold);
+
+    results.push({
+      accountName,
+      postCount: postsWithMA.length,
+      latestMA14: latest.ma14,
+      latestMA28: latest.ma28,
+      latestMA42: latest.ma42,
+      latestMA100: latest.ma100,
+      trend14: trend14Result.trend,
+      trend28: trend28Result.trend,
+      trend42: trend42Result.trend,
+      trend100: trend100Result.trend,
+      change14: trend14Result.change,
+      change28: trend28Result.change,
+      change42: trend42Result.change,
+      change100: trend100Result.change,
+    });
+  }
+
+  return results;
 }

@@ -70,37 +70,39 @@ export default function DashboardContent() {
 
   return (
     <div className="space-y-6">
-      {/* 期間セレクター */}
-      <div className="flex items-center gap-2">
-        <label className="text-sm text-gray-600">表示期間:</label>
-        <select
-          value={selectedMonth}
-          onChange={(e) => setSelectedMonth(e.target.value)}
-          className="px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
-        >
-          {Object.entries(groupedOptions).map(([group, options]) => (
-            group === "" ? (
-              options.map((opt) => (
-                <option key={opt.value} value={opt.value}>
-                  {opt.label}
-                </option>
-              ))
-            ) : (
-              <optgroup key={group} label={`── ${group} ──`}>
-                {options.map((opt) => (
+      {/* 期間セレクター - sticky */}
+      <div className="bg-white rounded-lg border border-gray-200 p-4 sticky top-0 z-10 shadow-sm">
+        <div className="flex items-center gap-2">
+          <label className="text-sm text-gray-600">表示期間:</label>
+          <select
+            value={selectedMonth}
+            onChange={(e) => setSelectedMonth(e.target.value)}
+            className="px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+          >
+            {Object.entries(groupedOptions).map(([group, options]) => (
+              group === "" ? (
+                options.map((opt) => (
                   <option key={opt.value} value={opt.value}>
                     {opt.label}
                   </option>
-                ))}
-              </optgroup>
-            )
-          ))}
-        </select>
-        {periodType !== "all" && (
-          <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
-            {periodComparison.comparisonLabel}比較
-          </span>
-        )}
+                ))
+              ) : (
+                <optgroup key={group} label={`── ${group} ──`}>
+                  {options.map((opt) => (
+                    <option key={opt.value} value={opt.value}>
+                      {opt.label}
+                    </option>
+                  ))}
+                </optgroup>
+              )
+            ))}
+          </select>
+          {periodType !== "all" && (
+            <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+              {periodComparison.comparisonLabel}比較
+            </span>
+          )}
+        </div>
       </div>
 
       {/* KPIカード */}

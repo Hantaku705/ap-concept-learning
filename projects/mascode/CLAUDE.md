@@ -18,12 +18,15 @@ MASCODE BEAUTYの2026SS-AWプロモーション提案。
 
 ```
 projects/mascode/
-├── CLAUDE.md           ← このファイル
-├── proposal.pdf        ← 提案資料（2026SS-AW）
-└── media-plan/         ← メディアプラン
-    ├── メディアプラン.md
-    ├── サン・スマイル様_メディアプラン - MASCODE（4,000万円）.csv
-    └── MASCODE_メディアプラン_SNS別詳細.csv
+├── CLAUDE.md                   # このファイル
+├── docs/
+│   └── proposal/               # 提案資料
+│       └── メディアプラン.md   # メディアプラン概要
+└── source/                     # 元資料・データ
+    ├── proposal.pdf            # 提案資料（2026SS-AW）
+    └── data/                   # CSVデータ
+        ├── サン・スマイル様_メディアプラン - MASCODE（4,000万円）.csv
+        └── MASCODE_メディアプラン_SNS別詳細.csv
 ```
 
 ---
@@ -32,9 +35,9 @@ projects/mascode/
 
 | ファイル | 用途 |
 |---------|------|
-| `proposal.pdf` | 2026SS-AWプロモーション提案 |
-| `media-plan/メディアプラン.md` | メディアプラン概要 |
-| `media-plan/*.csv` | メディアプラン詳細（CSV） |
+| `source/proposal.pdf` | 2026SS-AWプロモーション提案 |
+| `docs/proposal/メディアプラン.md` | メディアプラン概要 |
+| `source/data/*.csv` | メディアプラン詳細（CSV） |
 
 ---
 

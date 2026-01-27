@@ -102,70 +102,72 @@ export default function DealsContent() {
 
   return (
     <div className="space-y-4">
-      {/* フィルター */}
-      <div className="flex flex-wrap gap-3 items-center">
-        <div className="flex items-center gap-2">
-          <label className="text-sm text-gray-600">月:</label>
-          <select
-            value={selectedMonth}
-            onChange={(e) => setSelectedMonth(e.target.value)}
-            className="px-3 py-1.5 text-sm border border-gray-300 rounded-lg"
-          >
-            <option value="all">全期間</option>
-            {monthOptions.map((opt) => (
-              <option key={opt.value} value={opt.value}>{opt.label}</option>
-            ))}
-          </select>
+      {/* フィルター - sticky */}
+      <div className="bg-white rounded-lg border border-gray-200 p-4 sticky top-0 z-10 shadow-sm space-y-3">
+        <div className="flex flex-wrap gap-3 items-center">
+          <div className="flex items-center gap-2">
+            <label className="text-sm text-gray-600">月:</label>
+            <select
+              value={selectedMonth}
+              onChange={(e) => setSelectedMonth(e.target.value)}
+              className="px-3 py-1.5 text-sm border border-gray-300 rounded-lg"
+            >
+              <option value="all">全期間</option>
+              {monthOptions.map((opt) => (
+                <option key={opt.value} value={opt.value}>{opt.label}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <label className="text-sm text-gray-600">区分:</label>
+            <select
+              value={filterCategory}
+              onChange={(e) => setFilterCategory(e.target.value as Category | "all")}
+              className="px-3 py-1.5 text-sm border border-gray-300 rounded-lg"
+            >
+              <option value="all">すべて</option>
+              {categoryOptions.map((opt) => (
+                <option key={opt.value} value={opt.value}>{opt.label}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <label className="text-sm text-gray-600">ステータス:</label>
+            <select
+              value={filterStatus}
+              onChange={(e) => setFilterStatus(e.target.value as DealStatus | "all")}
+              className="px-3 py-1.5 text-sm border border-gray-300 rounded-lg"
+            >
+              <option value="all">すべて</option>
+              {statusOptions.map((opt) => (
+                <option key={opt.value} value={opt.value}>{opt.label}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="flex-1" />
+
+          {isEditMode && (
+            <button
+              onClick={() => setShowAddForm(true)}
+              className="px-4 py-1.5 text-sm font-medium bg-pink-600 text-white rounded-lg hover:bg-pink-700"
+            >
+              + 新規追加
+            </button>
+          )}
         </div>
 
-        <div className="flex items-center gap-2">
-          <label className="text-sm text-gray-600">区分:</label>
-          <select
-            value={filterCategory}
-            onChange={(e) => setFilterCategory(e.target.value as Category | "all")}
-            className="px-3 py-1.5 text-sm border border-gray-300 rounded-lg"
-          >
-            <option value="all">すべて</option>
-            {categoryOptions.map((opt) => (
-              <option key={opt.value} value={opt.value}>{opt.label}</option>
-            ))}
-          </select>
+        {/* サマリー */}
+        <div className="flex gap-4 text-sm">
+          <span className="text-gray-600">
+            {summary.count}件 / 売上: <span className="font-medium text-gray-900">{formatCurrency(summary.totalSales)}</span>
+          </span>
+          <span className="text-gray-600">
+            粗利: <span className="font-medium text-green-600">{formatCurrency(summary.totalProfit)}</span>
+          </span>
         </div>
-
-        <div className="flex items-center gap-2">
-          <label className="text-sm text-gray-600">ステータス:</label>
-          <select
-            value={filterStatus}
-            onChange={(e) => setFilterStatus(e.target.value as DealStatus | "all")}
-            className="px-3 py-1.5 text-sm border border-gray-300 rounded-lg"
-          >
-            <option value="all">すべて</option>
-            {statusOptions.map((opt) => (
-              <option key={opt.value} value={opt.value}>{opt.label}</option>
-            ))}
-          </select>
-        </div>
-
-        <div className="flex-1" />
-
-        {isEditMode && (
-          <button
-            onClick={() => setShowAddForm(true)}
-            className="px-4 py-1.5 text-sm font-medium bg-pink-600 text-white rounded-lg hover:bg-pink-700"
-          >
-            + 新規追加
-          </button>
-        )}
-      </div>
-
-      {/* サマリー */}
-      <div className="flex gap-4 text-sm">
-        <span className="text-gray-600">
-          {summary.count}件 / 売上: <span className="font-medium text-gray-900">{formatCurrency(summary.totalSales)}</span>
-        </span>
-        <span className="text-gray-600">
-          粗利: <span className="font-medium text-green-600">{formatCurrency(summary.totalProfit)}</span>
-        </span>
       </div>
 
       {/* テーブル */}

@@ -17,11 +17,14 @@ TikTok等のPhone Farm不正業者の脅威インテリジェンスレポート�
 
 ```
 projects/phonefarm/
-├── CLAUDE.md                              ← このファイル
-├── 3c.md                                  ← 3C分析
-├── howto.md                               ← セットアップ方法
-├── threat-intelligence-beginner-phonefarm.md  ← 脅威インテリジェンス詳細
-└── webapp/                                ← Next.js Webアプリ
+├── CLAUDE.md                              # このファイル
+├── docs/
+│   ├── proposal/                          # 提案資料
+│   │   └── howto.md                       # セットアップ方法
+│   └── analysis/                          # 分析・リサーチ
+│       ├── 3c.md                          # 3C分析
+│       └── threat-intelligence-beginner-phonefarm.md  # 脅威インテリジェンス詳細
+└── webapp/                                # Next.js Webアプリ
     ├── src/app/                           # App Router
     ├── src/data/                          # レポートデータ
     └── package.json
@@ -60,8 +63,8 @@ vercel --prod --yes
 |---------|------|
 | `webapp/src/data/report-data.ts` | レポートデータ（ハードウェア、ソフトウェア、検出戦略等） |
 | `webapp/src/data/setup-guide-data.ts` | セットアップガイドデータ（買い物リスト、手順等） |
-| `3c.md` | 3C分析（Customer、Competitor、Company） |
-| `threat-intelligence-beginner-phonefarm.md` | 脅威インテリジェンス詳細レポート |
+| `docs/analysis/3c.md` | 3C分析（Customer、Competitor、Company） |
+| `docs/analysis/threat-intelligence-beginner-phonefarm.md` | 脅威インテリジェンス詳細レポート |
 
 ---
 

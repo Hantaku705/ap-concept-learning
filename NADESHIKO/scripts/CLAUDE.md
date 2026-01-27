@@ -8,10 +8,115 @@ NADESHIKOプロジェクトのデータ変換・処理スクリプトを格納�
 
 | ファイル | 説明 |
 |---------|------|
+| `update_views.py` | **再生数データ自動更新**（4SNS対応、APIから最新データ取得） |
 | `csv_to_deals_all.py` | 利益管理CSV→TypeScript変換（4フォーマット対応） |
 | `csv_to_views.py` | 再生数CSV→JSON+TypeScript変換（3タイプ対応、22ファイル→4,781件） |
 | `xlsx_to_csv_views.py` | 再生数Excel→CSV変換（月別6シート） |
 | `xlsx_to_csv_views_old.py` | 過去再生数Excel→CSV変換（月別16シート） |
+
+---
+
+## update_views.py
+
+### 概要
+
+CSVファイルから48時間以上更新されていない投稿を特定し、各プラットフォームのAPIから最新のインサイトデータを取得してCSVを更新するスクリプト。
+
+### 対応プラットフォーム
+
+| SNS | API | 速度 |
+|-----|-----|------|
+| **YouTube** | YouTube Data API v3 | ✅ ~0.2秒 |
+| **TikTok** | RapidAPI (tiktok-video-downloader-api) | ✅ ~2秒 |
+| **Instagram** | RapidAPI (instagram-scraper-stable-api) | ✅ ~2秒 |
+| **X(Twitter)** | RapidAPI (twitter241) | ✅ ~1.5秒 |
+
+### セットアップ
+
+```bash
+# 1. 仮想環境作成・有効化
+cd NADESHIKO/scripts
+python3 -m venv venv
+source venv/bin/activate
+
+# 2. 依存パッケージインストール
+pip install -r requirements.txt
+
+# 3. 環境変数設定
+cp .env.example .env
+# .envを編集してAPIキーを設定
+```
+
+### 環境変数（.env）
+
+```bash
+YOUTUBE_API_KEY=your_youtube_api_key_here    # Google Cloud Consoleから取得
+TIKTOK_RAPIDAPI_KEY=64b6e140fa...             # TikTok/IG/X共用（RapidAPI）
+```
+
+### 使い方
+
+```bash
+# 仮想環境を有効化
+source venv/bin/activate
+
+# 基本実行（最新月のCSV）
+python update_views.py
+
+# 特定ファイルを指定
+python update_views.py -f "2026年1月.csv"
+
+# プラットフォーム指定（TT/YT/IG/X）
+python update_views.py -p IG
+
+# 処理件数を制限（テスト用）
+python update_views.py --limit 5
+
+# ドライラン（実際の更新なし）
+python update_views.py --dry-run
+
+# 全CSVファイルを処理
+python update_views.py --all
+
+# JSON変換スキップ
+python update_views.py --no-convert
+```
+
+### CLIオプション
+
+| オプション | 説明 |
+|-----------|------|
+| `--file`, `-f` | 対象CSVファイル名（デフォルト: 最新月） |
+| `--platform`, `-p` | 特定プラットフォームのみ（YT/TT/IG/X） |
+| `--limit`, `-l` | 処理する最大行数（テスト用） |
+| `--all` | 全CSVファイルを処理 |
+| `--dry-run` | 実際の更新を行わない |
+| `--no-convert` | JSON変換をスキップ |
+
+### 処理フロー
+
+1. CSVファイル読み込み
+2. 48時間以上更新されていない行をフィルタ
+3. プラットフォーム優先度でソート（TT→YT→IG→X）
+4. 各APIからデータ取得
+5. CSVを更新（10件ごとに中間保存）
+6. `csv_to_views.py`でJSON変換を自動実行
+
+### 入出力
+
+| 項目 | パス |
+|------|------|
+| 入力 | `data/再生数シート/*.csv` |
+| 出力 | 同ファイルを上書き更新 |
+| バックアップ | `*.csv.bak`（自動作成） |
+| ログ | `update_views.log` |
+
+### 注意事項
+
+- **YouTube API**: Google Cloud Consoleで有効化・APIキー取得が必要
+- **RapidAPI共通キー**: TikTokとX(Twitter)は同じRapidAPIキーを使用
+- **処理時間**: YouTube/TikTok/Xは1件あたり1〜3秒、Instagramは10〜30秒（Apifyポーリング）
+- **エラー行**: 更新日に「エラー」と記載される
 
 ---
 
@@ -168,6 +273,9 @@ python3 scripts/xlsx_to_csv_views_old.py
 
 ## 更新履歴
 
+- 2026-01-26: 全API高速化（IG→instagram-scraper-stable-api、Apify廃止、処理速度5-10倍向上）
+- 2026-01-26: update_views.py API変更（TikTok→tiktok-video-downloader-api、X→twitter241）
+- 2026-01-26: update_views.py追加（再生数データ自動更新、4SNS対応）
 - 2026-01-23: csv_to_views.py追加（再生数CSV→JSON変換、3タイプ対応）
 - 2026-01-23: xlsx_to_csv_views_old.py拡張（2024年4月〜12月追加、計16ファイル）
 - 2026-01-23: xlsx_to_csv_views_old.py追加（過去再生数シート変換）

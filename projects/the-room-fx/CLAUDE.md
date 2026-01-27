@@ -43,24 +43,31 @@ ANA新ビジネスクラス「THE Room FX」のグローバル広告配信プロ
 
 ```
 projects/the-room-fx/
-├── CLAUDE.md           ← このファイル
-├── brief/              ← ブリーフ資料
-│   ├── CLAUDE.md
-│   ├── 全体.md         ← ブリーフ全体像（整理済み）
-│   ├── 0.md            ← RFP要約
-│   ├── 1.md            ← 議事録・戦略分析
-│   └── *.pdf           ← ANA公式ブリーフ
-├── proposal/           ← 提案書作成
-│   ├── CLAUDE.md       ← 提案作成ガイド
-│   ├── 01-11_*.md      ← 提案書本編（11ファイル）
-│   └── appendix/       ← 付録（メディア詳細、インフルエンサー）
-├── webapp/             ← 提案書Webアプリ（Next.js 16）
-│   ├── src/app/        ← App Router
-│   ├── src/components/ ← コンポーネント
-│   ├── src/data/       ← 構造化データ
-│   └── package.json
-└── data/               ← データファイル
-    └── *.csv           ← Slackエクスポート等
+├── CLAUDE.md               ← このファイル
+├── docs/
+│   ├── brief/              ← ブリーフ資料
+│   │   ├── CLAUDE.md
+│   │   ├── 全体.md         ← ブリーフ全体像（整理済み）
+│   │   ├── 0.md            ← RFP要約
+│   │   └── 1.md            ← 議事録・戦略分析
+│   └── proposal/           ← 提案書作成
+│       ├── CLAUDE.md       ← 提案作成ガイド
+│       ├── 01-11_*.md      ← 提案書本編（11ファイル）
+│       ├── google-docs-format.txt
+│       └── appendix/       ← 付録（メディア詳細、インフルエンサー）
+├── source/                 ← 元ファイル・データ
+│   ├── *.pdf               ← ANA公式ブリーフPDF
+│   └── data/               ← データファイル・分析スクリプト
+│       ├── raw/            ← 生データ（Slackエクスポート等）
+│       ├── processed/      ← 加工データ
+│       ├── summary/        ← サマリーデータ
+│       ├── analysis/       ← 分析結果
+│       └── *.py            ← 分析スクリプト
+└── webapp/                 ← 提案書Webアプリ（Next.js 16）
+    ├── src/app/            ← App Router
+    ├── src/components/     ← コンポーネント
+    ├── src/data/           ← 構造化データ
+    └── package.json
 ```
 
 ---
@@ -69,9 +76,9 @@ projects/the-room-fx/
 
 | ファイル | 用途 |
 |---------|------|
-| `brief/全体.md` | ブリーフ全体像（整理済み） |
-| `brief/CLAUDE.md` | ブリーフ資料の概要 |
-| `proposal/CLAUDE.md` | 提案書作成ガイド |
+| `docs/brief/全体.md` | ブリーフ全体像（整理済み） |
+| `docs/brief/CLAUDE.md` | ブリーフ資料の概要 |
+| `docs/proposal/CLAUDE.md` | 提案書作成ガイド |
 | `webapp/src/data/proposal-data.ts` | 全提案書データ（TypeScript構造化） |
 | `webapp/src/app/page.tsx` | Webアプリメインページ |
 

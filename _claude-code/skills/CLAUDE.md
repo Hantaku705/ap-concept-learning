@@ -8,6 +8,7 @@ Claude Codeで使用するスキル（Skill）の定義ファイル。
 |---------|------|
 | `concept-design.md` | コンセプト設計原則・チェックリスト（マーケティングコンセプト評価用） |
 | `what-game.md` | 「何ゲーか」分析フレームワーク（市場構造の本質特定、勝者分析、再現手順） |
+| `project-workflow.md` | プロジェクト型タスクの5段階ワークフロー（INPUT→DOC→DATA→UI→DEPLOY） |
 | `coding-standards.md` | コーディング標準 |
 | `webapp-data-pattern.md` | Webappデータパターン |
 | `backend-patterns.md` | バックエンドパターン |
@@ -24,6 +25,7 @@ Claude Codeで使用するスキル（Skill）の定義ファイル。
 
 ## 更新履歴
 
+- 2026-01-26: project-workflow.md 追加（5段階ワークフロー、7プロジェクト分析に基づく）
 - 2026-01-23: what-game.md 追加（「何ゲーか」分析フレームワーク）
 - 2026-01-23: CLAUDE.md 初版作成
 - 2026-01-22: concept-design.md 追加

@@ -22,6 +22,8 @@ NADESHIKO/
 ├── CLAUDE.md              ← このファイル
 ├── algorithm/             # アルゴリズム解説
 │   └── algorithm.md       # TikTokアルゴリズム解説
+├── code/                  # Google Apps Script
+│   └── code.js            # インサイト自動取得スクリプト（約1,600行）
 ├── data/                  # データ（CSV）
 │   ├── 利益管理シート/    # 33件のCSV（2023年11月〜2026年4月）
 │   └── 再生数シート/      # 月別再生数CSV（22ファイル、6,304行）
@@ -103,6 +105,7 @@ NADESHIKO/
 | `scripts/csv_to_views.py` | 再生数CSV→JSON変換スクリプト（3タイプ対応） |
 | `scripts/xlsx_to_csv_views.py` | 再生数Excel→CSV変換スクリプト |
 | `scripts/xlsx_to_csv_views_old.py` | 過去再生数Excel→CSV変換スクリプト |
+| `code/code.js` | GASインサイト自動取得スクリプト（YT/TT/IG/X対応） |
 
 ---
 
@@ -142,6 +145,7 @@ vercel --prod --yes
 
 ## 更新履歴
 
+- 2026-01-26: code/フォルダ追加（GASインサイト自動取得スクリプト）
 - 2026-01-23: Viewsタブ追加（再生数分析、4,781件、6KPI、フィルター機能）
 - 2026-01-23: 過去再生数シート追加（2024年4月〜2025年7月、16ファイル、2,194行）
 - 2026-01-23: 再生数シートExcel→CSV変換（6ファイル、4,110行）

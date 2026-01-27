@@ -26,6 +26,11 @@ export default function ViewsContent() {
   const [accountFilter, setAccountFilter] = useState<string>('all');
   const [platformFilter, setPlatformFilter] = useState<string>('all');
 
+  // ソート用State
+  type SortKey = 'postDate' | 'accountName' | 'prType' | 'platform' | 'manager' | 'title' | 'category' | 'views' | 'likes' | 'comments' | 'shares' | 'saves' | null;
+  const [sortKey, setSortKey] = useState<SortKey>(null);
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
+
   // ドロップダウン外クリックで閉じる
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -69,6 +74,46 @@ export default function ViewsContent() {
 
     return data;
   }, [selectedPeriods, prTypeFilter, accountFilter, platformFilter]);
+
+  // ソートハンドラー
+  const handleSort = (key: SortKey) => {
+    if (sortKey === key) {
+      setSortDirection(prev => prev === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortKey(key);
+      setSortDirection('desc');
+    }
+  };
+
+  // ソート用ヘルパー関数
+  const getSortValue = (record: typeof filteredData[0], key: NonNullable<SortKey>): string | number => {
+    switch (key) {
+      case 'views': return record.views;
+      case 'likes': return record.likes;
+      case 'comments': return record.comments;
+      case 'shares': return record.shares;
+      case 'saves': return record.saves;
+      case 'postDate': return record.postDate;
+      case 'accountName': return record.accountName;
+      case 'prType': return record.prType;
+      case 'platform': return record.platform;
+      case 'manager': return record.manager || '';
+      case 'title': return record.title || '';
+      case 'category': return record.category || '';
+      default: return '';
+    }
+  };
+
+  // ソート済みデータ
+  const sortedData = useMemo(() => {
+    if (!sortKey) return filteredData;
+    return [...filteredData].sort((a, b) => {
+      const aVal = getSortValue(a, sortKey);
+      const bVal = getSortValue(b, sortKey);
+      const comparison = aVal < bVal ? -1 : aVal > bVal ? 1 : 0;
+      return sortDirection === 'asc' ? comparison : -comparison;
+    });
+  }, [filteredData, sortKey, sortDirection]);
 
   // 期間選択ハンドラー
   const handlePeriodToggle = (value: string) => {
@@ -133,8 +178,9 @@ export default function ViewsContent() {
 
   return (
     <div className="space-y-6">
-      {/* フィルターバー */}
-      <div className="flex flex-wrap items-center gap-4">
+      {/* フィルターバー - sticky */}
+      <div className="bg-white rounded-lg border border-gray-200 p-4 sticky top-0 z-10 shadow-sm">
+        <div className="flex flex-wrap items-center gap-4">
         <div className="flex items-center gap-2" ref={periodDropdownRef}>
           <label className="text-sm font-medium text-gray-700">期間:</label>
           <div className="relative">
@@ -249,6 +295,7 @@ export default function ViewsContent() {
         <div className="text-sm text-gray-500">
           {filteredData.length.toLocaleString()} 件
         </div>
+        </div>
       </div>
 
       {/* KPIカード */}
@@ -289,72 +336,93 @@ export default function ViewsContent() {
           <table className="min-w-full text-sm">
             <thead className="bg-gray-50 sticky top-0">
               <tr>
-                <th className="px-3 py-2 text-left font-medium text-gray-700 whitespace-nowrap">投稿日</th>
-                <th className="px-3 py-2 text-left font-medium text-gray-700 whitespace-nowrap">アカウント名</th>
-                <th className="px-3 py-2 text-left font-medium text-gray-700 whitespace-nowrap">PR/通常</th>
-                <th className="px-3 py-2 text-left font-medium text-gray-700 whitespace-nowrap">sns</th>
-                <th className="px-3 py-2 text-left font-medium text-gray-700 whitespace-nowrap">担当者</th>
-                <th className="px-3 py-2 text-left font-medium text-gray-700 whitespace-nowrap">タイトル</th>
+                <th onClick={() => handleSort('postDate')} className="px-3 py-2 text-left font-medium text-gray-700 whitespace-nowrap cursor-pointer hover:bg-gray-100">
+                  投稿日 {sortKey === 'postDate' && (sortDirection === 'asc' ? '▲' : '▼')}
+                </th>
+                <th onClick={() => handleSort('accountName')} className="px-3 py-2 text-left font-medium text-gray-700 whitespace-nowrap cursor-pointer hover:bg-gray-100">
+                  アカウント名 {sortKey === 'accountName' && (sortDirection === 'asc' ? '▲' : '▼')}
+                </th>
+                <th onClick={() => handleSort('prType')} className="px-3 py-2 text-left font-medium text-gray-700 whitespace-nowrap cursor-pointer hover:bg-gray-100">
+                  PR/通常 {sortKey === 'prType' && (sortDirection === 'asc' ? '▲' : '▼')}
+                </th>
+                <th onClick={() => handleSort('platform')} className="px-3 py-2 text-left font-medium text-gray-700 whitespace-nowrap cursor-pointer hover:bg-gray-100">
+                  sns {sortKey === 'platform' && (sortDirection === 'asc' ? '▲' : '▼')}
+                </th>
+                <th onClick={() => handleSort('manager')} className="px-3 py-2 text-left font-medium text-gray-700 whitespace-nowrap cursor-pointer hover:bg-gray-100">
+                  担当者 {sortKey === 'manager' && (sortDirection === 'asc' ? '▲' : '▼')}
+                </th>
+                <th onClick={() => handleSort('title')} className="px-3 py-2 text-left font-medium text-gray-700 whitespace-nowrap cursor-pointer hover:bg-gray-100">
+                  タイトル {sortKey === 'title' && (sortDirection === 'asc' ? '▲' : '▼')}
+                </th>
                 <th className="px-3 py-2 text-left font-medium text-gray-700 whitespace-nowrap">URL</th>
-                <th className="px-3 py-2 text-left font-medium text-gray-700 whitespace-nowrap">種別</th>
-                <th className="px-3 py-2 text-right font-medium text-gray-700 whitespace-nowrap">動画尺</th>
-                <th className="px-3 py-2 text-right font-medium text-gray-700 whitespace-nowrap">再生数</th>
-                <th className="px-3 py-2 text-right font-medium text-gray-700 whitespace-nowrap">いいね</th>
-                <th className="px-3 py-2 text-right font-medium text-gray-700 whitespace-nowrap">コメント</th>
-                <th className="px-3 py-2 text-right font-medium text-gray-700 whitespace-nowrap">共有</th>
-                <th className="px-3 py-2 text-right font-medium text-gray-700 whitespace-nowrap">保存</th>
+                <th onClick={() => handleSort('category')} className="px-3 py-2 text-left font-medium text-gray-700 whitespace-nowrap cursor-pointer hover:bg-gray-100">
+                  種別 {sortKey === 'category' && (sortDirection === 'asc' ? '▲' : '▼')}
+                </th>
+                <th onClick={() => handleSort('views')} className="px-3 py-2 text-right font-medium text-gray-700 whitespace-nowrap cursor-pointer hover:bg-gray-100">
+                  再生数 {sortKey === 'views' && (sortDirection === 'asc' ? '▲' : '▼')}
+                </th>
+                <th onClick={() => handleSort('likes')} className="px-3 py-2 text-right font-medium text-gray-700 whitespace-nowrap cursor-pointer hover:bg-gray-100">
+                  いいね {sortKey === 'likes' && (sortDirection === 'asc' ? '▲' : '▼')}
+                </th>
+                <th onClick={() => handleSort('comments')} className="px-3 py-2 text-right font-medium text-gray-700 whitespace-nowrap cursor-pointer hover:bg-gray-100">
+                  コメント {sortKey === 'comments' && (sortDirection === 'asc' ? '▲' : '▼')}
+                </th>
+                <th onClick={() => handleSort('shares')} className="px-3 py-2 text-right font-medium text-gray-700 whitespace-nowrap cursor-pointer hover:bg-gray-100">
+                  共有 {sortKey === 'shares' && (sortDirection === 'asc' ? '▲' : '▼')}
+                </th>
+                <th onClick={() => handleSort('saves')} className="px-3 py-2 text-right font-medium text-gray-700 whitespace-nowrap cursor-pointer hover:bg-gray-100">
+                  保存 {sortKey === 'saves' && (sortDirection === 'asc' ? '▲' : '▼')}
+                </th>
               </tr>
             </thead>
             <tbody>
-              {filteredData.slice(0, 100).map((record, i) => (
-                <tr key={record.id} className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                  <td className="px-3 py-2 whitespace-nowrap">{record.postDate}</td>
-                  <td className="px-3 py-2 whitespace-nowrap">{record.accountName}</td>
-                  <td className="px-3 py-2 whitespace-nowrap">
-                    <span className={`px-2 py-0.5 rounded-full text-xs ${
-                      record.prType === 'PR'
-                        ? 'bg-pink-100 text-pink-700'
-                        : 'bg-gray-100 text-gray-700'
-                    }`}>
-                      {record.prType}
-                    </span>
-                  </td>
-                  <td className="px-3 py-2 whitespace-nowrap">{record.platform}</td>
-                  <td className="px-3 py-2 whitespace-nowrap">{record.manager || '-'}</td>
-                  <td className="px-3 py-2 max-w-[200px] truncate" title={record.title}>
-                    {record.title}
-                  </td>
-                  <td className="px-3 py-2 whitespace-nowrap">
-                    {record.url ? (
-                      <a
-                        href={record.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-600 hover:underline"
-                      >
-                        Link
-                      </a>
-                    ) : '-'}
-                  </td>
-                  <td className="px-3 py-2 whitespace-nowrap">{record.category || '-'}</td>
-                  <td className="px-3 py-2 text-right whitespace-nowrap">
-                    {record.duration
-                      ? `${Math.floor(record.duration / 60)}:${String(record.duration % 60).padStart(2, '0')}`
-                      : '-'}
-                  </td>
-                  <td className="px-3 py-2 text-right whitespace-nowrap">{record.views.toLocaleString()}</td>
-                  <td className="px-3 py-2 text-right whitespace-nowrap">{record.likes.toLocaleString()}</td>
-                  <td className="px-3 py-2 text-right whitespace-nowrap">{record.comments.toLocaleString()}</td>
-                  <td className="px-3 py-2 text-right whitespace-nowrap">{record.shares.toLocaleString()}</td>
-                  <td className="px-3 py-2 text-right whitespace-nowrap">{record.saves.toLocaleString()}</td>
-                </tr>
-              ))}
+              {sortedData.slice(0, 100).map((record, i) => {
+                const isBuzz = record.prType === '通常' && (record.views ?? 0) >= 100000;
+                return (
+                  <tr key={record.id} className={isBuzz ? 'bg-orange-100' : i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                    <td className="px-3 py-2 whitespace-nowrap">{record.postDate}</td>
+                    <td className="px-3 py-2 whitespace-nowrap">{record.accountName}</td>
+                    <td className="px-3 py-2 whitespace-nowrap">
+                      <span className={`px-2 py-0.5 rounded-full text-xs ${
+                        record.prType === 'PR'
+                          ? 'bg-pink-100 text-pink-700'
+                          : 'bg-gray-100 text-gray-700'
+                      }`}>
+                        {record.prType}
+                      </span>
+                    </td>
+                    <td className="px-3 py-2 whitespace-nowrap">{record.platform}</td>
+                    <td className="px-3 py-2 whitespace-nowrap">{record.manager || '-'}</td>
+                    <td className="px-3 py-2 max-w-[200px] truncate" title={record.title}>
+                      {record.title}
+                    </td>
+                    <td className="px-3 py-2 whitespace-nowrap">
+                      {record.url ? (
+                        <a
+                          href={record.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:underline"
+                        >
+                          Link
+                        </a>
+                      ) : '-'}
+                    </td>
+                    <td className="px-3 py-2 whitespace-nowrap">{record.category || '-'}</td>
+                    <td className="px-3 py-2 text-right whitespace-nowrap">{(record.views ?? 0).toLocaleString()}</td>
+                    <td className="px-3 py-2 text-right whitespace-nowrap">{(record.likes ?? 0).toLocaleString()}</td>
+                    <td className="px-3 py-2 text-right whitespace-nowrap">{(record.comments ?? 0).toLocaleString()}</td>
+                    <td className="px-3 py-2 text-right whitespace-nowrap">{(record.shares ?? 0).toLocaleString()}</td>
+                    <td className="px-3 py-2 text-right whitespace-nowrap">{(record.saves ?? 0).toLocaleString()}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
-        {filteredData.length > 100 && (
+        {sortedData.length > 100 && (
           <div className="px-4 py-2 text-sm text-gray-500 border-t border-gray-200">
-            ※最新100件を表示（全{filteredData.length.toLocaleString()}件）
+            ※最新100件を表示（全{sortedData.length.toLocaleString()}件）
           </div>
         )}
       </div>

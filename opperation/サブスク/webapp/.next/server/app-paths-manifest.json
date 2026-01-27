@@ -1,0 +1,12 @@
+{
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/ai/chat/route": "app/api/ai/chat/route.js",
+  "/api/auth/callback/route": "app/api/auth/callback/route.js",
+  "/api/auth/login/route": "app/api/auth/login/route.js",
+  "/api/cancellation-guide/route": "app/api/cancellation-guide/route.js",
+  "/api/gmail/attachment/route": "app/api/gmail/attachment/route.js",
+  "/api/gmail/scan/route": "app/api/gmail/scan/route.js",
+  "/auth/callback/page": "app/auth/callback/page.js",
+  "/page": "app/page.js"
+}

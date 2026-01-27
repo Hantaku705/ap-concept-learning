@@ -4,10 +4,19 @@
 
 ## サブフォルダ一覧
 
-| フォルダ | 説明 |
-|---------|------|
-| `なまえデザイン_フォルダ/` | 「なまえ」デザイン書籍まとめ（小薬元著） |
+| フォルダ | 説明 | 本番URL |
+|---------|------|---------|
+| `CLAUDECODE/` | Claude Code オンボーディング用Webapp | https://claude-code-onboarding-ten.vercel.app |
+| `multi-agent/` | マルチエージェントシステム（YAML拡張、Skills自動生成、ダッシュボード） | http://localhost:3001 |
+| `なまえデザイン_フォルダ/` | 「なまえ」デザイン書籍まとめ（小薬元著） | - |
+| `サブスク/` | サブスク確認ツール（Gmail API連携、Next.js Webapp） | https://subscription-tracker-ten-iota.vercel.app |
+| `clawdbot/` | Clawdbot AIアシスタント設定ガイド | - |
 
 ## 更新履歴
 
+- 2026-01-27: multi-agent/ 追加（マルチエージェントシステム、Orchestrator/Coordinator/SubAgent×8、YAML拡張、Skills自動生成、Web UIダッシュボード）
+- 2026-01-27: CLAUDECODE/ 追加（Claude Code オンボーディング用Webapp、説明会向け）
+- 2026-01-26: clawdbot/フォルダ追加（Clawdbot AIアシスタント設定ガイド）
+- 2026-01-23: サブスク確認ツール本番デプロイ（Vercel）
+- 2026-01-23: サブスク確認ツール追加（Gmail API連携、20+サービス自動検出）
 - 2026-01-23: CLAUDE.md 初版作成

@@ -8,6 +8,9 @@ interface AccountSelectorProps {
   onSelectionChange: (accounts: string[]) => void;
   maxSelection?: number;
   mode: 'single' | 'multi';
+  showAllOption?: boolean;  // 「全員」オプション表示
+  isAllSelected?: boolean;  // 「全員」が選択されているか
+  onAllSelect?: () => void; // 「全員」選択時のコールバック
 }
 
 export default function AccountSelector({
@@ -16,6 +19,9 @@ export default function AccountSelector({
   onSelectionChange,
   maxSelection = 10,
   mode,
+  showAllOption = false,
+  isAllSelected = false,
+  onAllSelect,
 }: AccountSelectorProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -35,6 +41,11 @@ export default function AccountSelector({
       onSelectionChange([account]);
       setIsOpen(false);
     } else {
+      // 「全員」選択中に個別アカウントをクリック → 全員解除してそのアカウントを選択
+      if (isAllSelected) {
+        onSelectionChange([account]);
+        return;
+      }
       if (selectedAccounts.includes(account)) {
         onSelectionChange(selectedAccounts.filter(a => a !== account));
       } else if (selectedAccounts.length < maxSelection) {
@@ -43,11 +54,24 @@ export default function AccountSelector({
     }
   };
 
-  const label = selectedAccounts.length === 0
-    ? 'アカウントを選択'
-    : selectedAccounts.length === 1
-      ? selectedAccounts[0]
-      : `${selectedAccounts.length}件選択中`;
+  const handleAllSelect = () => {
+    if (onAllSelect) {
+      onAllSelect();
+    }
+  };
+
+  // 「全員」を解除する（クリックで解除可能に）
+  const handleAllDeselect = () => {
+    onSelectionChange([]);
+  };
+
+  const label = isAllSelected
+    ? '全員'
+    : selectedAccounts.length === 0
+      ? 'アカウントを選択'
+      : selectedAccounts.length === 1
+        ? selectedAccounts[0]
+        : `${selectedAccounts.length}件選択中`;
 
   return (
     <div className="relative" ref={dropdownRef}>
@@ -63,6 +87,23 @@ export default function AccountSelector({
 
       {isOpen && (
         <div className="absolute z-50 mt-1 w-64 bg-white border rounded-lg shadow-lg max-h-60 overflow-y-auto">
+          {/* 「全員」オプション（比較モードのみ） */}
+          {showAllOption && mode === 'multi' && (
+            <>
+              <label
+                className={`flex items-center gap-2 px-3 py-2 hover:bg-gray-100 cursor-pointer border-b border-gray-200 ${isAllSelected ? 'bg-blue-50' : ''}`}
+                onClick={isAllSelected ? handleAllDeselect : handleAllSelect}
+              >
+                <input
+                  type="checkbox"
+                  checked={isAllSelected}
+                  onChange={isAllSelected ? handleAllDeselect : handleAllSelect}
+                  className="rounded border-gray-300 text-blue-500"
+                />
+                <span className={`text-sm font-medium ${isAllSelected ? 'text-blue-700' : 'text-gray-700'}`}>全員</span>
+              </label>
+            </>
+          )}
           {accounts.map((account) => (
             <label
               key={account}
@@ -70,9 +111,9 @@ export default function AccountSelector({
             >
               <input
                 type={mode === 'single' ? 'radio' : 'checkbox'}
-                checked={selectedAccounts.includes(account)}
+                checked={!isAllSelected && selectedAccounts.includes(account)}
                 onChange={() => handleToggle(account)}
-                disabled={mode === 'multi' && !selectedAccounts.includes(account) && selectedAccounts.length >= maxSelection}
+                disabled={mode === 'multi' && !isAllSelected && !selectedAccounts.includes(account) && selectedAccounts.length >= maxSelection}
                 className="rounded border-gray-300 text-blue-500"
               />
               <span className="text-sm truncate">{account}</span>

@@ -1,0 +1,132 @@
+# Multi-Agent System - Workflow Configuration
+# Define multi-step workflows that coordinate multiple agents
+
+workflows:
+  # Feature Implementation Workflow
+  feature-implementation:
+    id: feature-implementation
+    name: Feature Implementation
+    description: End-to-end feature implementation workflow
+    trigger: "機能実装|implement feature"
+    phases:
+      - name: Planning
+        agent: orchestrator
+        actions:
+          - analyze_requirements
+          - identify_components
+          - estimate_complexity
+        output: implementation_plan.yaml
+
+      - name: Task Decomposition
+        agent: coordinator
+        actions:
+          - break_into_subtasks
+          - assign_to_subagents
+          - create_task_files
+        output: tasks/*.yaml
+
+      - name: Parallel Execution
+        agent: subagent
+        parallel: true
+        max_concurrent: 8
+        actions:
+          - execute_assigned_task
+          - report_completion
+        output: reports/*.yaml
+
+      - name: Integration
+        agent: coordinator
+        actions:
+          - verify_all_complete
+          - run_integration_tests
+          - aggregate_results
+        output: integration_report.yaml
+
+      - name: Review
+        agent: orchestrator
+        actions:
+          - review_implementation
+          - update_dashboard
+          - report_to_user
+        output: final_report.md
+
+  # Bug Fix Workflow
+  bug-fix:
+    id: bug-fix
+    name: Bug Fix
+    description: Systematic bug investigation and fix workflow
+    trigger: "バグ修正|fix bug"
+    phases:
+      - name: Investigation
+        agent: orchestrator
+        actions:
+          - analyze_error
+          - identify_root_cause
+          - plan_fix
+        output: investigation_report.yaml
+
+      - name: Fix Implementation
+        agent: coordinator
+        actions:
+          - create_fix_tasks
+          - assign_to_subagents
+        output: fix_tasks/*.yaml
+
+      - name: Parallel Fix
+        agent: subagent
+        parallel: true
+        actions:
+          - implement_fix
+          - write_test
+        output: fix_reports/*.yaml
+
+      - name: Verification
+        agent: coordinator
+        actions:
+          - run_all_tests
+          - verify_fix
+          - check_regression
+        output: verification_report.yaml
+
+  # Refactoring Workflow
+  refactoring:
+    id: refactoring
+    name: Code Refactoring
+    description: Safe refactoring with test coverage
+    trigger: "リファクタリング|refactor"
+    phases:
+      - name: Analysis
+        agent: orchestrator
+        actions:
+          - identify_smell
+          - plan_refactor
+          - ensure_test_coverage
+        output: refactor_plan.yaml
+
+      - name: Safe Refactor
+        agent: coordinator
+        actions:
+          - decompose_refactor
+          - create_checkpoints
+        output: refactor_tasks/*.yaml
+
+      - name: Incremental Changes
+        agent: subagent
+        sequential: true  # Not parallel for safety
+        actions:
+          - apply_change
+          - run_tests
+          - checkpoint
+        output: change_reports/*.yaml
+
+# Workflow execution settings
+execution:
+  timeout:
+    default: 3600  # 1 hour
+    per_phase: 900  # 15 minutes
+  retry:
+    max_attempts: 3
+    backoff: exponential
+  checkpoint:
+    enabled: true
+    interval: 300  # 5 minutes

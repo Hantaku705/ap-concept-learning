@@ -14,7 +14,9 @@ AP/
 │   ├── mascode/            # MASCODE
 │   ├── norganic/           # N organic X戦略
 │   ├── phonefarm/          # Phone Farm
-│   └── the-room-fx/        # ANA THE Room FX
+│   ├── Refa/               # ReFa プロモーション変遷分析
+│   ├── the-room-fx/        # ANA THE Room FX
+│   └── workflow/           # プロジェクトワークフローガイド
 │
 ├── _agents/                # Claude Agent SDK
 │   ├── src/                # SDKソースコード
@@ -33,9 +35,14 @@ AP/
 ├── _archive/               # アーカイブ
 │
 ├── opperation/             # 運用・学習資料
-│   └── なまえデザイン_フォルダ/  # 「なまえ」デザイン書籍まとめ
+│   ├── CLAUDECODE/          # Claude Code オンボーディングWebapp
+│   ├── multi-agent/         # マルチエージェントシステム（YAML拡張、Skills自動生成）
+│   ├── なまえデザイン_フォルダ/  # 「なまえ」デザイン書籍まとめ
+│   ├── サブスク/            # サブスク確認ツール（Gmail API連携）
+│   └── clawdbot/           # Clawdbot AIアシスタント設定ガイド
 │
 ├── NADESHIKO/              # 美容系SNSメディア事業
+│   ├── code/               # GASインサイト自動取得スクリプト
 │   ├── data/               # 利益管理シート（CSV、33件）
 │   ├── issue/              # 週次ミーティングノート
 │   ├── scripts/            # CSV→TypeScript変換スクリプト
@@ -68,6 +75,7 @@ AP/
 |--------|------|
 | `concept-design.md` | コンセプト設計原則・チェックリスト |
 | `what-game.md` | 「何ゲーか」分析フレームワーク（市場構造の本質特定） |
+| `project-workflow.md` | プロジェクト型タスクの5段階ワークフロー（与件→Webapp） |
 | `coding-standards.md` | コーディング標準 |
 | `webapp-data-pattern.md` | Webappデータパターン |
 | `backend-patterns.md` | バックエンドパターン |
@@ -379,6 +387,65 @@ projects/the-room-fx/
 
 ---
 
+### Refa（ReFa プロモーション変遷分析）
+
+MTG株式会社の美容ブランド「ReFa」のプロモーション変遷分析レポートをWebapp化。
+
+**本番URL**: https://refa-report.vercel.app
+
+**技術スタック**:
+- Next.js 16.1.4 (App Router)
+- React 19
+- TypeScript
+- Tailwind CSS
+- Recharts（グラフ可視化）
+
+**ページ構成**:
+| パス | 内容 |
+|-----|------|
+| `/` | ダッシュボード（イノベーター理論曲線、売上推移、KPI、フェーズ概要、**今後の展望**） |
+| `/phases` | 5フェーズ詳細（タブ切り替え、**ReFa GINZA**、**ブランド成長サイクル**） |
+| `/products` | 製品ポートフォリオ分析 |
+| `/channels` | チャネル戦略分析（イノベーター理論との対応、セグメント別分析） |
+
+**主要な可視化**:
+- **イノベーター理論曲線**: ReFaの「5年かけた戦略的忍耐」を釣り鐘型曲線で表現
+- **売上推移グラフ**: 2019年の危機（-144億円）から2025年の過去最高（728億円）への復活
+- **KPIカード**: 危機時と現在の比較（ReFa売上+435%等）
+- **チャネル展開フロー**: 美容室限定→百貨店→ホテルBtoBtoC→家電量販店
+
+**イノベーター理論 × ReFa戦略**:
+| 普及層 | 時期 | チャネル |
+|--------|------|---------|
+| イノベーター | 2019年 | 美容室限定販売 |
+| アーリーアダプター | 2020-21年 | 百貨店・EC |
+| アーリーマジョリティ | 2022-23年 | ホテルBtoBtoC 2,600施設 |
+| レイトマジョリティ | 2024年〜 | 家電量販店、マスCM ★現在地 |
+
+**Key Files**:
+| ファイル | 用途 |
+|---------|------|
+| `projects/Refa/report.md` | 元レポート（約600行） |
+| `projects/Refa/webapp/data/report-data.ts` | 全データ（構造化、ReFa GINZA・成長サイクル含む） |
+| `projects/Refa/webapp/components/charts/AdoptionCurve.tsx` | イノベーター理論曲線 |
+| `projects/Refa/webapp/components/charts/SalesChart.tsx` | 売上推移グラフ |
+| `projects/Refa/webapp/app/page.tsx` | ダッシュボード（今後の展望セクション含む） |
+| `projects/Refa/webapp/app/phases/page.tsx` | 5フェーズ詳細（ReFa GINZA・成長サイクル含む） |
+
+**開発コマンド**:
+```bash
+cd projects/Refa/webapp
+npm run dev
+```
+
+**デプロイ**:
+```bash
+cd projects/Refa/webapp
+vercel --prod --yes
+```
+
+---
+
 ### _claude-code（Claude Code設定）
 
 Claude Codeの設定リファレンス実装。
@@ -446,6 +513,31 @@ vercel --prod --yes
 
 ## 更新履歴
 
+- 2026-01-27: **Multi-Agent System実装**（`opperation/multi-agent/`、Orchestrator/Coordinator/SubAgent×8、YAML拡張、Skills自動生成、Web UIダッシュボード、28ファイル）
+- 2026-01-27: CLAUDECODE Webapp Compareタブ3項目比較化（Agent SDK vs Everything Claude Code vs Starter Kit）
+- 2026-01-27: **Claude Code Starter Kit GitHub作成**（https://github.com/Hantaku705/claude-code-starter、12コマンド+8エージェント+6ルール、1コマンドでプロ環境構築）
+- 2026-01-27: CLAUDECODE Webapp Starter Kit タブ追加（8タブ構成、GitHubリポジトリ連携）
+- 2026-01-27: CLAUDECODE Webapp Architecture タブ追加（Claude Code全体像、7要素の定義・役割・比較表・使い分けガイド）
+- 2026-01-27: CLAUDECODE Webapp Skills タブ追加（8個のおすすめカスタムスキル、コピー機能、導入ガイド、https://claude-code-onboarding-ten.vercel.app）
+- 2026-01-26: NADESHIKO MAトレンド一覧改善（全16アカウント一覧、「全員」行追加）+ PR/通常フィルター追加
+- 2026-01-26: NADESHIKO webappフィルターヘッダー固定（Dashboard/Deals/Views、`sticky top-0 z-10`）
+- 2026-01-26: projects/フォルダ構造整理（5プロジェクト、workflow.md標準テンプレート準拠、docs/ + source/ 分類）
+- 2026-01-26: プロジェクトワークフローガイド作成（`projects/workflow.md`、5段階フロー、7プロジェクト分析）、`/project-workflow` スキル追加
+- 2026-01-26: サブスク確認ツール解約方法動的取得機能追加（AI生成API、LocalStorageキャッシュ、取得ボタン、https://webapp-five-bay.vercel.app）
+- 2026-01-26: ReFa決算資料PDF→画像化（23PDF→1,185枚）、report.mdブラッシュアップ（Phase 4-5年度別詳細、セグメント分析、ReFa GINZA、「再ブランディング」視点追加）
+- 2026-01-26: ReFa Webapp report.md更新反映（ReFa GINZA、ブランド成長サイクル、今後の展望セクション追加）
+- 2026-01-26: ReFaプロモーション変遷分析Webapp作成（イノベーター理論曲線、4ページ構成、https://refa-report.vercel.app）
+- 2026-01-26: サブスク確認ツール機能改善（テーブルUI、PDF/メール確認、解約ガイドモーダル、Vercelデプロイ）
+- 2026-01-26: NADESHIKO code.js理解＆ドキュメント化（GASインサイト自動取得スクリプト、`NADESHIKO/code/CLAUDE.md`作成）
+- 2026-01-26: Clawdbot Slack全チャンネル対応、gog CLIインストール（Gmail/Calendar連携準備）
+- 2026-01-26: Clawdbot APIキー問題修正（LaunchAgent plistに環境変数追加、トラブルシューティング追記）
+- 2026-01-26: Clawdbot AIアシスタント設定ガイド追加（`opperation/clawdbot/`、Slack連携セットアップ完了）
+- 2026-01-24: NADESHIKO MA動的切り替え（データ量に応じて短期/中期/長期MA自動選択）、デフォルト「全員」選択
+- 2026-01-24: NADESHIKO 投稿数ベース期間フィルター追加（直近30/60/90/120投稿）、移動平均6種類に拡張
+- 2026-01-23: サブスク確認ツール本番デプロイ（https://subscription-tracker-ten-iota.vercel.app）
+- 2026-01-23: サブスク確認ツール作成（`opperation/サブスク/webapp/`、Gmail API連携、20+サービス自動検出、解約ガイド）
+- 2026-01-23: NADESHIKO データテーブルにソート機能・バズ強調追加（13カラムソート、動画尺削除、通常&10万再生以上オレンジ）
+- 2026-01-23: NADESHIKO 投稿別散布図+移動平均線に変更（1投稿1点、7投稿MA/14投稿MA、「全員」オプション）
 - 2026-01-23: NADESHIKO Viewsタブに日別再生数トラッキング追加（期間選択、単一/比較モード、最大10アカウント）
 - 2026-01-23: NADESHIKO Viewsタブにデータテーブル追加（14カラム、最新100件表示）
 - 2026-01-23: NADESHIKO Algorithmタブ追加（TikTokアルゴリズム解説、13セクション、折りたたみUI）

@@ -1,0 +1,51 @@
+# Code Review Skill
+# Builtin skill for comprehensive code review
+
+skill_id: code-review
+name: Code Review
+description: Comprehensive code review with security and quality checks
+version: 1.0.0
+
+trigger: "コードレビュー|code review|review code"
+
+steps:
+  - action: analyze
+    target: changed_files
+    checks:
+      - security:
+          - hardcoded_secrets
+          - sql_injection
+          - xss
+          - input_validation
+      - code_quality:
+          - function_length
+          - file_length
+          - nesting_depth
+          - console_logs
+      - best_practices:
+          - naming_conventions
+          - error_handling
+          - type_safety
+
+  - action: report
+    format: markdown
+    sections:
+      - critical_issues:
+          title: "🔴 Critical Issues"
+          description: "Must fix before merge"
+      - high_priority:
+          title: "🟠 High Priority"
+          description: "Should fix"
+      - suggestions:
+          title: "💡 Suggestions"
+          description: "Nice to have"
+
+success_criteria:
+  - all_files_reviewed: true
+  - report_generated: true
+  - no_critical_issues: recommended
+
+metadata:
+  author: system
+  created_at: 2026-01-27
+  category: quality

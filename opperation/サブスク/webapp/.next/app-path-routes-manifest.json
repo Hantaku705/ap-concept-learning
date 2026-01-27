@@ -1,0 +1,12 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/api/ai/chat/route": "/api/ai/chat",
+  "/api/auth/callback/route": "/api/auth/callback",
+  "/api/auth/login/route": "/api/auth/login",
+  "/api/cancellation-guide/route": "/api/cancellation-guide",
+  "/api/gmail/attachment/route": "/api/gmail/attachment",
+  "/api/gmail/scan/route": "/api/gmail/scan",
+  "/auth/callback/page": "/auth/callback",
+  "/page": "/"
+}

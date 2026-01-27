@@ -20,53 +20,55 @@
 
 ```
 dr.melaxin/
-├── CLAUDE.md           ← このファイル（プロジェクト概要）
-├── proposal/           ← 提案資料（メイン）★
-│   ├── CLAUDE.md
-│   ├── strategy.md     ← 戦略資料（OGSM形式）
-│   ├── annual.md       ← 年間メディアプラン
-│   ├── q1.md           ← Q1詳細（2-3月）★3月メガ割
-│   ├── q2.md           ← Q2詳細（4-6月）★6月メガ割・ジョングク
-│   ├── q3.md           ← Q3詳細（7-9月）★9月メガ割・Drug Store
-│   └── q4.md           ← Q4詳細（10-12月）★11月メガ割・BF・BestCosme
-├── docs/               ← 参考資料・リサーチ
-│   ├── CLAUDE.md
-│   ├── budget-proposal-10m.md ← 予算詳細
-│   ├── proposal.md     ← PDFサマリー
-│   ├── research.md     ← 競合リサーチ
-│   ├── research-raw.md
-│   ├── brief.md
-│   └── memo.md
-├── source/             ← 元ファイル・データ
+├── CLAUDE.md               ← このファイル（プロジェクト概要）
+├── docs/
+│   ├── brief/              ← 与件・ブリーフ
+│   │   └── brief.md
+│   ├── proposal/           ← 提案資料（メイン）★
+│   │   ├── CLAUDE.md
+│   │   ├── strategy.md     ← 戦略資料（OGSM形式）
+│   │   ├── annual.md       ← 年間メディアプラン
+│   │   ├── q1.md           ← Q1詳細（2-3月）★3月メガ割
+│   │   ├── q2.md           ← Q2詳細（4-6月）★6月メガ割・ジョングク
+│   │   ├── q3.md           ← Q3詳細（7-9月）★9月メガ割・Drug Store
+│   │   ├── q4.md           ← Q4詳細（10-12月）★11月メガ割・BF・BestCosme
+│   │   ├── budget-proposal-10m.md ← 予算詳細
+│   │   ├── summary.md      ← PDFサマリー（旧proposal.md）
+│   │   └── メディアプラン.md
+│   └── analysis/           ← 分析・リサーチ
+│       ├── research.md     ← 競合リサーチ
+│       ├── research-raw.md
+│       └── memo.md
+├── source/                 ← 元ファイル・データ
 │   ├── proposal.pdf
 │   ├── proposal.pptx
 │   ├── gtm-*.csv
 │   └── slides/
-└── webapp/             ← 提案書可視化アプリ
+└── webapp/                 ← 提案書可視化アプリ
 ```
 
 ---
 
 ## 主要ドキュメント
 
-### 提案資料（proposal/）★メイン
+### 提案資料（docs/proposal/）★メイン
 
 | ファイル | 内容 | 投資額 | 目標GMV |
 |---------|------|--------|---------|
-| `proposal/strategy.md` | 戦略資料（OGSM形式） | - | - |
-| `proposal/annual.md` | 年間メディアプラン | 15.8億円 | 73.6億円 |
-| `proposal/q1.md` | Q1（2-3月）3月メガ割 | 3.8億円 | 5-7億円 |
-| `proposal/q2.md` | Q2（4-6月）6月メガ割・ジョングク | 3.6億円+別枠 | 10億円 |
-| `proposal/q3.md` | Q3（7-9月）9月メガ割・Drug Store | 4.0億円 | 8億円 |
-| `proposal/q4.md` | Q4（10-12月）11月メガ割・BF・BestCosme | 4.4億円 | 10億円 |
+| `docs/proposal/strategy.md` | 戦略資料（OGSM形式） | - | - |
+| `docs/proposal/annual.md` | 年間メディアプラン | 15.8億円 | 73.6億円 |
+| `docs/proposal/q1.md` | Q1（2-3月）3月メガ割 | 3.8億円 | 5-7億円 |
+| `docs/proposal/q2.md` | Q2（4-6月）6月メガ割・ジョングク | 3.6億円+別枠 | 10億円 |
+| `docs/proposal/q3.md` | Q3（7-9月）9月メガ割・Drug Store | 4.0億円 | 8億円 |
+| `docs/proposal/q4.md` | Q4（10-12月）11月メガ割・BF・BestCosme | 4.4億円 | 10億円 |
 
-### 参考資料（docs/）
+### 分析・リサーチ（docs/analysis/）
 
 | ファイル | 内容 | 備考 |
 |---------|------|------|
-| `docs/budget-proposal-10m.md` | 予算詳細・3シナリオ比較 | 704行 |
-| `docs/research.md` | 競合リサーチ | 6セクション |
-| `docs/proposal.md` | PDFサマリー | 332行 |
+| `docs/proposal/budget-proposal-10m.md` | 予算詳細・3シナリオ比較 | 704行 |
+| `docs/analysis/research.md` | 競合リサーチ | 6セクション |
+| `docs/proposal/summary.md` | PDFサマリー（旧proposal.md） | 332行 |
 
 ---
 

@@ -1,0 +1,66 @@
+# Multi-Agent System - Global Settings
+
+system:
+  name: Multi-Agent System
+  version: 1.0.0
+  language: ja  # ja | en
+
+communication:
+  protocol: yaml
+  queue_dir: queue/
+  poll_interval: 0  # 0 = event-driven (no polling)
+  message_format:
+    task:
+      required_fields:
+        - task_id
+        - command
+        - target
+        - details
+      optional_fields:
+        - priority
+        - deadline
+        - dependencies
+    report:
+      required_fields:
+        - task_id
+        - status
+        - result
+      optional_fields:
+        - error
+        - duration
+        - artifacts
+
+dashboard:
+  markdown:
+    enabled: true
+    path: dashboard.md
+    update_interval: 5  # seconds
+  web_ui:
+    enabled: true
+    port: 3001
+    auto_refresh: true
+    refresh_interval: 2  # seconds
+
+skills:
+  auto_generation:
+    enabled: true
+    output_dir: skills/auto-generated/
+    min_success_rate: 0.8
+    min_executions: 3
+  builtin_dir: skills/builtin/
+
+logging:
+  enabled: true
+  dir: logs/
+  level: info  # debug | info | warn | error
+  format: json
+  retention_days: 30
+
+memory:
+  enabled: true
+  dir: memory/
+  mcp_integration: true
+
+tmux:
+  session_name: multi-agent
+  default_shell: /bin/zsh

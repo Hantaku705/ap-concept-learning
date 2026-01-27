@@ -17,15 +17,22 @@
 
 ```
 projects/concept-learning/
-├── CLAUDE.md           ← このファイル
-├── webapp/             ← Next.js Webアプリ
-│   ├── src/app/        # App Router
-│   ├── src/data/       # コンセプトデータ
-│   └── package.json
-├── docs/               ← 学習資料（Markdown）
-│   └── concept-data.json  # マスターデータ
-├── item/               ← 関連資料
-└── knowledge/          ← PDF資料
+├── CLAUDE.md               # このファイル
+├── docs/
+│   ├── CLAUDE.md           # docsフォルダ説明
+│   ├── concept-data.json   # マスターデータ
+│   ├── proposal/           # 提案資料・教科書
+│   │   └── concept-textbook.md
+│   └── analysis/           # 分析・リサーチ
+│       └── examples/       # 15事例
+├── source/                 # 元PDF資料
+│   ├── コンセプトの教科書.pdf
+│   ├── ご共有用_IPSオリエン資料.pdf
+│   └── iP§_製品周り回答_1204.pdf
+└── webapp/                 # Next.js Webアプリ
+    ├── src/app/            # App Router
+    ├── src/data/           # コンセプトデータ
+    └── package.json
 ```
 
 ---
@@ -64,6 +71,8 @@ vercel --prod --yes
 |---------|------|
 | `webapp/src/data/concept-data.json` | コンセプトデータ（※手動同期） |
 | `docs/concept-data.json` | マスターデータ（こちらを編集） |
+| `docs/proposal/concept-textbook.md` | コンセプト教科書 |
+| `docs/analysis/examples/` | 15事例のMarkdownファイル |
 
 ---
 
