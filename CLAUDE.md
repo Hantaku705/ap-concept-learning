@@ -513,6 +513,7 @@ vercel --prod --yes
 
 ## 更新履歴
 
+- 2026-01-27: **/shogun Task tool化**（tmuxベース→Claude Code Task toolベースに移行、ターミナル操作不要、`/shogun タスク内容` で完結）
 - 2026-01-27: **Multi-Agent System実装**（`opperation/multi-agent/`、Orchestrator/Coordinator/SubAgent×8、YAML拡張、Skills自動生成、Web UIダッシュボード、28ファイル）
 - 2026-01-27: CLAUDECODE Webapp Compareタブ3項目比較化（Agent SDK vs Everything Claude Code vs Starter Kit）
 - 2026-01-27: **Claude Code Starter Kit GitHub作成**（https://github.com/Hantaku705/claude-code-starter、12コマンド+8エージェント+6ルール、1コマンドでプロ環境構築）

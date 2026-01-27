@@ -14,25 +14,22 @@ import {
   skillCategoryColors,
   skillCategoryLabels,
   architectureColors,
+  tabs,
+  levels,
+  glossary,
+  personas,
+  levelGoals,
   type Step,
   type Feature,
   type Example,
   type Tip,
   type RecommendedSkill,
   type ArchitectureElement,
+  buildGuideSections,
+  type LevelType,
+  type Glossary,
+  type BuildGuideSection,
 } from './data/onboarding-data';
-
-// Tab navigation
-const tabs = [
-  { id: 'getting-started', label: 'Getting Started', icon: '1' },
-  { id: 'features', label: 'Features', icon: '2' },
-  { id: 'examples', label: 'Examples', icon: '3' },
-  { id: 'compare', label: 'Compare', icon: '4' },
-  { id: 'architecture', label: 'Architecture', icon: '5' },
-  { id: 'skills', label: 'Skills', icon: '6' },
-  { id: 'starter-kit', label: 'Starter Kit', icon: '7' },
-  { id: 'tips', label: 'Tips', icon: '8' },
-];
 
 // Copy button component
 function CopyButton({ text }: { text: string }) {
@@ -178,12 +175,167 @@ function TipCard({ tip }: { tip: Tip }) {
   );
 }
 
+// Mission banner component (Progate-style)
+function MissionBanner({
+  selectedLevel,
+  checkedItems,
+  onToggleCheck,
+}: {
+  selectedLevel: LevelType;
+  checkedItems: Record<string, boolean>;
+  onToggleCheck: (level: LevelType, idx: number) => void;
+}) {
+  const persona = personas.find(p => p.level === selectedLevel);
+  const goal = levelGoals.find(g => g.level === selectedLevel);
+  const totalItems = goal?.checkItems.length ?? 0;
+  const completedCount = goal?.checkItems.filter((_, idx) => checkedItems[`${selectedLevel}-${idx}`]).length ?? 0;
+  const isAllComplete = totalItems > 0 && completedCount === totalItems;
+  const progressPercent = totalItems > 0 ? (completedCount / totalItems) * 100 : 0;
+
+  return (
+    <div className={`p-4 rounded-xl border-2 transition-all ${
+      isAllComplete
+        ? 'bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950 dark:to-emerald-950 border-green-400 dark:border-green-600'
+        : 'bg-gradient-to-r from-zinc-100 to-zinc-50 dark:from-zinc-800 dark:to-zinc-900 border-zinc-200 dark:border-zinc-700'
+    }`}>
+      {/* Header */}
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center gap-2">
+          <span className="text-xl">{persona?.icon}</span>
+          <span className="font-bold text-zinc-900 dark:text-zinc-100">{persona?.title}</span>
+          <span className="text-xs px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300">
+            {goal?.goalTitle}
+          </span>
+        </div>
+        <span className="text-sm font-bold text-zinc-600 dark:text-zinc-400">
+          {completedCount}/{totalItems} ミッション
+        </span>
+      </div>
+
+      {/* Progress bar */}
+      <div className="w-full h-2 bg-zinc-200 dark:bg-zinc-700 rounded-full mb-3 overflow-hidden">
+        <div
+          className={`h-full rounded-full transition-all duration-500 ${
+            isAllComplete ? 'bg-green-500' : 'bg-blue-500'
+          }`}
+          style={{ width: `${progressPercent}%` }}
+        />
+      </div>
+
+      {/* Mission items */}
+      <ul className="space-y-2">
+        {goal?.checkItems.map((item, idx) => {
+          const key = `${selectedLevel}-${idx}`;
+          const isChecked = checkedItems[key] || false;
+          return (
+            <li key={idx}>
+              <button
+                onClick={() => onToggleCheck(selectedLevel, idx)}
+                className={`w-full flex items-center gap-3 p-2 rounded-lg text-left text-sm transition-colors ${
+                  isChecked
+                    ? 'bg-green-100 dark:bg-green-900/30'
+                    : 'bg-white dark:bg-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-750'
+                }`}
+              >
+                <span className={`flex-shrink-0 w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors ${
+                  isChecked
+                    ? 'bg-green-500 border-green-500 text-white'
+                    : 'border-zinc-400 dark:border-zinc-600'
+                }`}>
+                  {isChecked && (
+                    <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                    </svg>
+                  )}
+                </span>
+                <span className={`flex-1 ${isChecked ? 'line-through text-zinc-400 dark:text-zinc-500' : 'text-zinc-900 dark:text-zinc-100'}`}>
+                  {item}
+                </span>
+                {isChecked && <span className="text-green-500 text-xs font-bold">CLEAR</span>}
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+
+      {/* Level up message */}
+      {isAllComplete && (
+        <div className="mt-3 p-3 rounded-lg bg-green-500 text-white text-center font-bold animate-pulse">
+          Level Up! 次のレベルがアンロックされました
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Glossary card component
+function GlossaryCard({ item }: { item: Glossary }) {
+  return (
+    <div className="p-4 rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700">
+      <div className="flex items-center gap-2 mb-2">
+        <span className="text-xl">{item.icon}</span>
+        <span className="font-bold text-zinc-900 dark:text-zinc-100">{item.term}</span>
+        {item.termEn && (
+          <span className="text-xs text-zinc-500 dark:text-zinc-400">({item.termEn})</span>
+        )}
+      </div>
+      <p className="text-sm text-zinc-600 dark:text-zinc-400">{item.definition}</p>
+      <p className="mt-2 text-xs text-indigo-600 dark:text-indigo-400">
+        💡 {item.analogy}
+      </p>
+    </div>
+  );
+}
+
+// Glossary section component
+function GlossarySection() {
+  const [isOpen, setIsOpen] = useState(true);
+
+  return (
+    <div className="mb-8 p-5 rounded-xl bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-950 dark:to-purple-950 border border-indigo-200 dark:border-indigo-800">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full flex items-center justify-between text-left"
+      >
+        <div className="flex items-center gap-2">
+          <span className="text-xl">📚</span>
+          <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">
+            はじめに：用語を知ろう
+          </h3>
+          <span className="px-2 py-0.5 text-xs rounded-full bg-indigo-200 dark:bg-indigo-800 text-indigo-700 dark:text-indigo-200">
+            初心者向け
+          </span>
+        </div>
+        <svg
+          className={`w-5 h-5 text-zinc-500 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+
+      {isOpen && (
+        <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3">
+          {glossary.map((item) => (
+            <GlossaryCard key={item.id} item={item} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 // Getting Started tab content
 function GettingStartedContent() {
   const [activeStep, setActiveStep] = useState(0);
 
   return (
     <div>
+      {/* Glossary section for beginners */}
+      <GlossarySection />
+
       {/* Progress indicator */}
       <div className="mb-8 flex items-center justify-center gap-2 flex-wrap">
         {gettingStartedSteps.map((step, index) => (
@@ -206,7 +358,7 @@ function GettingStartedContent() {
       {/* Total time */}
       <div className="mb-6 text-center">
         <span className="px-4 py-2 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm">
-          Total: 約27分
+          Total: 約32分
         </span>
       </div>
 
@@ -902,7 +1054,7 @@ function StarterKitContent() {
           Claude Code Starter Kit
         </h2>
         <p className="text-zinc-600 dark:text-zinc-400 mb-6">
-          1コマンドでプロ環境を構築。12コマンド + 8エージェント + 6ルール
+          1コマンドでプロ環境を構築。12コマンド + 8エージェント + 6ルール + SDK Docs
         </p>
         <div className="relative max-w-2xl mx-auto">
           <div className="bg-zinc-900 text-zinc-100 p-4 rounded-lg font-mono text-sm">
@@ -926,7 +1078,7 @@ function StarterKitContent() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <div className="p-6 rounded-xl bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800 text-center">
           <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">12</div>
           <div className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Commands</div>
@@ -938,6 +1090,10 @@ function StarterKitContent() {
         <div className="p-6 rounded-xl bg-orange-50 dark:bg-orange-950 border border-orange-200 dark:border-orange-800 text-center">
           <div className="text-3xl font-bold text-orange-600 dark:text-orange-400">6</div>
           <div className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Rules</div>
+        </div>
+        <div className="p-6 rounded-xl bg-teal-50 dark:bg-teal-950 border border-teal-200 dark:border-teal-800 text-center">
+          <div className="text-3xl font-bold text-teal-600 dark:text-teal-400">1</div>
+          <div className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Docs</div>
         </div>
       </div>
 
@@ -986,6 +1142,29 @@ function StarterKitContent() {
         </div>
       </div>
 
+      {/* Docs section */}
+      <div>
+        <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100 mb-4 flex items-center gap-2">
+          <span className="text-teal-600 dark:text-teal-400">📚</span> Docs（SDK）
+        </h3>
+        <div className="space-y-3">
+          {starterKit.docs.map((doc) => (
+            <div key={doc.name} className="p-4 rounded-lg border border-teal-200 dark:border-teal-700 bg-teal-50 dark:bg-teal-950">
+              <code className="font-mono font-medium text-teal-600 dark:text-teal-400">{doc.name}</code>
+              <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">{doc.description}</p>
+              <ul className="mt-3 space-y-1">
+                {doc.highlights.map((highlight, idx) => (
+                  <li key={idx} className="text-xs text-teal-700 dark:text-teal-300 flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-teal-500"></span>
+                    {highlight}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* How to use */}
       <div className="p-6 rounded-xl bg-amber-50 dark:bg-amber-950 border border-amber-200 dark:border-amber-800">
         <h3 className="text-lg font-bold text-amber-800 dark:text-amber-200 mb-4">インストール手順</h3>
@@ -1025,6 +1204,135 @@ function StarterKitContent() {
   );
 }
 
+// Build guide section card
+function BuildSectionCard({ section }: { section: BuildGuideSection }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="border border-zinc-200 dark:border-zinc-700 rounded-xl overflow-hidden bg-white dark:bg-zinc-900">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full p-5 flex items-center justify-between text-left hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
+      >
+        <div className="flex items-center gap-3">
+          <span className="text-2xl">{section.icon}</span>
+          <div>
+            <h3 className="font-bold text-zinc-900 dark:text-zinc-100">{section.title}</h3>
+            <p className="text-sm text-zinc-500 dark:text-zinc-400">{section.description}</p>
+          </div>
+        </div>
+        <svg
+          className={`w-5 h-5 text-zinc-500 transition-transform flex-shrink-0 ${isOpen ? 'rotate-180' : ''}`}
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+      {isOpen && (
+        <div className="px-5 pb-5 border-t border-zinc-200 dark:border-zinc-700">
+          <div className="mt-4 space-y-6">
+            {section.steps.map((step, idx) => (
+              <div key={idx}>
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold">
+                    {idx + 1}
+                  </span>
+                  <h4 className="font-medium text-zinc-900 dark:text-zinc-100">{step.title}</h4>
+                </div>
+                <p className="text-sm text-zinc-600 dark:text-zinc-400 ml-8 mb-2">{step.description}</p>
+                {step.code && (
+                  <div className="ml-8 relative">
+                    <pre className="bg-zinc-900 text-zinc-100 p-4 rounded-lg overflow-x-auto text-sm">
+                      <code>{step.code}</code>
+                    </pre>
+                    <CopyButton text={step.code} />
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+          {section.tips && section.tips.length > 0 && (
+            <div className="mt-6 p-3 bg-amber-50 dark:bg-amber-950 rounded-lg border border-amber-200 dark:border-amber-800">
+              <p className="text-sm font-medium text-amber-800 dark:text-amber-200 mb-2">Tips</p>
+              <ul className="text-sm text-amber-700 dark:text-amber-300 space-y-1">
+                {section.tips.map((tip, i) => (
+                  <li key={i}>- {tip}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {section.links && section.links.length > 0 && (
+            <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-950 rounded-lg border border-blue-200 dark:border-blue-800">
+              <p className="text-sm font-medium text-blue-800 dark:text-blue-200 mb-2">🔗 参考サイト</p>
+              <div className="flex flex-wrap gap-3">
+                {section.links.map((link, i) => (
+                  <a
+                    key={i}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-sm text-blue-600 dark:text-blue-400 hover:underline"
+                  >
+                    {link.label}
+                    <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Build tab content
+function BuildContent() {
+  return (
+    <div className="space-y-6">
+      <div className="text-center mb-8">
+        <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 mb-3">Build 実践ガイド</h2>
+        <p className="text-zinc-600 dark:text-zinc-400">
+          Claude Codeで本格的なプロダクトを構築するための4ステップ
+        </p>
+      </div>
+
+      {/* Progress overview */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+        {buildGuideSections.map((section) => (
+          <div key={section.id} className="p-4 rounded-lg bg-zinc-100 dark:bg-zinc-800 text-center">
+            <span className="text-2xl">{section.icon}</span>
+            <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100 mt-1">{section.title.split('（')[0]}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Section cards */}
+      {buildGuideSections.map((section) => (
+        <BuildSectionCard key={section.id} section={section} />
+      ))}
+
+      {/* Summary */}
+      <div className="p-5 rounded-xl bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950 border border-blue-200 dark:border-blue-800">
+        <h4 className="font-bold text-zinc-900 dark:text-zinc-100 mb-2">Claude Codeに丸ごと依頼する例</h4>
+        <div className="relative">
+          <div className="bg-zinc-900 text-zinc-100 p-4 rounded-lg text-sm">
+            <code>Next.jsでTodoアプリを作って、Supabaseでデータ保存して、Vercelにデプロイして</code>
+          </div>
+          <CopyButton text="Next.jsでTodoアプリを作って、Supabaseでデータ保存して、Vercelにデプロイして" />
+        </div>
+        <p className="mt-3 text-sm text-zinc-600 dark:text-zinc-400">
+          Claude Codeなら、この1行で環境構築からデプロイまで全自動で実行できます。
+        </p>
+      </div>
+    </div>
+  );
+}
+
 // Tips tab content
 function TipsContent() {
   return (
@@ -1041,7 +1349,21 @@ function TipsContent() {
 
 // Main component
 export default function Home() {
+  const [selectedLevel, setSelectedLevel] = useState<LevelType>('beginner');
   const [activeTab, setActiveTab] = useState('getting-started');
+
+  // Filter tabs based on selected level
+  const visibleTabs = tabs.filter(tab => tab.level === selectedLevel);
+
+  // Handle level change
+  const handleLevelChange = (newLevel: LevelType) => {
+    setSelectedLevel(newLevel);
+    // Select first tab of the new level
+    const levelConfig = levels.find(l => l.id === newLevel);
+    if (levelConfig && levelConfig.tabs[0]) {
+      setActiveTab(levelConfig.tabs[0]);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
@@ -1052,21 +1374,40 @@ export default function Home() {
             <h1 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">
               Claude Code Onboarding
             </h1>
-            <a
-              href="https://docs.anthropic.com/en/docs/claude-code"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
-            >
-              Official Docs
-            </a>
+            <div className="flex items-center gap-4">
+              {/* Level selector */}
+              <select
+                value={selectedLevel}
+                onChange={(e) => handleLevelChange(e.target.value as LevelType)}
+                className="px-3 py-1.5 text-sm rounded-lg border border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                {levels.map(level => (
+                  <option key={level.id} value={level.id}>
+                    {level.icon} {level.label}
+                  </option>
+                ))}
+              </select>
+              <a
+                href="https://docs.anthropic.com/en/docs/claude-code"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
+              >
+                Official Docs
+              </a>
+            </div>
           </div>
+        </div>
+
+        {/* Level description banner with persona & goals */}
+        <div className="max-w-5xl mx-auto px-4 py-3">
+          <PersonaGoalBanner selectedLevel={selectedLevel} />
         </div>
 
         {/* Tabs */}
         <div className="max-w-5xl mx-auto px-4">
           <nav className="flex gap-1 overflow-x-auto pb-px">
-            {tabs.map((tab) => (
+            {visibleTabs.map((tab, index) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
@@ -1077,7 +1418,7 @@ export default function Home() {
                 }`}
               >
                 <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-zinc-200 dark:bg-zinc-700 text-xs mr-2">
-                  {tab.icon}
+                  {index + 1}
                 </span>
                 {tab.label}
               </button>
@@ -1095,6 +1436,7 @@ export default function Home() {
         {activeTab === 'architecture' && <ArchitectureContent />}
         {activeTab === 'skills' && <SkillsContent />}
         {activeTab === 'starter-kit' && <StarterKitContent />}
+        {activeTab === 'build' && <BuildContent />}
         {activeTab === 'tips' && <TipsContent />}
       </main>
 

@@ -1,233 +1,596 @@
-# Multi-Agent System
+# multi-agent-shogun
 
-A YAML-based, extensible multi-agent system for parallel task execution using Claude Code.
+<div align="center">
 
-## Features
+**Multi-Agent Orchestration System for Claude Code**
 
-- **Hierarchical Architecture**: Orchestrator → Coordinator → SubAgent (×8)
-- **YAML-Based Configuration**: All settings, communications, and skill definitions in YAML
-- **Skills Auto-Generation**: Automatically generates reusable skills from successful task patterns
-- **Real-Time Dashboard**: Both Markdown and Web UI dashboards
-- **Parallel Execution**: Up to 8 SubAgents running in parallel
+*One command. Eight AI agents working in parallel.*
 
-## Prerequisites
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Claude Code](https://img.shields.io/badge/Claude-Code-blueviolet)](https://claude.ai)
+[![tmux](https://img.shields.io/badge/tmux-required-green)](https://github.com/tmux/tmux)
 
-- macOS
-- [tmux](https://github.com/tmux/tmux) (`brew install tmux`)
-- [Claude Code CLI](https://claude.ai/download)
-- Node.js 20+ (`brew install node`)
+[English](README.md) | [Japanese / 日本語](README_ja.md)
 
-## Quick Start
+</div>
+
+---
+
+## What is this?
+
+**multi-agent-shogun** is a system that runs multiple Claude Code instances simultaneously, organized like a feudal Japanese army.
+
+**Why use this?**
+- Give one command, get 8 AI workers executing in parallel
+- No waiting - you can keep giving commands while tasks run in background
+- AI remembers your preferences across sessions (Memory MCP)
+- Real-time progress tracking via dashboard
+
+```
+        You (The Lord)
+             │
+             ▼ Give orders
+      ┌─────────────┐
+      │   SHOGUN    │  ← Receives your command, delegates immediately
+      └──────┬──────┘
+             │ YAML files + tmux
+      ┌──────▼──────┐
+      │    KARO     │  ← Distributes tasks to workers
+      └──────┬──────┘
+             │
+    ┌─┬─┬─┬─┴─┬─┬─┬─┐
+    │1│2│3│4│5│6│7│8│  ← 8 workers execute in parallel
+    └─┴─┴─┴─┴─┴─┴─┴─┘
+        ASHIGARU
+```
+
+---
+
+## 🚀 Quick Start
+
+### 🪟 Windows Users (Most Common)
+
+<table>
+<tr>
+<td width="60">
+
+**Step 1**
+
+</td>
+<td>
+
+📥 **Download this repository**
+
+[Download ZIP](https://github.com/yohey-w/multi-agent-shogun/archive/refs/heads/main.zip) and extract to `C:\tools\multi-agent-shogun`
+
+*Or use git:* `git clone https://github.com/yohey-w/multi-agent-shogun.git C:\tools\multi-agent-shogun`
+
+</td>
+</tr>
+<tr>
+<td>
+
+**Step 2**
+
+</td>
+<td>
+
+🖱️ **Double-click `install.bat`**
+
+That's it! The installer handles everything automatically.
+
+</td>
+</tr>
+<tr>
+<td>
+
+**Step 3**
+
+</td>
+<td>
+
+✅ **Done!** 10 AI agents are now running.
+
+</td>
+</tr>
+</table>
+
+#### 📅 Daily Startup (After First Install)
+
+Open **Ubuntu terminal** (WSL) and run:
 
 ```bash
-# 1. Run setup
-./scripts/setup.sh
-
-# 2. Install dashboard dependencies
-cd dashboard && npm install && cd ..
-
-# 3. Start the system
-./scripts/start.sh
+cd /mnt/c/tools/multi-agent-shogun
+./shutsujin_departure.sh
 ```
 
-## Architecture
+---
 
-```
-User
-  │
-  ▼
-┌─────────────────────────────────┐
-│  Orchestrator                   │
-│  - Receives tasks from user     │
-│  - Delegates to Coordinator     │
-│  - Monitors system health       │
-└─────────────────────────────────┘
-  │
-  ▼
-┌─────────────────────────────────┐
-│  Coordinator                    │
-│  - Decomposes tasks (max 8)     │
-│  - Manages SubAgents            │
-│  - Generates skills             │
-└─────────────────────────────────┘
-  │
-  ▼
-┌─────────────────────────────────┐
-│  SubAgent × 8                   │
-│  - Executes assigned task ONLY  │
-│  - Reports completion           │
-│  - Records patterns             │
-└─────────────────────────────────┘
-```
+<details>
+<summary>🐧 <b>Linux / Mac Users</b> (Click to expand)</summary>
 
-## Project Structure
-
-```
-multi-agent/
-├── config/                 # YAML configurations
-│   ├── agents.yaml        # Agent definitions
-│   ├── skills.yaml        # Skill definitions
-│   ├── workflows.yaml     # Workflow definitions
-│   └── settings.yaml      # Global settings
-├── instructions/           # Agent system prompts
-├── queue/                  # YAML-based communication
-│   ├── tasks/             # Coordinator → SubAgent
-│   └── reports/           # SubAgent → Coordinator
-├── skills/
-│   ├── builtin/           # Built-in skills
-│   └── auto-generated/    # Auto-generated skills
-├── scripts/
-│   ├── setup.sh           # Initial setup
-│   ├── start.sh           # Start system
-│   └── stop.sh            # Stop system
-└── dashboard/              # Web UI dashboard (Next.js)
-```
-
-## Usage
-
-### Starting the System
+### First-Time Setup
 
 ```bash
-./scripts/start.sh
+# 1. Clone the repository
+git clone https://github.com/yohey-w/multi-agent-shogun.git ~/multi-agent-shogun
+cd ~/multi-agent-shogun
+
+# 2. Make scripts executable
+chmod +x *.sh
+
+# 3. Run first-time setup
+./first_setup.sh
 ```
 
-This creates a tmux session with:
-- Window 0: Orchestrator
-- Window 1: Coordinator
-- Window 2: SubAgents (8 panes)
-- Window 3: Dashboard
-- Window 4: Logs
-
-### tmux Navigation
-
-- `Ctrl+B, 0-4`: Switch windows
-- `Ctrl+B, D`: Detach from session
-- `tmux attach -t multi-agent`: Reattach
-
-### Stopping the System
+### Daily Startup
 
 ```bash
-./scripts/stop.sh
+cd ~/multi-agent-shogun
+./shutsujin_departure.sh
 ```
 
-## Dashboard
+</details>
 
-### Markdown Dashboard
+---
+
+<details>
+<summary>❓ <b>What is WSL2? Why do I need it?</b> (Click to expand)</summary>
+
+### About WSL2
+
+**WSL2 (Windows Subsystem for Linux)** lets you run Linux inside Windows. This system uses `tmux` (a Linux tool) to manage multiple AI agents, so WSL2 is required on Windows.
+
+### Don't have WSL2 yet?
+
+No problem! When you run `install.bat`, it will:
+1. Check if WSL2 is installed
+2. If not, show you exactly how to install it
+3. Guide you through the entire process
+
+**Quick install command** (run in PowerShell as Administrator):
+```powershell
+wsl --install
+```
+
+Then restart your computer and run `install.bat` again.
+
+</details>
+
+---
+
+<details>
+<summary>📋 <b>Script Reference</b> (Click to expand)</summary>
+
+| Script | Purpose | When to Run |
+|--------|---------|-------------|
+| `install.bat` | Windows: First-time setup (runs first_setup.sh via WSL) | First time only |
+| `first_setup.sh` | Installs tmux, Node.js, Claude Code CLI | First time only |
+| `shutsujin_departure.sh` | Creates tmux sessions + starts Claude Code + loads instructions | Every day |
+
+### What `install.bat` does automatically:
+- ✅ Checks if WSL2 is installed
+- ✅ Opens Ubuntu and runs `first_setup.sh`
+- ✅ Installs tmux, Node.js, and Claude Code CLI
+- ✅ Creates necessary directories
+
+### What `shutsujin_departure.sh` does:
+- ✅ Creates tmux sessions (shogun + multiagent)
+- ✅ Launches Claude Code on all 10 agents
+- ✅ Automatically loads instruction files for each agent
+- ✅ Resets queue files for a fresh start
+
+**After running, all agents are ready to receive commands immediately!**
+
+</details>
+
+---
+
+<details>
+<summary>🔧 <b>Prerequisites (for manual setup)</b> (Click to expand)</summary>
+
+If you prefer to install dependencies manually:
+
+| Requirement | How to install | Notes |
+|-------------|----------------|-------|
+| WSL2 + Ubuntu | `wsl --install` in PowerShell | Windows only |
+| tmux | `sudo apt install tmux` | Terminal multiplexer |
+| Node.js v20+ | `nvm install 20` | Required for Claude Code CLI |
+| Claude Code CLI | `npm install -g @anthropic-ai/claude-code` | Anthropic's official CLI |
+
+</details>
+
+---
+
+### ✅ What Happens After Setup
+
+After running either option, **10 AI agents** will start automatically:
+
+| Agent | Role | Quantity |
+|-------|------|----------|
+| 🏯 Shogun | Commander - receives your orders | 1 |
+| 📋 Karo | Manager - distributes tasks | 1 |
+| ⚔️ Ashigaru | Workers - execute tasks in parallel | 8 |
+
+You'll see tmux sessions created:
+- `shogun` - Connect here to give commands
+- `multiagent` - Workers running in background
+
+---
+
+## 📖 Basic Usage
+
+### Step 1: Connect to Shogun
+
+After running `shutsujin_departure.sh`, all agents automatically load their instructions and are ready to work.
+
+Open a new terminal and connect to the Shogun:
 
 ```bash
-cat dashboard.md
+tmux attach-session -t shogun
 ```
 
-### Web UI Dashboard
+### Step 2: Give Your First Order
+
+The Shogun is already initialized! Just give your command:
+
+```
+Investigate the top 5 JavaScript frameworks and create a comparison table.
+```
+
+The Shogun will:
+1. Write the task to a YAML file
+2. Notify the Karo (manager)
+3. Return control to you immediately (you don't have to wait!)
+
+Meanwhile, the Karo distributes the work to Ashigaru workers who execute in parallel.
+
+### Step 3: Check Progress
+
+Open `dashboard.md` in your editor to see real-time status:
+
+```markdown
+## In Progress
+| Worker | Task | Status |
+|--------|------|--------|
+| Ashigaru 1 | React research | Running |
+| Ashigaru 2 | Vue research | Running |
+| Ashigaru 3 | Angular research | Done |
+```
+
+---
+
+## ✨ Key Features
+
+### ⚡ 1. Parallel Execution
+
+One command can spawn up to 8 parallel tasks:
+
+```
+You: "Research 5 MCP servers"
+→ 5 Ashigaru start researching simultaneously
+→ Results ready in minutes, not hours
+```
+
+### 🔄 2. Non-Blocking Workflow
+
+The Shogun delegates immediately and returns control to you:
+
+```
+You: Give order → Shogun: Delegates → You: Can give next order immediately
+                                           ↓
+                         Workers: Execute in background
+                                           ↓
+                         Dashboard: Shows results
+```
+
+You never have to wait for long tasks to complete.
+
+### 🧠 3. Memory Across Sessions (Memory MCP)
+
+The AI remembers your preferences:
+
+```
+Session 1: You say "I prefer simple solutions"
+           → Saved to Memory MCP
+
+Session 2: AI reads memory at startup
+           → Won't suggest over-engineered solutions
+```
+
+### 📡 4. Event-Driven (No Polling)
+
+Agents communicate via YAML files and wake each other with tmux send-keys.
+**No API calls are wasted on polling loops.**
+
+---
+
+## 🔌 MCP Setup Guide
+
+MCP (Model Context Protocol) servers extend Claude's capabilities. Here's how to set them up:
+
+### What is MCP?
+
+MCP servers give Claude access to external tools:
+- **Notion MCP** → Read/write Notion pages
+- **GitHub MCP** → Create PRs, manage issues
+- **Memory MCP** → Remember things across sessions
+
+### Installing MCP Servers
+
+Run these commands to add MCP servers:
 
 ```bash
-cd dashboard
-npm run dev
-# Open http://localhost:3001
+# 1. Notion - Connect to your Notion workspace
+claude mcp add notion -e NOTION_TOKEN=your_token_here -- npx -y @notionhq/notion-mcp-server
+
+# 2. Playwright - Browser automation
+claude mcp add playwright -- npx @playwright/mcp@latest
+# Note: Run `npx playwright install chromium` first
+
+# 3. GitHub - Repository operations
+claude mcp add github -e GITHUB_PERSONAL_ACCESS_TOKEN=your_pat_here -- npx -y @modelcontextprotocol/server-github
+
+# 4. Sequential Thinking - Step-by-step reasoning for complex problems
+claude mcp add sequential-thinking -- npx -y @modelcontextprotocol/server-sequential-thinking
+
+# 5. Memory - Long-term memory across sessions (Recommended!)
+claude mcp add memory -e MEMORY_FILE_PATH="$PWD/memory/shogun_memory.jsonl" -- npx -y @modelcontextprotocol/server-memory
 ```
 
-## Communication Protocol
+### Verify Installation
 
-### Task Assignment (Coordinator → SubAgent)
+```bash
+claude mcp list
+```
+
+You should see all servers with "Connected" status.
+
+---
+
+## 🌍 Real-World Use Cases
+
+### Example 1: Research Task
+
+```
+You: "Research the top 5 AI coding assistants and compare them"
+
+What happens:
+1. Shogun delegates to Karo
+2. Karo assigns:
+   - Ashigaru 1: Research GitHub Copilot
+   - Ashigaru 2: Research Cursor
+   - Ashigaru 3: Research Claude Code
+   - Ashigaru 4: Research Codeium
+   - Ashigaru 5: Research Amazon CodeWhisperer
+3. All 5 research simultaneously
+4. Results compiled in dashboard.md
+```
+
+### Example 2: PoC Preparation
+
+```
+You: "Prepare a PoC for the project in this Notion page: [URL]"
+
+What happens:
+1. Karo fetches Notion content via MCP
+2. Ashigaru 2: Lists items to clarify
+3. Ashigaru 3: Researches technical feasibility
+4. Ashigaru 4: Creates PoC plan document
+5. All results in dashboard.md, ready for your meeting
+```
+
+---
+
+## ⚙️ Configuration
+
+### Language Setting
+
+Edit `config/settings.yaml`:
 
 ```yaml
-# queue/tasks/task_001_subagent_1.yaml
-task_id: task_001
-subtask_id: subtask_001
-subagent_id: 1
-command: create_component
-target: Button.tsx
-details:
-  description: Create a reusable Button component
-  requirements:
-    - variant: primary, secondary, danger
-    - size: sm, md, lg
-priority: high
+language: ja   # Japanese only
+language: en   # Japanese + English translation
 ```
 
-### Completion Report (SubAgent → Coordinator)
+---
 
-```yaml
-# queue/reports/task_001_subagent_1_report.yaml
-task_id: task_001
-subtask_id: subtask_001
-subagent_id: 1
-status: completed
-result:
-  summary: Button component created
-  files_created:
-    - src/components/ui/Button.tsx
-duration: 120
-pattern:
-  trigger: "Button component creation"
-  steps:
-    - Create component file
-    - Define Props interface
-    - Implement variants
+## 🛠️ Advanced Usage
+
+<details>
+<summary><b>Script Architecture</b> (Click to expand)</summary>
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                      FIRST-TIME SETUP (Run Once)                    │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                     │
+│  install.bat (Windows)                                              │
+│      │                                                              │
+│      └──▶ first_setup.sh (via WSL)                                  │
+│                │                                                    │
+│                ├── Check/Install tmux                               │
+│                ├── Check/Install Node.js v20+ (via nvm)             │
+│                └── Check/Install Claude Code CLI                    │
+│                                                                     │
+├─────────────────────────────────────────────────────────────────────┤
+│                      DAILY STARTUP (Run Every Day)                  │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                     │
+│  shutsujin_departure.sh                                             │
+│      │                                                              │
+│      ├──▶ Create tmux sessions                                      │
+│      │         • "shogun" session (1 pane)                          │
+│      │         • "multiagent" session (9 panes, 3x3 grid)           │
+│      │                                                              │
+│      ├──▶ Reset queue files and dashboard                           │
+│      │                                                              │
+│      └──▶ Launch Claude Code on all agents                          │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
 ```
 
-## Skills Auto-Generation
+</details>
 
-When a pattern is successfully completed 3+ times with 80%+ success rate, it's automatically saved as a skill:
+<details>
+<summary><b>shutsujin_departure.sh Options</b> (Click to expand)</summary>
 
-```yaml
-# skills/auto-generated/auto-button-creation.yaml
-skill_id: auto-button-creation
-name: Button Component Creation
-pattern:
-  trigger: "Button component|ボタンコンポーネント"
-  steps:
-    - Create component file at src/components/ui/{Name}.tsx
-    - Define Props interface
-    - Implement variants
-success_rate: 0.95
-usage_count: 3
+```bash
+# Default: Full startup (tmux sessions + Claude Code launch)
+./shutsujin_departure.sh
+
+# Session setup only (without launching Claude Code)
+./shutsujin_departure.sh -s
+./shutsujin_departure.sh --setup-only
+
+# Full startup + open Windows Terminal tabs
+./shutsujin_departure.sh -t
+./shutsujin_departure.sh --terminal
+
+# Show help
+./shutsujin_departure.sh -h
+./shutsujin_departure.sh --help
 ```
 
-## Workflows
+</details>
 
-### Feature Implementation
+<details>
+<summary><b>Common Workflows</b> (Click to expand)</summary>
 
-```yaml
-trigger: "機能実装|implement feature"
-phases:
-  - Planning (Orchestrator)
-  - Task Decomposition (Coordinator)
-  - Parallel Execution (SubAgents)
-  - Integration (Coordinator)
-  - Review (Orchestrator)
+**Normal Daily Usage:**
+```bash
+./shutsujin_departure.sh          # Start everything
+tmux attach-session -t shogun     # Connect to give commands
 ```
 
-### Bug Fix
+**Debug Mode (manual control):**
+```bash
+./shutsujin_departure.sh -s       # Create sessions only
 
-```yaml
-trigger: "バグ修正|fix bug"
-phases:
-  - Investigation (Orchestrator)
-  - Fix Implementation (Coordinator)
-  - Parallel Fix (SubAgents)
-  - Verification (Coordinator)
+# Manually start Claude Code on specific agents
+tmux send-keys -t shogun:0 'claude --dangerously-skip-permissions' Enter
+tmux send-keys -t multiagent:0.0 'claude --dangerously-skip-permissions' Enter
 ```
 
-## Configuration
+**Restart After Crash:**
+```bash
+# Kill existing sessions
+tmux kill-session -t shogun
+tmux kill-session -t multiagent
 
-### agents.yaml
+# Start fresh
+./shutsujin_departure.sh
+```
 
-Define agent roles, models, and tools.
+</details>
 
-### settings.yaml
+---
 
-Configure dashboard, logging, skills auto-generation, and memory.
+## 📁 File Structure
 
-### workflows.yaml
+<details>
+<summary><b>Click to expand file structure</b></summary>
 
-Define multi-step workflows with phase assignments.
+```
+multi-agent-shogun/
+│
+│  ┌─────────────────── SETUP SCRIPTS ───────────────────┐
+├── install.bat               # Windows: First-time setup
+├── first_setup.sh            # Ubuntu/Mac: First-time setup
+├── shutsujin_departure.sh    # Daily startup (auto-loads instructions)
+│  └────────────────────────────────────────────────────┘
+│
+├── instructions/             # Agent instruction files
+│   ├── shogun.md             # Commander instructions
+│   ├── karo.md               # Manager instructions
+│   └── ashigaru.md           # Worker instructions
+│
+├── config/
+│   └── settings.yaml         # Language and other settings
+│
+├── queue/                    # Communication files
+│   ├── shogun_to_karo.yaml   # Commands from Shogun to Karo
+│   ├── tasks/                # Individual worker task files
+│   └── reports/              # Worker reports
+│
+├── memory/                   # Memory MCP storage
+├── dashboard.md              # Real-time status overview
+└── CLAUDE.md                 # Project context for Claude
+```
 
-## References
+</details>
 
-- Original: https://github.com/yohey-w/multi-agent-shogun
-- Article: https://zenn.dev/shio_shoppaize/articles/5fee11d03a11a1
+---
 
-## License
+## 🔧 Troubleshooting
 
-MIT
+<details>
+<summary><b>MCP tools not working?</b></summary>
+
+MCP tools are "deferred" and need to be loaded first:
+
+```
+# Wrong - tool not loaded
+mcp__memory__read_graph()  ← Error!
+
+# Correct - load first
+ToolSearch("select:mcp__memory__read_graph")
+mcp__memory__read_graph()  ← Works!
+```
+
+</details>
+
+<details>
+<summary><b>Agents asking for permissions?</b></summary>
+
+Make sure to start with `--dangerously-skip-permissions`:
+
+```bash
+claude --dangerously-skip-permissions --system-prompt "..."
+```
+
+</details>
+
+<details>
+<summary><b>Workers stuck?</b></summary>
+
+Check the worker's pane:
+```bash
+tmux attach-session -t multiagent
+# Use Ctrl+B then number to switch panes
+```
+
+</details>
+
+---
+
+## 📚 tmux Quick Reference
+
+| Command | Description |
+|---------|-------------|
+| `tmux attach -t shogun` | Connect to Shogun |
+| `tmux attach -t multiagent` | Connect to workers |
+| `Ctrl+B` then `0-8` | Switch between panes |
+| `Ctrl+B` then `d` | Detach (leave running) |
+| `tmux kill-session -t shogun` | Stop Shogun session |
+| `tmux kill-session -t multiagent` | Stop worker sessions |
+
+---
+
+## 🙏 Credits
+
+Based on [Claude-Code-Communication](https://github.com/Akira-Papa/Claude-Code-Communication) by Akira-Papa.
+
+---
+
+## 📄 License
+
+MIT License - See [LICENSE](LICENSE) for details.
+
+---
+
+<div align="center">
+
+**Command your AI army. Build faster.**
+
+</div>

@@ -169,6 +169,45 @@ claude /install-github-plugin Hantaku705/claude-code-starter
       '6個のルール（セキュリティ、コーディングスタイル等）',
     ],
   },
+  {
+    id: 'useful-commands',
+    title: 'よく使うコマンド',
+    duration: '3分',
+    content: 'セッション管理とプロジェクト設定の基本コマンドを覚えましょう。',
+    code: `# セッション終了時
+/handoff       # 進捗をHANDOFF.mdに保存
+
+# セッション再開時
+/resume        # 前回の状態を読み込み
+
+# CLAUDE.md
+プロジェクトルートに配置するとClaude Codeが
+プロジェクト固有の設定を自動で読み込みます`,
+    tips: [
+      '/handoff: セッション終了時に必ず実行（進捗が消えない）',
+      '/resume: セッション開始時に実行（前回の続きから）',
+      'CLAUDE.md: 技術スタック、コーディング規約、フォルダ構成を記載',
+    ],
+  },
+  {
+    id: 'troubleshooting',
+    title: '困ったら',
+    duration: '2分',
+    content: 'Claude Codeで解決できないエラーが起きたら、Cursor AIを最終手段として使いましょう。',
+    code: `# Claude Codeでエラーが解決しない場合
+
+1. エラーメッセージをコピー
+2. Cursor AIのチャット（Cmd+L）に貼り付け
+3. 「このエラーを解決して」と依頼
+
+# Cursor AIは別のAI（GPT-4/Claude）なので
+# 違う視点から解決策を提案してくれます`,
+    tips: [
+      'Cursor AIは最終手段（まずはClaude Codeで解決を試みる）',
+      'エラーメッセージだけでなく、前後のコードも一緒にコピペ',
+      '両方のAIを使い分けると効率UP',
+    ],
+  },
 ];
 
 // Features
@@ -873,3 +912,360 @@ export const starterKit = {
     },
   ] as StarterKitDoc[],
 };
+
+// Tab with level support
+export type LevelType = 'beginner' | 'intermediate' | 'advanced';
+
+export interface Tab {
+  id: string;
+  label: string;
+  level: LevelType;
+}
+
+export const tabs: Tab[] = [
+  // Lv.1 初心者
+  { id: 'getting-started', label: 'Getting Started', level: 'beginner' },
+  { id: 'starter-kit', label: 'Starter Kit', level: 'beginner' },
+  // Lv.2 中級者
+  { id: 'features', label: 'Features', level: 'intermediate' },
+  { id: 'examples', label: 'Examples', level: 'intermediate' },
+  { id: 'architecture', label: 'Architecture', level: 'intermediate' },
+  { id: 'compare', label: 'Compare', level: 'intermediate' },
+  { id: 'skills', label: 'Skills', level: 'intermediate' },
+  // Lv.3 上級者
+  { id: 'build', label: 'Build', level: 'advanced' },
+  { id: 'tips', label: 'Tips', level: 'advanced' },
+];
+
+export interface Level {
+  id: LevelType;
+  label: string;
+  icon: string;
+  description: string;
+  tabs: string[];
+}
+
+export const levels: Level[] = [
+  { id: 'beginner', label: '初心者', icon: '🌱', description: 'Getting Started + Starter Kit', tabs: ['getting-started', 'starter-kit'] },
+  { id: 'intermediate', label: '中級者', icon: '🌿', description: 'Features + Examples + Architecture + Compare + Skills', tabs: ['features', 'examples', 'architecture', 'compare', 'skills'] },
+  { id: 'advanced', label: '上級者', icon: '🌳', description: 'Build + Tips', tabs: ['build', 'tips'] },
+];
+
+// Glossary for beginners
+export interface Glossary {
+  id: string;
+  term: string;
+  termEn?: string;
+  definition: string;
+  analogy: string;
+  icon: string;
+}
+
+export const glossary: Glossary[] = [
+  {
+    id: 'editor',
+    term: 'エディター',
+    termEn: 'Editor',
+    definition: 'コードを書くためのアプリケーション。文法ハイライトや自動補完などコーディングに便利な機能が搭載されている。',
+    analogy: 'メモ帳の超高機能版。Wordが文章用なら、エディターはコード用',
+    icon: '📝',
+  },
+  {
+    id: 'cursor',
+    term: 'Cursor',
+    termEn: 'Cursor',
+    definition: 'VS Codeをベースに作られたAI機能付きエディター。Composer（AI画面）でコードを自動生成できる。',
+    analogy: 'VS Codeにもう一人のプログラマー（AI）が常駐しているイメージ',
+    icon: '🖱️',
+  },
+  {
+    id: 'claude-code',
+    term: 'Claude Code',
+    termEn: 'Claude Code',
+    definition: 'ターミナルで動くAIアシスタント。自然な日本語でコードを書いたり、修正したり、実行したりできる。',
+    analogy: 'ChatGPTのターミナル版。しかもファイルを直接編集できる',
+    icon: '🤖',
+  },
+  {
+    id: 'terminal',
+    term: 'ターミナル',
+    termEn: 'Terminal',
+    definition: '文字だけで操作する画面。GUIの代わりにコマンドを打って操作する。「黒い画面」「コマンドライン」とも呼ばれる。',
+    analogy: 'マウスを使わず、キーボードだけでパソコンを操作する方法',
+    icon: '💻',
+  },
+  {
+    id: 'cli',
+    term: 'CLI',
+    termEn: 'Command Line Interface',
+    definition: 'ターミナルで使うツールのこと。GUIの反対。',
+    analogy: 'GUIが「見て操作」ならCLIは「打って操作」',
+    icon: '⌨️',
+  },
+  {
+    id: 'homebrew',
+    term: 'Homebrew',
+    termEn: 'Homebrew',
+    definition: 'Macにアプリをインストールするためのツール。開発者向けツールの導入が簡単になる。',
+    analogy: 'App Storeのターミナル版。brew install でアプリが入る',
+    icon: '🍺',
+  },
+  {
+    id: 'npm',
+    term: 'npm',
+    termEn: 'Node Package Manager',
+    definition: 'Node.jsのパッケージ管理ツール。JavaScriptライブラリをインストールする。',
+    analogy: 'JavaScriptの部品屋さん。必要な部品をnpm installで取り寄せる',
+    icon: '📦',
+  },
+];
+
+// Persona for each level
+export interface Persona {
+  level: LevelType;
+  title: string;
+  description: string;
+  background: string;
+  pain: string;
+  icon: string;
+}
+
+export const personas: Persona[] = [
+  {
+    level: 'beginner',
+    title: 'ターミナル初心者',
+    description: 'Excelは使えるけどターミナルは怖い人',
+    background: '非エンジニア、マーケター、PMなど。Cursorは少し触ったことがある',
+    pain: 'AIでコード書けると聞いたけど、何から始めればいいかわからない',
+    icon: '🌱',
+  },
+  {
+    level: 'intermediate',
+    title: '効率化を目指す人',
+    description: 'Cursorでコードは書けるけど手戻りが多い人',
+    background: 'コーディング経験1-2年。AIツールは日常使用',
+    pain: '効率化したい。エラーループから抜け出したい。チーム展開を検討中',
+    icon: '🌿',
+  },
+  {
+    level: 'advanced',
+    title: 'ワークフロー職人',
+    description: '自分専用の設定を作りたい人',
+    background: 'エンジニア3年以上。ワークフロー最適化に関心',
+    pain: 'Skills/Agents/Hooksを自作して、チームの生産性を10倍にしたい',
+    icon: '🌳',
+  },
+];
+
+// Goals for each level
+export interface LevelGoal {
+  level: LevelType;
+  goalTitle: string;
+  checkItems: string[];
+  timeEstimate: string;
+  nextAction: string;
+}
+
+export const levelGoals: LevelGoal[] = [
+  {
+    level: 'beginner',
+    goalTitle: '中級者へ',
+    checkItems: [
+      'Claude Codeをインストールして認証できた',
+      '基本操作5つを覚えた（claude, /help, /clear, Ctrl+C, exit）',
+      '実際にファイルを1つ作成できた',
+      '/handoff と /resume を使えた',
+      'Plan Modeを試した',
+    ],
+    timeEstimate: '約1-2時間',
+    nextAction: 'CLAUDE.mdを作成してプロジェクト設定を始めよう',
+  },
+  {
+    level: 'intermediate',
+    goalTitle: '上級者へ',
+    checkItems: [
+      'Skillを自分で作れた',
+      'Commandを実行できた',
+      'Subagentを理解して、並行処理ができた',
+    ],
+    timeEstimate: '約1-2週間',
+    nextAction: 'Hooks・MCP連携でワークフローをさらに自動化しよう',
+  },
+  {
+    level: 'advanced',
+    goalTitle: 'マスター',
+    checkItems: [
+      'Webアプリを作れた（Vercelを活用）',
+      'データベースを作れた（Supabaseの理解・導入）',
+      '外部API Keyの理解（Apify / RapidAPIの導入理解）',
+      'Hooksの設定ができた',
+    ],
+    timeEstimate: '継続的',
+    nextAction: 'Agent SDKで本番環境の自動化を構築しよう',
+  },
+];
+
+// Build Guide for advanced users
+export interface BuildGuideSection {
+  id: string;
+  title: string;
+  icon: string;
+  description: string;
+  steps: { title: string; description: string; code?: string }[];
+  tips?: string[];
+  links?: { label: string; url: string }[];
+}
+
+export const buildGuideSections: BuildGuideSection[] = [
+  {
+    id: 'vercel',
+    title: 'Webアプリ作成（Vercel）',
+    icon: '🚀',
+    description: 'Next.jsでWebアプリを作り、Vercelで世界に公開する',
+    steps: [
+      {
+        title: 'Next.js プロジェクト作成',
+        description: 'Claude Codeに依頼するだけでプロジェクトが作れる',
+        code: '# Claude Codeで実行\n「Next.jsで○○のWebアプリを作って」\n\n# 手動の場合\nnpx create-next-app@latest my-app --typescript --tailwind --app',
+      },
+      {
+        title: 'ローカルで確認',
+        description: '開発サーバーを起動してブラウザで確認',
+        code: 'cd my-app\nnpm run dev\n# → http://localhost:3000',
+      },
+      {
+        title: 'Vercel にデプロイ',
+        description: 'Vercel CLIで本番公開。GitHubプッシュでも自動デプロイ可能',
+        code: '# Vercel CLI インストール\nnpm i -g vercel\n\n# 認証\nvercel login\n\n# デプロイ（初回）\nvercel --yes\n\n# 本番デプロイ\nvercel --prod --yes',
+      },
+      {
+        title: '環境変数の設定',
+        description: 'API KeyなどをVercelに登録',
+        code: '# 環境変数を追加\nvercel env add API_KEY production <<< "your-key"\n\n# 一覧確認\nvercel env ls\n\n# 再デプロイ（環境変数反映）\nvercel --prod --yes',
+      },
+    ],
+    tips: [
+      'Claude Codeに「Vercelにデプロイして」と言えば自動でやってくれる',
+      'GitHub連携すると、pushするだけで自動デプロイされる',
+      'プロジェクト名は小文字のみ（大文字NG）',
+    ],
+    links: [
+      { label: 'Vercel 公式', url: 'https://vercel.com' },
+      { label: 'Next.js 公式', url: 'https://nextjs.org' },
+      { label: 'Vercel CLI Docs', url: 'https://vercel.com/docs/cli' },
+    ],
+  },
+  {
+    id: 'supabase',
+    title: 'データベース（Supabase）',
+    icon: '🗄️',
+    description: 'Supabaseでデータベースを作り、Webアプリと接続する',
+    steps: [
+      {
+        title: 'Supabase プロジェクト作成',
+        description: 'supabase.comでアカウント作成 → New Project',
+        code: '# プロジェクト作成後、以下の情報をメモ\n# - Project URL: https://xxx.supabase.co\n# - anon key: eyJ...\n# - service_role key: eyJ...',
+      },
+      {
+        title: 'テーブル作成（SQL Editor）',
+        description: 'SQL Editorでテーブルを作成。Claude CodeにSQL生成を依頼できる',
+        code: '-- テーブル作成例\nCREATE TABLE IF NOT EXISTS users (\n  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,\n  name TEXT NOT NULL,\n  email TEXT UNIQUE NOT NULL,\n  created_at TIMESTAMP DEFAULT now()\n);\n\n-- RLS（行レベルセキュリティ）有効化\nALTER TABLE users ENABLE ROW LEVEL SECURITY;',
+      },
+      {
+        title: 'Next.js から接続',
+        description: 'Supabase クライアントライブラリをインストール',
+        code: '# インストール\nnpm install @supabase/supabase-js\n\n# .env.local に設定\nNEXT_PUBLIC_SUPABASE_URL=https://xxx.supabase.co\nNEXT_PUBLIC_SUPABASE_ANON_KEY=eyJ...',
+      },
+      {
+        title: 'データの読み書き',
+        description: 'TypeScriptからCRUD操作',
+        code: "import { createClient } from '@supabase/supabase-js'\n\nconst supabase = createClient(\n  process.env.NEXT_PUBLIC_SUPABASE_URL!,\n  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!\n)\n\n// 読み取り\nconst { data } = await supabase.from('users').select('*')\n\n// 書き込み\nawait supabase.from('users').insert({ name: 'Taro', email: 'taro@example.com' })",
+      },
+    ],
+    tips: [
+      'Claude Codeに「Supabaseのテーブル設計して」と依頼するとSQL生成してくれる',
+      'RLS（Row Level Security）は必ず有効にすること',
+      'service_role keyは絶対にフロントエンドに露出させない',
+    ],
+    links: [
+      { label: 'Supabase 公式', url: 'https://supabase.com' },
+      { label: 'Supabase Docs', url: 'https://supabase.com/docs' },
+      { label: 'Supabase JS SDK', url: 'https://supabase.com/docs/reference/javascript/introduction' },
+    ],
+  },
+  {
+    id: 'api-keys',
+    title: '外部API Key（Apify / RapidAPI）',
+    icon: '🔑',
+    description: '外部サービスのAPIを使い、データ取得やスクレイピングを行う',
+    steps: [
+      {
+        title: 'API Keyとは',
+        description: '外部サービスにアクセスするための「合言葉」。サービスごとに発行され、環境変数で管理する',
+        code: '# 環境変数で管理（.env.local）\nAPIF_TOKEN=apify_api_xxxxx\nRAPID_API_KEY=xxxxx\n\n# コード内で使用\nconst token = process.env.APIFY_TOKEN',
+      },
+      {
+        title: 'Apify（スクレイピング）',
+        description: 'Webサイトからデータを自動取得するプラットフォーム。TikTok、Instagram、Google等のスクレイパーが豊富',
+        code: '# Apify クライアント\nnpm install apify-client\n\n# 使用例（TikTokプロフィール取得）\nimport { ApifyClient } from "apify-client"\n\nconst client = new ApifyClient({ token: process.env.APIFY_TOKEN })\nconst run = await client.actor("actor-id").call({ profiles: ["@username"] })\nconst { items } = await client.dataset(run.defaultDatasetId).listItems()',
+      },
+      {
+        title: 'RapidAPI（APIマーケットプレイス）',
+        description: '数千のAPIを1つのキーで使えるマーケットプレイス。翻訳、天気、SNSデータなど',
+        code: '# RapidAPI 使用例\nconst response = await fetch("https://api-endpoint.p.rapidapi.com/data", {\n  headers: {\n    "X-RapidAPI-Key": process.env.RAPID_API_KEY!,\n    "X-RapidAPI-Host": "api-endpoint.p.rapidapi.com"\n  }\n})\nconst data = await response.json()',
+      },
+      {
+        title: 'Vercelへの環境変数登録',
+        description: 'API Keyは必ずVercelの環境変数に登録（コードにハードコードNG）',
+        code: '# Vercelに環境変数登録\nvercel env add APIFY_TOKEN production <<< "apify_api_xxxxx"\nvercel env add RAPID_API_KEY production <<< "xxxxx"\n\n# 再デプロイ\nvercel --prod --yes',
+      },
+    ],
+    tips: [
+      'API Keyは絶対にコードに直書きしない（環境変数で管理）',
+      'Apifyは無料枠あり（月$5相当）。RapidAPIも無料プランあり',
+      '.env.local は .gitignore に含まれているか必ず確認',
+    ],
+    links: [
+      { label: 'Apify 公式', url: 'https://apify.com' },
+      { label: 'Apify Store', url: 'https://apify.com/store' },
+      { label: 'RapidAPI 公式', url: 'https://rapidapi.com' },
+    ],
+  },
+  {
+    id: 'hooks',
+    title: 'Hooks設定',
+    icon: '⚡',
+    description: 'ツール実行の前後に自動チェックを走らせる',
+    steps: [
+      {
+        title: 'Hooksとは',
+        description: 'Claude Codeがツールを使う前後に自動で実行されるスクリプト。品質チェックや安全ガードに使う',
+        code: '# 3種類のHook\nPreToolUse   → ツール実行「前」（バリデーション）\nPostToolUse  → ツール実行「後」（自動フォーマット）\nStop         → セッション終了時（最終チェック）',
+      },
+      {
+        title: 'settings.json の場所',
+        description: 'ユーザーレベルの設定ファイル',
+        code: '# 場所\n~/.claude/settings.json\n\n# 基本構造\n{\n  "hooks": {\n    "PreToolUse": [...],\n    "PostToolUse": [...],\n    "Stop": [...]\n  }\n}',
+      },
+      {
+        title: '実用例：console.log 検出',
+        description: 'ファイル編集後に console.log が残っていないかチェック',
+        code: '{\n  "hooks": {\n    "PostToolUse": [\n      {\n        "matcher": "Edit",\n        "hooks": [\n          {\n            "type": "command",\n            "command": "grep -n \'console.log\' \\"$CLAUDE_FILE_PATH\\" && echo \'⚠️ console.log detected\' || true"\n          }\n        ]\n      }\n    ]\n  }\n}',
+      },
+      {
+        title: '実用例：git push 前レビュー',
+        description: 'push前に確認を入れる安全ガード',
+        code: '{\n  "hooks": {\n    "PreToolUse": [\n      {\n        "matcher": "Bash",\n        "hooks": [\n          {\n            "type": "command",\n            "command": "echo \\"$CLAUDE_TOOL_INPUT\\" | grep -q \'git push\' && echo \'⚠️ About to push! Review changes first.\' || true"\n          }\n        ]\n      }\n    ]\n  }\n}',
+      },
+    ],
+    tips: [
+      'Starter Kitをインストールすれば、推奨Hooks設定が含まれている',
+      'Hooksが多すぎると実行速度が落ちるので、必要なものだけ設定',
+      'Claude Codeに「Hooks設定して」と依頼すると settings.json を編集してくれる',
+    ],
+    links: [
+      { label: 'Claude Code Docs', url: 'https://docs.anthropic.com/en/docs/claude-code' },
+      { label: 'Hooks ドキュメント', url: 'https://docs.anthropic.com/en/docs/claude-code/hooks' },
+    ],
+  },
+];

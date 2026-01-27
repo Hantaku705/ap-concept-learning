@@ -14,6 +14,7 @@ APプロジェクト固有のSlash Commands（スキル）を定義。
 | `plan.md` | `/plan` | 実装計画作成 |
 | `refactor-clean.md` | `/refactor-clean` | リファクタリング・不要コード削除 |
 | `scaffold-webapp.md` | `/scaffold-webapp` | Webアプリ雛形生成 |
+| `shogun.md` | `/shogun` | multi-agent-shogun マルチエージェントシステム起動 |
 | `tdd.md` | `/tdd` | TDDワークフロー |
 | `test-coverage.md` | `/test-coverage` | テストカバレッジ確認 |
 | `update-codemaps.md` | `/update-codemaps` | Codemap更新 |
@@ -29,4 +30,5 @@ APプロジェクト固有のSlash Commands（スキル）を定義。
 
 ## 更新履歴
 
+- 2026-01-27: shogun.md追加（multi-agent-shogun起動スキル）
 - 2026-01-23: CLAUDE.md作成、address-lookup.md追加

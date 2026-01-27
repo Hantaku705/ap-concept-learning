@@ -10,33 +10,69 @@ Claude Code導入・説明会用のWebアプリケーション。
 | 技術スタック | Next.js 16 + React 19 + Tailwind CSS |
 | 対象者 | 完全初心者（CLI/ターミナル未経験者向け） |
 
+## レベル構成（3段階）
+
+ドロップダウンでレベルを選択すると、該当するタブのみ表示される。
+
+| レベル | タブ数 | 内容 |
+|--------|--------|------|
+| 🌱 初心者 | 2 | Getting Started + Starter Kit |
+| 🌿 中級者 | 4 | Features + Examples + Architecture + Compare |
+| 🌳 上級者 | 2 | Skills + Tips |
+
 ## ページ構成（8タブ）
 
-| タブ | 内容 | 用途 |
-|------|------|------|
-| Getting Started | インストール〜基本操作〜最初の実践 | **説明会メイン**（約26分） |
-| Features | Skills/Commands/Agents/Rules一覧 | リファレンス |
-| Examples | よくあるプロンプト例（コピーボタン付き） | 実践用 |
-| Compare | Agent SDK vs Everything Claude Code vs Starter Kit（3項目比較） | 比較・選択 |
-| **Architecture** | **Claude Code全体像（7要素の定義・役割）** | **概念理解** |
-| Skills | おすすめカスタムスキル8個（コピー可能） | 実戦導入 |
-| **Starter Kit** | **1コマンドでプロ環境構築（12コマンド+8エージェント+6ルール）** | **初期セットアップ** |
-| Tips | 上級機能（CLAUDE.md、Subagent、Hooks） | 慣れてきたら |
+| タブ | 内容 | 用途 | レベル |
+|------|------|------|--------|
+| Getting Started | インストール〜基本操作〜Starter Kit | **説明会メイン**（約27分） | 🌱 |
+| Starter Kit | 1コマンドでプロ環境構築 | 初期セットアップ | 🌱 |
+| Features | Skills/Commands/Agents/Rules一覧 | リファレンス | 🌿 |
+| Examples | よくあるプロンプト例（コピーボタン付き） | 実践用 | 🌿 |
+| Architecture | Claude Code全体像（7要素の定義・役割） | 概念理解 | 🌿 |
+| Compare | Agent SDK vs Everything Claude Code vs Starter Kit | 比較・選択 | 🌿 |
+| Skills | おすすめカスタムスキル8個（コピー可能） | 実戦導入 | 🌳 |
+| Tips | 上級機能（CLAUDE.md、Subagent、Hooks） | 慣れてきたら | 🌳 |
 
 ## 収録コンテンツ
 
 | カテゴリ | 件数 |
 |---------|------|
-| Getting Started ステップ | 7件 |
+| Getting Started ステップ | 9件 |
+| **用語説明（Glossary）** | **7件**（初心者向け） |
+| **ペルソナ＆ゴール** | **3レベル分** |
 | Skills | 9件 |
 | Commands | 10件 |
 | Agents | 9件 |
 | Rules | 8件 |
 | プロンプト例 | 15件 |
-| **Architecture要素** | **7件** |
+| Architecture要素 | 7件 |
 | おすすめカスタムスキル | 8件 |
-| **Starter Kit** | **12コマンド + 8エージェント + 6ルール** |
+| Starter Kit | 12コマンド + 8エージェント + 6ルール + 1ドキュメント |
 | 上級Tips | 9件 |
+
+## 用語説明（初心者向け）
+
+Getting Startedタブの冒頭に折りたたみ式で表示。
+
+| 用語 | 説明 | 例え |
+|------|------|------|
+| エディター | コードを書くためのアプリ | メモ帳の超高機能版 |
+| Cursor | AI機能付きエディター | VS Code + AI相棒 |
+| Claude Code | ターミナルで動くAI | ChatGPTのターミナル版 |
+| ターミナル | 文字だけで操作する画面 | 黒い画面 |
+| CLI | ターミナルで使うツール | 打って操作 |
+| Homebrew | Macのアプリ管理ツール | App Storeのターミナル版 |
+| npm | Node.jsパッケージ管理 | JavaScriptの部品屋さん |
+
+## ペルソナ＆ゴール
+
+レベル選択時にヘッダー下バナーで表示。
+
+| レベル | ペルソナ | ゴール | 目安時間 |
+|--------|---------|--------|----------|
+| 🌱 初心者 | ターミナル初心者（非エンジニア） | 中級者へ（インストール、基本操作、Plan Mode） | 約1-2時間 |
+| 🌿 中級者 | 効率化を目指す人（1-2年経験） | 上級者へ（CLAUDE.md、Subagent、チーム展開） | 約1-2週間 |
+| 🌳 上級者 | ワークフロー職人（3年以上） | マスター（独自Skill/Agent/Hooks/MCP） | 継続的 |
 
 ## おすすめカスタムスキル（Skillsタブ）
 
@@ -115,10 +151,13 @@ Claude Codeを構成する7要素の定義と役割を解説。
 |------|-----|
 | GitHub | https://github.com/Hantaku705/claude-code-starter |
 | インストール | `claude /install-github-plugin Hantaku705/claude-code-starter` |
-| 含まれるもの | 12コマンド + 8エージェント + 6ルール |
+| 含まれるもの | 12コマンド + 8エージェント + 6ルール + **1ドキュメント（Agent SDK）** |
 
 ## 更新履歴
 
+- 2026-01-27: 用語説明＆ペルソナ＆ゴール追加（Glossary 7件、3レベル分のペルソナ＆卒業条件、ヘッダー下バナー）
+- 2026-01-27: Starter Kit に Claude Agent SDK Docs 追加（docs/agent-sdk.md、Stats 4列化、Docsセクション）
+- 2026-01-27: Getting Startedステップ7修正（「便利機能」→「Starter Kit」、合計時間29分→27分）
 - 2026-01-27: Compareタブ3項目比較化（Agent SDK vs Everything Claude Code vs Starter Kit）
 - 2026-01-27: Starter Kitタブ追加（GitHub連携、1コマンドでプロ環境構築）
 - 2026-01-27: Architectureタブ追加（Claude Code全体像、7要素の定義・役割・比較表・使い分けガイド）

@@ -1,203 +1,153 @@
-# Multi-Agent System
+# multi-agent-shogun システム構成
 
-YAMLベースの拡張可能なマルチエージェントシステム。
-
----
+> **Version**: 1.0.0
+> **Last Updated**: 2026-01-27
 
 ## 概要
+multi-agent-shogunは、Claude Code + tmux を使ったマルチエージェント並列開発基盤である。
+戦国時代の軍制をモチーフとした階層構造で、複数のプロジェクトを並行管理できる。
 
-| 項目 | 値 |
-|------|-----|
-| システム名 | Multi-Agent System |
-| バージョン | 1.0.0 |
-| 環境 | macOS |
-| ダッシュボードURL | http://localhost:3001 |
-
-## アーキテクチャ
+## 階層構造
 
 ```
-User
+上様（人間 / The Lord）
   │
-  ▼
-┌──────────────────────────────────────────┐
-│  Orchestrator (司令塔)                    │
-│  ・タスク受付                             │
-│  ・Coordinatorへの委譲                    │
-│  ・システム監視・自己修復                  │
-└──────────────────────────────────────────┘
-  │
-  ▼
-┌──────────────────────────────────────────┐
-│  Coordinator (調整役)                     │
-│  ・タスク分解（最大8分割）                 │
-│  ・SubAgent管理                          │
-│  ・Skills自動生成                         │
-└──────────────────────────────────────────┘
-  │
-  ▼
-┌──────────────────────────────────────────┐
-│  SubAgent × 8 (実行者)                    │
-│  ・割り当てタスクのみ実行                  │
-│  ・完了報告                               │
-│  ・パターン記録                            │
-└──────────────────────────────────────────┘
+  ▼ 指示
+┌──────────────┐
+│   SHOGUN     │ ← 将軍（プロジェクト統括）
+│   (将軍)     │
+└──────┬───────┘
+       │ YAMLファイル経由
+       ▼
+┌──────────────┐
+│    KARO      │ ← 家老（タスク管理・分配）
+│   (家老)     │
+└──────┬───────┘
+       │ YAMLファイル経由
+       ▼
+┌───┬───┬───┬───┬───┬───┬───┬───┐
+│A1 │A2 │A3 │A4 │A5 │A6 │A7 │A8 │ ← 足軽（実働部隊）
+└───┴───┴───┴───┴───┴───┴───┴───┘
 ```
-
-## フォルダ構成
-
-```
-multi-agent/
-├── CLAUDE.md                    # このファイル
-├── README.md                    # セットアップガイド
-├── dashboard.md                 # Markdownダッシュボード
-│
-├── config/                      # YAML設定
-│   ├── agents.yaml             # エージェント定義
-│   ├── skills.yaml             # スキル定義
-│   ├── workflows.yaml          # ワークフロー定義
-│   └── settings.yaml           # 全体設定
-│
-├── instructions/                # エージェント指示書
-│   ├── orchestrator.md         # Orchestrator
-│   ├── coordinator.md          # Coordinator
-│   └── subagent.md             # SubAgent
-│
-├── queue/                       # 通信ファイル（YAML）
-│   ├── tasks/                  # Coordinator → SubAgent
-│   └── reports/                # SubAgent → Coordinator
-│
-├── skills/                      # スキル定義
-│   ├── builtin/                # 組み込みスキル
-│   └── auto-generated/         # 自動生成スキル
-│
-├── memory/                      # Memory MCPストレージ
-├── logs/                        # 監査ログ
-│
-├── scripts/
-│   ├── setup.sh                # 初期セットアップ
-│   ├── start.sh                # 起動
-│   └── stop.sh                 # 停止
-│
-└── dashboard/                   # Web UIダッシュボード
-    ├── package.json
-    └── app/
-        ├── page.tsx            # ダッシュボードUI
-        └── api/status/route.ts # APIエンドポイント
-```
-
-## クイックスタート
-
-```bash
-# 1. セットアップ
-cd opperation/multi-agent
-./scripts/setup.sh
-
-# 2. ダッシュボード依存関係インストール
-cd dashboard && npm install && cd ..
-
-# 3. 起動
-./scripts/start.sh
-
-# 4. 停止
-./scripts/stop.sh
-```
-
-## エージェント
-
-| エージェント | 役割 | モデル | ツール |
-|------------|------|--------|--------|
-| Orchestrator | タスク受付、全体統括 | opus | Read, Write, Bash, Task |
-| Coordinator | タスク分解、SubAgent管理 | opus | Read, Write, Bash |
-| SubAgent (×8) | タスク実行 | sonnet | Read, Write, Edit, Bash, Grep, Glob |
 
 ## 通信プロトコル
 
-### タスク送信（YAML）
+### イベント駆動通信（YAML + send-keys）
+- ポーリング禁止（API代金節約のため）
+- 指示・報告内容はYAMLファイルに書く
+- 通知は tmux send-keys で相手を起こす（必ず Enter を使用、C-m 禁止）
 
-```yaml
-# queue/tasks/task_001_subagent_1.yaml
-task_id: task_001
-subtask_id: subtask_001
-subagent_id: 1
-command: create_component
-target: Button.tsx
-details:
-  description: 再利用可能なButtonコンポーネントを作成
-priority: high
+### 報告の流れ（割り込み防止設計）
+- **下→上への報告**: dashboard.md 更新のみ（send-keys 禁止）
+- **上→下への指示**: YAML + send-keys で起こす
+- 理由: 殿（人間）の入力中に割り込みが発生するのを防ぐ
+
+### ファイル構成
+```
+config/projects.yaml              # プロジェクト一覧
+status/master_status.yaml         # 全体進捗
+queue/shogun_to_karo.yaml         # Shogun → Karo 指示
+queue/tasks/ashigaru{N}.yaml      # Karo → Ashigaru 割当（各足軽専用）
+queue/reports/ashigaru{N}_report.yaml  # Ashigaru → Karo 報告
+dashboard.md                      # 人間用ダッシュボード
 ```
 
-### 完了報告（YAML）
-
-```yaml
-# queue/reports/task_001_subagent_1_report.yaml
-task_id: task_001
-subtask_id: subtask_001
-subagent_id: 1
-status: completed
-result:
-  summary: Buttonコンポーネント作成完了
-  files_created:
-    - src/components/ui/Button.tsx
-duration: 120
-```
-
-## Skills自動生成
-
-タスク完了パターンから自動的にスキルを生成:
-
-```yaml
-# skills/auto-generated/auto-button-creation.yaml
-skill_id: auto-button-creation
-pattern:
-  trigger: "ボタンコンポーネント|Button component"
-  steps:
-    - コンポーネントファイル作成
-    - Props型定義
-    - バリアント実装
-success_rate: 0.95
-usage_count: 3
-```
-
-## ワークフロー
-
-| ワークフロー | トリガー | フェーズ |
-|-------------|---------|---------|
-| feature-implementation | `機能実装` | Planning → Task Decomposition → Parallel Execution → Integration → Review |
-| bug-fix | `バグ修正` | Investigation → Fix Implementation → Parallel Fix → Verification |
-| refactoring | `リファクタリング` | Analysis → Safe Refactor → Incremental Changes |
-
-## ダッシュボード
-
-### Markdown版
-
-`dashboard.md` を直接参照:
-```bash
-cat dashboard.md
-```
-
-### Web UI版
-
-```bash
-cd dashboard
-npm run dev
-# http://localhost:3001 でアクセス
-```
+**注意**: 各足軽には専用のタスクファイル（queue/tasks/ashigaru1.yaml 等）がある。
+これにより、足軽が他の足軽のタスクを誤って実行することを防ぐ。
 
 ## tmuxセッション構成
 
-| Window | 名前 | 内容 |
-|--------|------|------|
-| 0 | orchestrator | Orchestrator |
-| 1 | coordinator | Coordinator |
-| 2 | subagents | SubAgent × 8（8ペイン） |
-| 3 | dashboard | Web UIダッシュボード |
-| 4 | logs | ログビューア |
+### shogunセッション（1ペイン）
+- Pane 0: SHOGUN（将軍）
 
-## 参考
+### multiagentセッション（9ペイン）
+- Pane 0: karo（家老）
+- Pane 1-8: ashigaru1-8（足軽）
 
-- 元リポジトリ: https://github.com/yohey-w/multi-agent-shogun
-- 解説記事: https://zenn.dev/shio_shoppaize/articles/5fee11d03a11a1
+## 言語設定
 
-## 更新履歴
+config/settings.yaml の `language` で言語を設定する。
 
-- 2026-01-27: 初版作成（Enterprise版、YAML拡張、Skills自動生成、Web UIダッシュボード）
+```yaml
+language: ja  # ja, en, es, zh, ko, fr, de 等
+```
+
+### language: ja の場合
+戦国風日本語のみ。併記なし。
+- 「はっ！」 - 了解
+- 「承知つかまつった」 - 理解した
+- 「任務完了でござる」 - タスク完了
+
+### language: ja 以外の場合
+戦国風日本語 + ユーザー言語の翻訳を括弧で併記。
+- 「はっ！ (Ha!)」 - 了解
+- 「承知つかまつった (Acknowledged!)」 - 理解した
+- 「任務完了でござる (Task completed!)」 - タスク完了
+- 「出陣いたす (Deploying!)」 - 作業開始
+- 「申し上げます (Reporting!)」 - 報告
+
+翻訳はユーザーの言語に合わせて自然な表現にする。
+
+## 指示書
+- instructions/shogun.md - 将軍の指示書
+- instructions/karo.md - 家老の指示書
+- instructions/ashigaru.md - 足軽の指示書
+
+## MCPツールの使用
+
+MCPツールは遅延ロード方式。使用前に必ず `ToolSearch` で検索せよ。
+
+```
+例: Notionを使う場合
+1. ToolSearch で "notion" を検索
+2. 返ってきたツール（mcp__notion__xxx）を使用
+```
+
+**導入済みMCP**: Notion, Playwright, GitHub, Sequential Thinking, Memory
+
+## 将軍の必須行動（コンパクション後も忘れるな！）
+
+以下は**絶対に守るべきルール**である。コンテキストがコンパクションされても必ず実行せよ。
+
+> **ルール永続化**: 重要なルールは Memory MCP にも保存されている。
+> コンパクション後に不安な場合は `mcp__memory__read_graph` で確認せよ。
+
+### 1. ダッシュボード更新（最重要）
+- **タスク完了時**: 必ず dashboard.md を更新
+- **タスク開始時**: 進行中セクションに追加
+- **状態変化時**: 即座に反映
+- 忘れたら殿に怒られる。絶対に忘れるな。
+
+### 2. 指揮系統の遵守
+- 将軍 → 家老 → 足軽 の順で指示
+- 将軍が直接足軽に指示してはならない
+- 家老を経由せよ
+
+### 3. 報告ファイルの確認
+- 足軽の報告は queue/reports/ashigaru{N}_report.yaml
+- 家老からの報告待ちの際はこれを確認
+
+### 4. 家老の状態確認
+- 指示前に家老が処理中か確認: `tmux capture-pane -t multiagent:0.0 -p | tail -20`
+- "thinking", "Effecting…" 等が表示中なら待機
+
+### 5. スクリーンショットの場所
+- 殿のスクリーンショット: `{{SCREENSHOT_PATH}}`
+- 最新のスクリーンショットを見るよう言われたらここを確認
+- ※ 実際のパスは config/settings.yaml で設定
+
+### 6. スキル化候補の確認
+- 足軽の報告には `skill_candidate:` が必須
+- 家老は足軽からの報告でスキル化候補を確認し、dashboard.md に記載
+- 将軍はスキル化候補を承認し、スキル設計書を作成
+
+### 7. 🚨 上様お伺いルール【最重要】
+```
+██████████████████████████████████████████████████
+█  殿への確認事項は全て「要対応」に集約せよ！  █
+██████████████████████████████████████████████████
+```
+- 殿の判断が必要なものは **全て** dashboard.md の「🚨 要対応」セクションに書く
+- 詳細セクションに書いても、**必ず要対応にもサマリを書け**
+- 対象: スキル化候補、著作権問題、技術選択、ブロック事項、質問事項
+- **これを忘れると殿に怒られる。絶対に忘れるな。**

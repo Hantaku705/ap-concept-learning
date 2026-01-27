@@ -15,11 +15,47 @@
 | Refa | 73-74回目 | プロモーション変遷分析Webapp（イノベーター理論曲線、4ページ構成、ReFa GINZA・再ブランディング追加、Vercelデプロイ） | 2件 |
 | workflow | 76回目 | プロジェクトワークフローガイド作成（5段階フロー、7プロジェクト分析、/project-workflow スキル） | 1件 |
 | フォルダ整理 | 78, 81回目 | projects/ フォルダ構造整理（5プロジェクト→7プロジェクト、workflow.md準拠→4カテゴリ拡張） | 2件 |
-| CLAUDECODE | 86-90回目 | Claude Code オンボーディングWebapp Skills/Starter Kit タブ追加、**Claude Code Starter Kit GitHub作成**、Compareタブ3項目比較化、**Architectureタブ追加**、**Multi-Agent System実装** | 5件 |
+| CLAUDECODE | 86-96回目 | Claude Code オンボーディングWebapp Skills/Starter Kit タブ追加、**Claude Code Starter Kit GitHub作成**、Compareタブ3項目比較化、**Architectureタブ追加**、**Multi-Agent System実装**、**Getting Started ステップ7修正**、**Starter Kit SDK Docs追加**、**レベルベース設計**、**Multi-Agent Shogunオリジナル版再現**、**/shogunスキル作成**、**用語説明＆ペルソナ＆ゴール追加** | 11件 |
+| 将軍Claude Code化 | 97回目 | /shogunスキルをTask toolベースに書き換え（tmux不要化）、動作テスト成功 | 1件 |
 
 詳細は [HANDOFF_ARCHIVE.md](./HANDOFF_ARCHIVE.md) を参照。
 
 ### 直近の完了タスク
+- [x] **/shogun Task tool化（セッション97）**
+  - tmuxベースの将軍システムをClaude Code Task toolベースに完全移行
+  - `/shogun` スキルを書き換え（家老subagent→足軽subagent並列実行→dashboard更新）
+  - 動作テスト成功（README要約→dashboard.md更新）
+  - 既存tmuxセッション停止
+- [x] **用語説明＆ペルソナ＆ゴール追加（セッション96）**
+  - **用語説明（Glossary）**: 7件追加（エディター、Cursor、Claude Code、ターミナル、CLI、Homebrew、npm）
+  - **ペルソナ＆ゴール**: 3レベル分追加（初心者/中級者/上級者のペルソナ像＆卒業条件）
+  - **100万時間プレイ視点の課題分析**: 「なぜClaude Code？」不明確、32分長すぎ、Plan Mode価値が埋もれている
+  - **UI変更**: Getting Started冒頭に折りたたみ式用語説明、ヘッダー下にペルソナ＆ゴールバナー
+  - **Vercelデプロイ完了**: https://claude-code-onboarding-ten.vercel.app
+- [x] **/shogun スキル作成（セッション95）**
+  - multi-agent-shogun 起動用スキル `/shogun` を作成
+  - 配置場所: `.claude/commands/shogun.md` + `_claude-code/commands/shogun.md`
+  - 使用方法: `/shogun`（全起動） / `/shogun -s`（セットアップのみ）
+- [x] **Multi-Agent Shogun オリジナル版完全再現（セッション94）**
+  - Enterprise版（Orchestrator/Coordinator/SubAgent）→ オリジナル戦国版（将軍/家老/足軽）に置き換え
+  - GitHub: https://github.com/yohey-w/multi-agent-shogun を完全コピー
+  - `start_macos.sh` 新規作成（macOS対応起動スクリプト）
+  - tmux構成: 2セッション（shogun + multiagent）、3x3グリッド（9ペイン）
+  - 10 Claude Code インスタンス起動完了（将軍1 + 家老1 + 足軽8）
+- [x] **レベルベース設計（セッション93）**
+  - 3段階レベル: 🌱初心者(2タブ) / 🌿中級者(4タブ) / 🌳上級者(2タブ)
+  - ドロップダウンでレベル選択 → 該当タブのみ表示
+  - Vercelデプロイ完了: https://claude-code-onboarding-ten.vercel.app
+- [x] **Starter Kit に Claude Agent SDK Docs 追加（セッション92）**
+  - `docs/agent-sdk.md` 新規作成（概要、組み込みツール、フック、サブエージェント、MCP）
+  - Starter Kit: 12コマンド + 8エージェント + 6ルール + **1ドキュメント**
+  - Webapp: Stats 4列化、Docsセクション追加
+  - GitHub: https://github.com/Hantaku705/claude-code-starter (af203d8)
+  - Vercelデプロイ完了: https://claude-code-onboarding-ten.vercel.app
+- [x] **Getting Started ステップ7修正（セッション91）**
+  - ステップ7を「便利機能」から「Starter Kit」に置き換え
+  - 合計時間を「約29分」→「約27分」に更新
+  - Vercelデプロイ完了: https://claude-code-onboarding-ten.vercel.app
 - [x] **Multi-Agent System 実装（セッション90）**
   - **構成**: Orchestrator → Coordinator → SubAgent×8（Enterprise版命名）
   - **作成ファイル（28件）**:
@@ -47,14 +83,14 @@
   - Vercelデプロイ完了: https://claude-code-onboarding-ten.vercel.app
 
 ### 作業中のタスク
-- [ ] **Multi-Agent System テスト・検証**（setup.sh実行、ダッシュボードnpm install）
+- [x] ~~**Multi-Agent System テスト・検証**~~ → **完了**（Task tool版に移行完了）
 - [ ] **Clawdbot リアクション機能設定**（`reactions:write` をBot Token Scopesに追加）
 - [ ] **The Room FX 提案書 Google Docs書き込み**（5〜11章 + Appendix 残り）
 - [ ] **MASCODEアイライナー コンセプト作成**（検討中）
 - [ ] **「なまえデザイン」書籍まとめ Phase 3**（各章詳細追加予定）
 
 ## 次のアクション
-1. **Multi-Agent System テスト**（`cd opperation/multi-agent && ./scripts/setup.sh && cd dashboard && npm install`）
+1. **Multi-Agent System 運用開始**（`/shogun タスク内容` でTask toolベース実行、`dashboard.md` で進捗確認）
 2. **Clawdbot Gmail/Calendar連携**（Google Cloud ConsoleでOAuth設定 → `gog auth` 実行）
 3. **NADESHIKOアルゴリズム実践**（ksf.md、algorithm.md参照）
 4. **The Room FX 提案書レビュー＆プレゼン資料化**（2月1週目締切）
@@ -64,28 +100,150 @@
 
 ## 未コミット変更
 ```
- M CLAUDE.md
  M HANDOFF.md
- M NADESHIKO/* (webapp, scripts, data)
+ M _claude-code/commands/CLAUDE.md
  M opperation/CLAUDE.md
- M projects/*/CLAUDE.md
-?? NADESHIKO/code/
-?? NADESHIKO/scripts/update_views.py
-?? NADESHIKO/webapp/tests/
-?? opperation/CLAUDECODE/
-?? opperation/clawdbot/
-?? opperation/multi-agent/           ← 今回追加
-?? opperation/サブスク/
-?? projects/Refa/
-?? projects/workflow/
+ M opperation/CLAUDECODE/CLAUDE.md
+ M opperation/CLAUDECODE/webapp/app/data/onboarding-data.ts
+ M opperation/CLAUDECODE/webapp/app/page.tsx
+ M opperation/multi-agent/* (オリジナル版 + Task tool化)
+?? .claude/commands/shogun.md (Task toolベース)
+?? _claude-code/commands/shogun.md (Task toolベース)
+?? opperation/multi-agent/新規ファイル多数
 ```
 
 ## 最新コミット
 ```
-e5b5225 feat(nadeshiko): add daily views tracking, algorithm tab, and views enhancements
+fda6860 feat: major updates across CLAUDECODE, NADESHIKO, and project reorganization
 ```
 
 ## セッション履歴（直近10回分）
+
+### 2026-01-27 (97)
+- **/shogun Task tool化（tmux不要化）**
+  - ユーザー依頼: ターミナル操作が非常にやりにくい。Claude Code上で完結させたい
+  - **問題**: VS Codeターミナルで `--dangerously-skip-permissions` の承認プロンプトが操作不能
+  - **解決**: tmuxベースをClaude Code Task toolベースに完全移行
+  - **変更内容**:
+    - `/shogun` スキル書き換え（2ファイル）: `.claude/commands/shogun.md`, `_claude-code/commands/shogun.md`
+    - 新フロー: ユーザー→将軍(現セッション)→家老(Task subagent)→足軽(Task subagent×N並列)→dashboard更新
+    - tmux/YAML通信 → Task toolの引数・戻り値に置き換え
+  - **動作テスト**: 成功（README要約タスク→家老分解→足軽実行→dashboard.md更新）
+  - **既存tmuxセッション停止**: shogun + multiagent セッション kill済み
+  - **使い方**: `/shogun タスク内容` でClaude Code内完結
+
+### 2026-01-27 (96)
+- **用語説明＆ペルソナ＆ゴール追加**
+  - ユーザー依頼:
+    1. 初心者向けに用語説明コラムを追加（Editor、Cursor、Claude Code、ターミナル）
+    2. 各レベルのペルソナとゴール（卒業条件）を記載
+    3. 100万時間プレイ視点での課題を教えて
+  - **Plan Mode使用**: 計画ファイル作成→ユーザー承認後に実装
+  - **用語説明（Glossary）**:
+    - 7件追加: エディター、Cursor、Claude Code、ターミナル、CLI、Homebrew、npm
+    - 各用語に「例え」付き（メモ帳の超高機能版、ChatGPTのターミナル版 等）
+    - Getting Startedタブ冒頭に折りたたみ式「📚 はじめに：用語を知ろう」
+  - **ペルソナ＆ゴール**:
+    | レベル | ペルソナ | ゴール | 目安時間 |
+    |--------|---------|--------|----------|
+    | 🌱 初心者 | ターミナル初心者 | 中級者へ（インストール、基本操作、Plan Mode） | 約1-2時間 |
+    | 🌿 中級者 | 効率化を目指す人 | 上級者へ（CLAUDE.md、Subagent、チーム展開） | 約1-2週間 |
+    | 🌳 上級者 | ワークフロー職人 | マスター（独自Skill/Agent/Hooks/MCP） | 継続的 |
+  - **100万時間プレイ視点の課題（HIGH）**:
+    - 「なぜClaude Code？」が不明確 → Cursorとの違いがわからず離脱
+    - Getting Startedが32分と長すぎ → 5分で最初の成功体験がほしい
+    - Plan Modeの価値が埋もれている → 「壁打ち→1発完了」が伝わらない
+  - **欠けているコンテンツ**:
+    - クイックスタート（5分版）
+    - FAQ / よくあるトラブル
+    - Cursor連携ガイド
+  - **変更ファイル**:
+    - `onboarding-data.ts`: Glossary型、Persona型、LevelGoal型＆データ追加
+    - `page.tsx`: GlossarySection、ペルソナ＆ゴールバナー追加
+    - `CLAUDE.md`: 収録コンテンツ・用語説明・ペルソナ＆ゴール・更新履歴
+  - **Vercelデプロイ完了**: https://claude-code-onboarding-ten.vercel.app
+
+### 2026-01-27 (95)
+- **/shogun スキル作成**
+  - ユーザー依頼: `/shogun` で multi-agent-shogun を起動するスキルを作りたい
+  - **作成ファイル**:
+    - `.claude/commands/shogun.md` - プロジェクト直下のスキル（Claude Code が認識）
+    - `_claude-code/commands/shogun.md` - リファレンス用コピー
+  - **使用方法**:
+    - `/shogun` - 全エージェント起動（将軍1 + 家老1 + 足軽8）
+    - `/shogun -s` - セットアップのみ（Claude Code 起動なし）
+  - **起動後**:
+    - 将軍: `tmux attach -t shogun`
+    - 家老・足軽: `tmux attach -t multiagent`
+  - **CLAUDE.md更新**: `_claude-code/commands/CLAUDE.md` にスキル追加
+
+### 2026-01-27 (94)
+- **Multi-Agent Shogun オリジナル版完全再現**
+  - ユーザー依頼: Enterprise版ではなく、オリジナルの multi-agent-shogun をそのまま再現してほしい
+  - **変更内容**:
+    - Enterprise版（Orchestrator/Coordinator/SubAgent命名）を完全に破棄
+    - https://github.com/yohey-w/multi-agent-shogun をクローンして完全コピー
+    - macOS対応の `start_macos.sh` を新規作成
+  - **オリジナル版の特徴**:
+    - 戦国時代モチーフ: 将軍（Shogun）、家老（Karo）、足軽（Ashigaru）
+    - 2つのtmuxセッション: `shogun`（1ペイン）+ `multiagent`（9ペイン、3x3グリッド）
+    - イベント駆動通信: ポーリング禁止、YAML + send-keys
+    - ダッシュボード更新ルール: 下→上は `dashboard.md` 更新のみ（send-keys禁止）
+    - 専用タスクファイル: `queue/tasks/ashigaru{N}.yaml`
+  - **起動確認**:
+    - `./start_macos.sh -s` (setup-only) → SUCCESS
+    - `./start_macos.sh` (full) → 10 Claude Code インスタンス起動完了
+  - **作成ファイル**: `start_macos.sh`（macOS対応起動スクリプト）
+  - **修正ファイル**: `config/settings.yaml`（macOSパス）
+
+### 2026-01-27 (93)
+- **レベルベース設計**
+  - ユーザー依頼: 初心者がいきなり全タブ見ると大変。レベル感に応じて必要な情報がわかるようにしたい
+  - **Plan Mode使用**: 計画ファイル作成→ユーザー承認後に実装
+  - **レベル構成（3段階）**:
+    | レベル | タブ数 | 内容 |
+    |--------|--------|------|
+    | 🌱 初心者 | 2 | Getting Started + Starter Kit |
+    | 🌿 中級者 | 4 | Features + Examples + Architecture + Compare |
+    | 🌳 上級者 | 2 | Skills + Tips |
+  - **UI変更**:
+    - ヘッダーにドロップダウン追加（レベル選択）
+    - レベル説明バナー追加
+    - タブは選択レベルに応じて動的に表示
+  - **変更ファイル**:
+    - `onboarding-data.ts`: Tab型、LevelType型、tabs配列、levels配列追加
+    - `page.tsx`: selectedLevel状態、handleLevelChange関数、タブフィルタリング
+  - **Vercelデプロイ完了**: https://claude-code-onboarding-ten.vercel.app
+
+### 2026-01-27 (92)
+- **Starter Kit に Claude Agent SDK Docs 追加**
+  - ユーザー依頼: Claude Agent SDKのドキュメントをStarter Kitに追加（分離した構成で）
+  - **実装内容**:
+    - `docs/agent-sdk.md` 新規作成（Mintlify→標準Markdown変換、約200行）
+    - README.md更新（Docsセクション追加、フォルダ構成更新）
+    - Webapp更新（StarterKitDoc型追加、Stats 4列化、Docsセクション追加）
+  - **Starter Kit最終構成**:
+    ```
+    claude-code-starter/
+    ├── commands/      (12個)
+    ├── agents/        (8個)
+    ├── rules/         (6個)
+    ├── templates/     (2個)
+    └── docs/          ← NEW
+        └── agent-sdk.md
+    ```
+  - **GitHub**: https://github.com/Hantaku705/claude-code-starter (af203d8)
+  - **Vercelデプロイ完了**: https://claude-code-onboarding-ten.vercel.app
+
+### 2026-01-27 (91)
+- **Getting Started ステップ7修正**
+  - ユーザー依頼: メンバーに見せるのはGetting Startedのみ。⑦便利機能を削除してStarter Kitに置き換え
+  - **変更内容**:
+    - ステップ7: 「便利機能」（5分） → 「Starter Kit」（3分）
+    - 合計時間: 約29分 → 約27分
+    - コード例: gh auth login → claude /install-github-plugin → 使えるコマンド例
+  - **修正ファイル**: `onboarding-data.ts:150-168`, `page.tsx:209`
+  - **Vercelデプロイ完了**: https://claude-code-onboarding-ten.vercel.app
 
 ### 2026-01-27 (90)
 - **Multi-Agent System 実装**
@@ -142,11 +300,6 @@ e5b5225 feat(nadeshiko): add daily views tracking, algorithm tab, and views enha
   - 8個のおすすめカスタムスキル追加（handoff, resume, memory, quick-commit, code-review, tdd, build-fix, plan）
   - 6タブ構成: Getting Started / Features / Examples / Compare / Skills / Tips
   - **Vercelデプロイ完了**: https://claude-code-onboarding-ten.vercel.app
-
-### 2026-01-26 (85)
-- **NADESHIKO MAトレンド期間変更（14/42/100）**
-  - MAトレンド一覧の期間を変更: 7/14/28 → 14/42/100
-  - **Vercelデプロイ完了**: https://nadeshiko-sales.vercel.app
 
 ### 2026-01-26 (84)
 - **NADESHIKO MAトレンド一覧改善 + PR/通常フィルター**

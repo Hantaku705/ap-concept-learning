@@ -7,13 +7,14 @@
 | フォルダ | 説明 | 本番URL |
 |---------|------|---------|
 | `CLAUDECODE/` | Claude Code オンボーディング用Webapp | https://claude-code-onboarding-ten.vercel.app |
-| `multi-agent/` | マルチエージェントシステム（YAML拡張、Skills自動生成、ダッシュボード） | http://localhost:3001 |
+| `multi-agent/` | multi-agent-shogun（将軍/家老/足軽、tmux + Claude Code、戦国モチーフ） | - |
 | `なまえデザイン_フォルダ/` | 「なまえ」デザイン書籍まとめ（小薬元著） | - |
 | `サブスク/` | サブスク確認ツール（Gmail API連携、Next.js Webapp） | https://subscription-tracker-ten-iota.vercel.app |
 | `clawdbot/` | Clawdbot AIアシスタント設定ガイド | - |
 
 ## 更新履歴
 
+- 2026-01-27: multi-agent/ オリジナル版に置き換え（multi-agent-shogun、将軍/家老/足軽×8、tmux 2セッション構成、戦国モチーフ）
 - 2026-01-27: multi-agent/ 追加（マルチエージェントシステム、Orchestrator/Coordinator/SubAgent×8、YAML拡張、Skills自動生成、Web UIダッシュボード）
 - 2026-01-27: CLAUDECODE/ 追加（Claude Code オンボーディング用Webapp、説明会向け）
 - 2026-01-26: clawdbot/フォルダ追加（Clawdbot AIアシスタント設定ガイド）
