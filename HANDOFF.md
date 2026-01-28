@@ -21,12 +21,51 @@
 | フォルダ移行 | 100回目 | DynamicBranding → opperation/ 移行（.git削除、CLAUDE.md更新） | 1件 |
 | CLAUDECODE修正 | 101回目 | Getting Started/Starter KitをLv.1専用に修正、multi-agent移動 | 1件 |
 | 将軍ダッシュボード | 102-103回目 | ゲーム性UI改善、skills-map構築、**v3.1スキルパネル（巻物庫）**、**v3.2陣形/統計/アチーブメントUI**、**セルフブラッシュアップ方針策定** | 4件 |
-| シャンプータグライン | 105-120回目 | タグライン収集（35→86ブランド）、ポジショニングマップWebapp作成・デプロイ、PR TIMESデータ追加、workflow整備、URL追加・テーブルリンク化、ファクトチェック、キャッチコピー追加、catchcopyスキル作成、4象限表示、Meltwater CSV分析→17ブランド追加、全86ブランドFC完了・sourceUrl追加・FCリンク化、**FC分離（TL/CC個別化）・catchcopyFC実行**、**テーブルソート・軸別ソート＆フィルター** | 12件 |
+| シャンプータグライン | 105-123回目 | タグライン収集（35→86ブランド）、ポジショニングマップWebapp作成・デプロイ、PR TIMESデータ追加、workflow整備、URL追加・テーブルリンク化、ファクトチェック、キャッチコピー追加、catchcopyスキル作成、4象限表示、Meltwater CSV分析→17ブランド追加、全86ブランドFC完了・sourceUrl追加・FCリンク化、FC分離（TL/CC個別化）・catchcopyFC実行、テーブルソート・軸別ソート＆フィルター、CC/TL列入れ替え・catchcopyスキル定義更新、**iP§ CC×TL 7案作成・ブランド検索機能追加** | 14件 |
+| スキンケア・リップタグライン | 124回目 | positioning-mapスキル作成、スキンケアWebapp（42ブランド）、リップWebapp（42ブランド）、Vercelデプロイ | 1件 |
+| ローカル設定同期 | 125回目 | `~/.claude/` → `AP/.claude/` 同期（Commands 22 + Agents 9 + Skills 2 = 33ファイル） | 1件 |
 | スキル・コマンド管理 | 115, 117回目 | `/should-skill`コマンド作成、CLAUDE.md自動提案ルール追加、Command提案基準厳格化、**rules/auto-skills.md作成**（スキル自動適用マッピング） | 2件 |
+| 権限設定 | 126回目 | `~/.claude/settings.json` 権限自動許可設定、`permissions-config.md`スキル作成 | 1件 |
 
 詳細は [HANDOFF_ARCHIVE.md](./HANDOFF_ARCHIVE.md) を参照。
 
 ### 直近の完了タスク
+- [x] **Claude Code権限自動許可設定 + スキル作成（セッション126）**
+  - `~/.claude/settings.json` に `permissions.allow` 追加（WebFetch, Bash, Edit, Write, ~/.claude/**パス）
+  - `/should-skill` 実行 → `permissions-config.md` スキル新規作成
+  - CLAUDE.md既存スキル一覧に追記
+- [x] **ローカル設定をAPプロジェクトに同期（セッション125）**
+  - `/install-github-plugin` コマンドが存在しないことを発見（Claude Code標準機能ではない）
+  - GitHubリポジトリ (https://github.com/Hantaku705/claude-code-starter) が404で存在しないことを発見
+  - `~/.claude/` → `AP/.claude/` に不足ファイルをコピー:
+    - Commands: 22ファイル（api-debug, commit-push-pr, confirm, create-skill, db-migrate, deploy-verify, error, first-principles, handoff, knowledge, memory, projects, quick-commit, reco, resume, review-changes, secretary, tasks, test-and-fix, update-brain, validate-api-integration, verify-worker-deployment）
+    - Agents: 9ファイル（build-validator, code-architect, code-simplifier, feature-completeness-checker, performance-profiler, secretary-assistant, security-checker, ux-analyzer, video-pipeline-analyzer）
+    - Skills: 2ディレクトリ（security-review/, tdd-workflow/）
+  - 結果: Commands 14→36, Agents 9→18, Skills 11→13
+- [x] **スキンケア・リップ タグラインポジショニングマップWebapp作成・デプロイ（セッション124）**
+  - positioning-mapスキル作成（`.claude/skills/positioning-map.md`）: データ収集→軸設計→Webapp scaffold→デプロイの4段階手順
+  - スキンケアWebapp: 42ブランド収集、軸設計（機能訴求↔感性訴求 / シンプル↔プレミアム）
+  - リップWebapp: 42ブランド収集、軸設計（色持ち・機能訴求↔発色・感性訴求 / ナチュラル↔華やか）
+  - 本番URL:
+    - スキンケア: https://skincare-tagline-map.vercel.app
+    - リップ: https://lip-tagline-map.vercel.app
+  - node_modules問題→`npm install`で解決
+  - Vercel aliasing問題→ユニークプロジェクト名で解決
+- [x] **iP§ CC×TL 7案作成 + ブランド検索機能追加（セッション123）**
+  - iP§ソース資料（オリエンPDF、製品Q&A、ロゴ画像）を分析
+  - クライアントFB（FB.md）を踏まえたOK条件整理
+  - CC×TL 5案（宣言/疑問提起/シーン提示/課題共感/否定逆説型）+ 公式2案（TL別CC作成）= 計7エントリ
+  - TaglineTableにブランド名検索機能追加（input検索ボックス）
+  - Vercelデプロイ完了: https://webapp-five-bay.vercel.app
+- [x] **catchcopyスキル定義更新 + CC/TL列入れ替え + デプロイ（セッション122）**
+  - catchcopy.md: キャッチコピー定義「課題の提示」→「『自分ごと』にさせる言葉」に更新
+  - tagline-data.ts: コメント更新
+  - TaglineTable: CC/TL列の左右入れ替え（CC左、TL右）
+  - Vercelデプロイ完了
+- [x] **CLAUDE.md 設定ディレクトリ明確化（セッション121）**
+  - `_claude-code/` → `.claude/` の優先関係を明確化
+  - スキル・コマンド・ルールの保存先を `.claude/` に統一
+  - `_claude-code/` を「読み取り専用アーカイブ」と明記
 - [x] **シャンプータグライン テーブルソート＋軸別ソート＆フィルター（セッション120）**
   - 全列ソート機能追加（ブランド、メーカー、価格帯、価格、タグライン、TL/CC）
   - 象限列 → 訴求軸（x値）+ 世界観（y値）の2列に分割、独立ソート可能
@@ -192,8 +231,8 @@
   - 詳細テーブル: 3列 → 4列（Starter Kit列追加）
   - Vercelデプロイ完了: https://claude-code-onboarding-ten.vercel.app
 - [x] **Claude Code Starter Kit GitHub作成 + Webapp追加（セッション87）**
-  - GitHub: https://github.com/Hantaku705/claude-code-starter
-  - インストール: `claude /install-github-plugin Hantaku705/claude-code-starter`
+  - GitHub: https://github.com/Hantaku705/claude-code-starter ⚠️ 404（未作成/削除）
+  - ⚠️ `/install-github-plugin` は存在しないコマンド（手動コピーが必要）
   - 12 Commands + 8 Agents + 6 Rules
 - [x] **Claude Code オンボーディングWebapp Skills タブ追加（セッション86）**
   - 8個のおすすめカスタムスキル追加
@@ -227,46 +266,123 @@
 
 ## 未コミット変更
 ```
+ M .claude/rules/auto-skills.md
  M CLAUDE.md
  M HANDOFF.md
- M _claude-code/commands/CLAUDE.md
  m _claude-code/multi-agent
- M _claude-code/skills/CLAUDE.md
- M opperation/CLAUDECODE/CLAUDE.md
- M opperation/CLAUDECODE/webapp/app/components/layout/Header.tsx
- M opperation/CLAUDECODE/webapp/app/layout.tsx
- M opperation/CLAUDECODE/webapp/app/page.tsx
- M opperation/CLAUDECODE/webapp/package-lock.json
- M opperation/CLAUDECODE/webapp/package.json
- D phonefarm/3c.md
- M projects/シャンプータグライン/CLAUDE.md
+ M _claude-code/skills/catchcopy.md
  M projects/シャンプータグライン/webapp/src/components/TaglineTable.tsx
  M projects/シャンプータグライン/webapp/src/data/tagline-data.ts
-?? .claude/agents/
-?? .claude/commands/
-?? .claude/rules/
-?? .claude/skills/
-?? _claude-code/commands/should-skill.md
-?? _claude-code/rules/auto-skills.md
-?? _claude-code/skills/catchcopy.md
-?? opperation/CLAUDECODE/webapp/app/api/
-?? opperation/CLAUDECODE/webapp/app/auth/
-?? opperation/CLAUDECODE/webapp/app/components/ui/LoginButton.tsx
-?? opperation/CLAUDECODE/webapp/app/contexts/
-?? opperation/CLAUDECODE/webapp/app/hooks/useProgress.ts
-?? opperation/CLAUDECODE/webapp/app/lib/supabase/
-?? opperation/CLAUDECODE/webapp/supabase/
-?? opperation/phonefarm/
-?? projects/シャンプータグライン/
-?? read-sheet.js
+?? .claude/agents/ (9ファイル)
+?? .claude/commands/ (22ファイル)
+?? .claude/skills/permissions-config.md
+?? .claude/skills/positioning-map.md
+?? .claude/skills/security-review/
+?? .claude/skills/tdd-workflow/
+?? projects/シャンプータグライン/source/ips/
+?? projects/スキンケアタグライン/
+?? projects/リップタグライン/
 ```
 
 ## 最新コミット
 ```
-a1f8df5 feat: add 17 shampoo brands from Meltwater CSV analysis (69→86)
+ae03963 docs: update HANDOFF with session 120 (shampoo table sort/filter)
 ```
 
 ## セッション履歴（直近10回分）
+
+### 2026-01-28 (126)
+- **Claude Code権限自動許可設定 + スキル作成**
+  - ユーザー依頼: WebFetch/Bash/Edit等の確認プロンプトを毎回表示しないようにしたい
+  - **設定追加** (`~/.claude/settings.json`):
+    - `permissions.allow` セクション追加
+    - WebFetch, Bash, Edit, Write, Edit(~/.claude/**), Write(~/.claude/**) を自動許可
+  - **/should-skill実行** → 該当パターン検出（3/5条件: 複数PJ再利用可、判断基準含む、間違えやすい構文）
+  - **permissions-config.mdスキル作成** (`.claude/skills/permissions-config.md`):
+    - ツール名一覧（WebFetch, Bash, Edit, Write, Read）
+    - パターン指定構文（ドメイン、コマンド、パス）
+    - 推奨設定例（開発者向け全許可 / 慎重派限定許可）
+    - よくあるエラー（`Bash(*)` は無効、`Bash` を使う 等）
+  - **CLAUDE.md更新**: 既存スキル一覧に追記
+  - **変更ファイル**:
+    - `~/.claude/settings.json` - permissions.allow追加
+    - `.claude/skills/permissions-config.md` - 新規作成
+    - `CLAUDE.md` - スキル一覧追記
+
+### 2026-01-28 (125)
+- **ローカル設定をAPプロジェクトに同期**
+  - ユーザー依頼: `~/.claude/` にあって `AP/.claude/` にないファイルを全てAPに入れたい
+  - **発見した問題**:
+    - `/install-github-plugin` はClaude Codeの標準コマンドではない（架空のコマンドがドキュメントに記載されていた）
+    - https://github.com/Hantaku705/claude-code-starter は404（リポジトリが存在しない）
+  - **差分調査**: commands/agents/skills/rules/hooksを比較
+  - **コピー実行**:
+    - Commands: 22ファイル追加（14→36）
+    - Agents: 9ファイル追加（9→18）
+    - Skills: 2ディレクトリ追加（11→13）: security-review/, tdd-workflow/
+    - Rules: 追加なし（APの方がauto-skills.mdを持っていて完全）
+    - Hooks: 両方とも空フォルダ
+  - **変更ファイル（33ファイル）**:
+    - `.claude/commands/` - 22ファイル追加
+    - `.claude/agents/` - 9ファイル追加
+    - `.claude/skills/security-review/` - 新規（SKILL.md）
+    - `.claude/skills/tdd-workflow/` - 新規（SKILL.md）
+
+### 2026-01-28 (124)
+- **スキンケア・リップ タグラインポジショニングマップWebapp作成・デプロイ**
+  - ユーザー依頼: シャンプーと同じパターンでスキンケア・リップのポジショニングマップWebappを作成
+  - **Plan Mode使用**: 計画ファイル `harmonic-floating-taco.md` 作成→ユーザー承認後に実装
+  - **positioning-mapスキル作成** (`.claude/skills/positioning-map.md`):
+    - 新規カテゴリ用ポジショニングマップWebapp作成手順を標準化
+    - 4段階: データ収集→軸設計→Webapp scaffold→デプロイ
+  - **スキンケアWebapp**:
+    - 42ブランド収集（プチプラ14/ドラコス14/デパコス14）
+    - 軸設計: X=機能訴求↔感性訴求 / Y=シンプル↔プレミアム
+    - 本番URL: https://skincare-tagline-map.vercel.app
+  - **リップWebapp**:
+    - 42ブランド収集（プチプラ14/ミドル14/デパコス14）
+    - 軸設計: X=色持ち・機能訴求↔発色・感性訴求 / Y=ナチュラル↔華やか
+    - 本番URL: https://lip-tagline-map.vercel.app
+  - **技術的問題と解決**:
+    - node_modules corruption → `rm -rf node_modules && npm install` で解決
+    - Vercel aliasing（同名プロジェクト）→ `.vercel/` 削除、`--name` でユニークプロジェクト名指定
+  - **変更ファイル**:
+    - `.claude/skills/positioning-map.md` - 新規作成
+    - `projects/スキンケアタグライン/` - 新規作成（webapp/）
+    - `projects/リップタグライン/` - 新規作成（webapp/）
+
+### 2026-01-28 (123)
+- **iP§ CC×TL 7案作成 + ブランド検索機能追加**
+  - iP§（アイピーセクション）ソース資料分析: オリエンPDF、製品Q&A、ロゴ画像
+  - クライアントFB（FB.md）のOK/NG条件整理:
+    - OK: 状態変化1方向、補修と土台が上下関係、科学を比喩で匂わせる、説明不要
+    - NG: 補修完全否定、「化粧水シャンプー」を傘に、スカルプ枠
+  - CC×TL 7エントリ作成:
+    - 案1: 補修の、その先へ。× 髪の土台から整う時代へ
+    - 案2: まだ、表面だけのケアですか？× 根もとから変わる髪へ
+    - 案3: 髪が変わると、毎日が変わる。× うるおいの土台から、整える。
+    - 案4: いいシャンプー、まだ出会えていない人へ。× 育てるケアという、新しい答え。
+    - 案5: 補修では届かなかった場所へ。× 髪の土台を、育てる。
+    - 公式A: 透きとおる髪は、土台で決まる。× 先進科学が導く、クリアなうるおい髪
+    - 公式B: 肌に使うものを、なぜ髪に使わなかったのか。× iPSテクノロジーの化粧水シャンプー
+  - TaglineTableにブランド名検索機能追加（inputボックス、リアルタイムフィルタリング）
+  - ビルド成功・Vercelデプロイ完了（4回）
+
+### 2026-01-28 (122)
+- **catchcopyスキル定義更新 + CC/TL列入れ替え**
+  - catchcopy.md: キャッチコピー定義「課題の提示」→「『自分ごと』にさせる言葉」に更新
+  - tagline-data.ts: コメント更新
+  - TaglineTable: CC/TL列の左右入れ替え（CC左、TL右）
+  - Vercelデプロイ完了
+  - `/should-skill` 実行 → 該当パターンなし
+
+### 2026-01-28 (121)
+- **CLAUDE.md 設定ディレクトリ明確化**
+  - `.claude/` = 実運用（Claude Codeが読み込む）、`_claude-code/` = 読み取り専用アーカイブ を明確化
+  - スキル・コマンド・ルール保存先テーブルを `_claude-code/` → `.claude/` に修正
+  - 注意書きブロック追加（`_claude-code/` には書き込まない旨）
+  - フォルダ構成コメントに「読み取り専用アーカイブ、実運用は .claude/」追記
+  - IDE extension install failed メッセージの説明（`/status` で確認可能、CLI利用のみなら無視可）
 
 ### 2026-01-28 (120)
 - **シャンプータグライン テーブルソート＋軸別ソート＆フィルター**
@@ -656,27 +772,6 @@ a1f8df5 feat: add 17 shampoo brands from Meltwater CSV analysis (69→86)
     - `onboarding-data.ts`: Tab型、LevelType型、tabs配列、levels配列追加
     - `page.tsx`: selectedLevel状態、handleLevelChange関数、タブフィルタリング
   - **Vercelデプロイ完了**: https://claude-code-onboarding-ten.vercel.app
-
-### 2026-01-27 (92)
-- **Starter Kit に Claude Agent SDK Docs 追加**
-  - ユーザー依頼: Claude Agent SDKのドキュメントをStarter Kitに追加（分離した構成で）
-  - **実装内容**:
-    - `docs/agent-sdk.md` 新規作成（Mintlify→標準Markdown変換、約200行）
-    - README.md更新（Docsセクション追加、フォルダ構成更新）
-    - Webapp更新（StarterKitDoc型追加、Stats 4列化、Docsセクション追加）
-  - **Starter Kit最終構成**:
-    ```
-    claude-code-starter/
-    ├── commands/      (12個)
-    ├── agents/        (8個)
-    ├── rules/         (6個)
-    ├── templates/     (2個)
-    └── docs/          ← NEW
-        └── agent-sdk.md
-    ```
-  - **GitHub**: https://github.com/Hantaku705/claude-code-starter (af203d8)
-  - **Vercelデプロイ完了**: https://claude-code-onboarding-ten.vercel.app
-
 
 ---
 過去のセッション履歴: [HANDOFF_ARCHIVE.md](./HANDOFF_ARCHIVE.md)

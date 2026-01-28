@@ -17,6 +17,8 @@ AP/
 │   ├── Refa/               # ReFa プロモーション変遷分析
 │   ├── the-room-fx/        # ANA THE Room FX
 │   ├── シャンプータグライン/  # シャンプーSNS分析
+│   ├── スキンケアタグライン/  # スキンケアポジショニングマップ
+│   ├── リップタグライン/      # リップポジショニングマップ
 │   └── workflow/           # プロジェクトワークフローガイド
 │
 ├── _agents/                # Claude Agent SDK
@@ -24,7 +26,7 @@ AP/
 │   ├── prompts/            # システムプロンプト
 │   └── CLAUDE.md           # Agent SDK設定
 │
-├── _claude-code/           # Claude Code設定リファレンス
+├── _claude-code/           # Claude Code設定リファレンス（読み取り専用アーカイブ、実運用は .claude/）
 │   ├── agents/             # Subagent定義
 │   ├── commands/           # Skillコマンド定義
 │   ├── rules/              # ルール定義
@@ -65,11 +67,14 @@ AP/
 
 | 指示 | 保存先 |
 |------|--------|
-| スキル追加 | `AP/_claude-code/skills/` |
-| コマンド追加 | `AP/_claude-code/commands/` |
-| ルール追加 | `AP/_claude-code/rules/` |
+| スキル追加 | `AP/.claude/skills/` |
+| コマンド追加 | `AP/.claude/commands/` |
+| ルール追加 | `AP/.claude/rules/` |
 
 **グローバル（`~/.claude/`）ではなく、APプロジェクト内に保存する。**
+
+> **注意**: `_claude-code/` はリファレンス・アーカイブ専用。Claude Codeが実際に読み込むのは `.claude/` のみ。
+> スキル・コマンド・ルールの新規作成・編集は **必ず `.claude/` 配下** で行うこと。`_claude-code/` には書き込まない。
 
 ### スキル・コマンド自動提案ルール（常時適用）
 
@@ -96,22 +101,46 @@ AP/
 | `concept-design.md` | コンセプト設計原則・チェックリスト |
 | `what-game.md` | 「何ゲーか」分析フレームワーク（市場構造の本質特定） |
 | `project-workflow.md` | プロジェクト型タスクの5段階ワークフロー（与件→Webapp） |
+| `positioning-map.md` | 新規カテゴリ用ポジショニングマップWebapp作成手順（データ収集→軸設計→scaffold→デプロイ） |
 | `coding-standards.md` | コーディング標準 |
 | `webapp-data-pattern.md` | Webappデータパターン |
 | `backend-patterns.md` | バックエンドパターン |
 | `frontend-patterns.md` | フロントエンドパターン |
+| `permissions-config.md` | Claude Code権限設定リファレンス（`permissions.allow`構文・ツール名・パス指定） |
 
 ### 既存コマンド一覧
 
 | コマンド | 用途 |
 |---------|------|
 | `/address-lookup` | 企業サイトから住所を取得し配送フォーム形式（英語）に変換 |
+| `/api-debug` | API統合デバッグ自動化 |
 | `/build-fix` | ビルドエラーの自動修正 |
 | `/code-review` | コードレビュー実行 |
+| `/commit-push-pr` | コミット→プッシュ→PR作成 |
+| `/confirm` | 本番環境の動作確認（Playwright E2E） |
+| `/create-skill` | 会話のやり取りをスキル化 |
+| `/db-migrate` | DBマイグレーション自動化 |
+| `/deploy-verify` | 本番デプロイ統一検証 |
 | `/e2e` | E2Eテスト生成・実行（Playwright） |
+| `/error` | 全ページのエラー検出・自動修正 |
+| `/first-principles` | 問題の根本分析 |
+| `/handoff` | セッション終了時の書き出し |
+| `/knowledge` | ナレッジベース管理 |
+| `/memory` | 記憶の管理（保存・呼び出し・削除） |
 | `/plan` | 実装計画作成 |
-| `/tdd` | TDDワークフロー |
+| `/projects` | プロジェクト管理 |
+| `/quick-commit` | 高速コミット |
+| `/reco` | UX中毒性最優先の並列分析・全自動修正 |
+| `/resume` | セッション再開時の読み込み |
+| `/review-changes` | 未コミット変更のレビュー |
+| `/secretary` | 秘書システム（タスク・プロジェクト・ナレッジ管理） |
 | `/should-skill` | セッションの作業からスキル/コマンド化すべきパターンを判定・提案 |
+| `/tasks` | タスク管理 |
+| `/tdd` | TDDワークフロー |
+| `/test-and-fix` | テスト実行→失敗分析→修正→再実行 |
+| `/update-brain` | 共通設定の更新 |
+| `/validate-api-integration` | API統合の検証 |
+| `/verify-worker-deployment` | ワーカーデプロイの検証 |
 
 ---
 
@@ -500,6 +529,90 @@ npm run dev
 
 ---
 
+### スキンケアタグライン（スキンケアポジショニングマップ）
+
+スキンケアブランドのタグライン・ポジショニングマップWebapp。
+
+**本番URL**: https://skincare-tagline-map.vercel.app
+
+**技術スタック**:
+- Next.js 16.1.5 (App Router)
+- React 19
+- TypeScript
+- Tailwind CSS
+- Recharts (ScatterChart)
+
+**データ**:
+| 項目 | 値 |
+|------|-----|
+| ブランド数 | 42件 |
+| 価格帯 | プチプラ(14) / ドラコス(14) / デパコス(14) |
+
+**軸設計**:
+- X軸: 機能訴求（-5）↔ 感性訴求（+5）
+- Y軸: シンプル（-5）↔ プレミアム（+5）
+
+**フォルダ構成**:
+```
+projects/スキンケアタグライン/
+└── webapp/                 # Next.js Webアプリ
+    ├── src/
+    │   ├── app/            # App Router
+    │   ├── components/     # PositioningMap, TaglineTable
+    │   └── data/           # tagline-data.ts (42ブランド)
+    └── package.json
+```
+
+**開発コマンド**:
+```bash
+cd projects/スキンケアタグライン/webapp
+npm run dev
+```
+
+---
+
+### リップタグライン（リップポジショニングマップ）
+
+リップブランドのタグライン・ポジショニングマップWebapp。
+
+**本番URL**: https://lip-tagline-map.vercel.app
+
+**技術スタック**:
+- Next.js 16.1.5 (App Router)
+- React 19
+- TypeScript
+- Tailwind CSS
+- Recharts (ScatterChart)
+
+**データ**:
+| 項目 | 値 |
+|------|-----|
+| ブランド数 | 42件 |
+| 価格帯 | プチプラ(14) / ミドル(14) / デパコス(14) |
+
+**軸設計**:
+- X軸: 色持ち・機能訴求（-5）↔ 発色・感性訴求（+5）
+- Y軸: ナチュラル（-5）↔ 華やか（+5）
+
+**フォルダ構成**:
+```
+projects/リップタグライン/
+└── webapp/                 # Next.js Webアプリ
+    ├── src/
+    │   ├── app/            # App Router
+    │   ├── components/     # PositioningMap, TaglineTable
+    │   └── data/           # tagline-data.ts (42ブランド)
+    └── package.json
+```
+
+**開発コマンド**:
+```bash
+cd projects/リップタグライン/webapp
+npm run dev
+```
+
+---
+
 ### _claude-code（Claude Code設定）
 
 Claude Codeの設定リファレンス実装。
@@ -567,6 +680,9 @@ vercel --prod --yes
 
 ## 更新履歴
 
+- 2026-01-28: **ローカル設定をAPに同期**（`~/.claude/` → `AP/.claude/`、Commands +22, Agents +9, Skills +2 = 33ファイル追加）
+- 2026-01-28: **スキンケア・リップ タグラインWebapp作成**（positioning-mapスキル作成、各42ブランド、スキンケア: https://skincare-tagline-map.vercel.app、リップ: https://lip-tagline-map.vercel.app）
+- 2026-01-28: CLAUDE.md設定ディレクトリ明確化（`.claude/`=実運用、`_claude-code/`=読み取り専用アーカイブ）
 - 2026-01-28: `_claude-code/` → `.claude/` 一括コピー（commands 14, rules 9, skills 10, agents 9）、ゴミフォルダ削除（`-p/`, `-type/`）
 - 2026-01-28: シャンプータグライン 全86ブランドFC完了（84/86確認）、sourceUrl追加、タグライン13件修正、FCリンク化デプロイ
 - 2026-01-27: CLAUDECODE Webapp Getting Started/Starter KitをLv.1専用に修正、multi-agent → `_claude-code/` 移動

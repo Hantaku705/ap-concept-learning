@@ -29,6 +29,7 @@ function SortIcon({ active, dir }: { active: boolean; dir: SortDir }) {
 }
 
 export default function TaglineTable() {
+  const [searchQuery, setSearchQuery] = useState("")
   const [priceFilter, setPriceFilter] = useState<PriceFilter>("all")
   const [axisFilters, setAxisFilters] = useState<Set<AxisFilter>>(new Set())
   const [sortKey, setSortKey] = useState<SortKey | null>(null)
@@ -47,12 +48,19 @@ export default function TaglineTable() {
       setSortDir(sortDir === "asc" ? "desc" : "asc")
     } else {
       setSortKey(key)
-      setSortDir("asc")
+      setSortDir(key === "xAxis" || key === "yAxis" ? "desc" : "asc")
     }
   }
 
   const filtered = useMemo(() => {
-    let data = priceFilter === "all" ? taglineData : taglineData.filter((d) => d.priceCategory === priceFilter)
+    let data = taglineData
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase()
+      data = data.filter((d) => d.brand.toLowerCase().includes(q))
+    }
+    if (priceFilter !== "all") {
+      data = data.filter((d) => d.priceCategory === priceFilter)
+    }
     if (axisFilters.size > 0) {
       data = data.filter((d) => {
         if (axisFilters.has("functional") && d.x >= 0) return false
@@ -63,7 +71,7 @@ export default function TaglineTable() {
       })
     }
     return data
-  }, [priceFilter, axisFilters])
+  }, [searchQuery, priceFilter, axisFilters])
 
   const sorted = useMemo(() => {
     if (!sortKey) return filtered
@@ -102,6 +110,15 @@ export default function TaglineTable() {
 
   return (
     <div>
+      <div className="mb-3">
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder="ブランド名で検索..."
+          className="w-full max-w-xs px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent"
+        />
+      </div>
       <div className="flex items-center gap-2 mb-2 flex-wrap">
         {priceFilters.map((f) => (
           <button
@@ -203,10 +220,10 @@ export default function TaglineTable() {
                 </td>
                 <td className="py-2 px-3 text-gray-800 italic">{d.tagline}</td>
                 <td className="py-2 px-3 text-center">
-                  <span className="text-xs text-gray-500 whitespace-nowrap">{xLabel(d.x)}</span>
+                  <span className="text-xs text-gray-500 whitespace-nowrap">{xLabel(d.x)} ({d.x > 0 ? `+${d.x}` : d.x})</span>
                 </td>
                 <td className="py-2 px-3 text-center">
-                  <span className="text-xs text-gray-500 whitespace-nowrap">{yLabel(d.y)}</span>
+                  <span className="text-xs text-gray-500 whitespace-nowrap">{yLabel(d.y)} ({d.y > 0 ? `+${d.y}` : d.y})</span>
                 </td>
                 <td className="py-2 px-3 text-center">
                   {d.catchcopy ? (
