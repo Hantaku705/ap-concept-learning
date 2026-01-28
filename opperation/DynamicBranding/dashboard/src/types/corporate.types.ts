@@ -326,6 +326,7 @@ export interface LoyaltyPost {
   content: string;
   topic: string | null;
   likes: number;
+  posted_at?: string;  // YYYY-MM-DD形式
 }
 
 export interface LoyaltyLevelData {
