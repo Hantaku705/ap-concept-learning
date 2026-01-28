@@ -10,9 +10,9 @@
 | データ分析 | 11-30回目 | SNS分析、Google Trends、仮説検証、ダッシュボード基盤構築 | 28件 |
 | ダッシュボード拡張 | 31-50回目 | CEP可視化、ラベリング、ブランド詳細ページ、レポート機能 | 24件 |
 | 高度機能 | 51-70回目 | W's詳細分析、DPT、ペルソナk-means、レポート98問構成 | 22件 |
-| 拡張機能 | 71-94回目 | ファイルベースレポート、コーポレート分析、世の中分析 | 20件 |
+| 拡張機能 | 71-97回目 | ファイルベースレポート、コーポレート分析、世の中分析、スパイクレポート | 21件 |
 
-**合計: 106件**
+**合計: 107件**
 詳細は [HANDOFF_ARCHIVE.md](./HANDOFF_ARCHIVE.md) を参照。
 
 ### 作業中のタスク
@@ -29,6 +29,26 @@
 ---
 
 ## セッション履歴（直近10回分）
+
+### 2026-01-28（97回目）
+- **7/28スパイク要因分析＆レポート機能追加**
+  - 要件: コーポレートダッシュボードの7/28週の投稿数スパイクの原因調査＆レポート表示
+  - 原因特定:
+    | 日付 | イベント | 影響 |
+    |------|---------|------|
+    | 2025-07-28 | リュウジ「味噌汁沸騰」炎上事件 | 料理研究家リュウジ氏が「味噌汁は沸騰させた方が旨い」検証動画を投稿、一般ユーザーの投稿を引用し批判したことで大炎上。味の素推奨派として知られるリュウジ氏への批判が「味の素」言及にも波及 |
+  - 実装内容:
+    | 変更 | 詳細 |
+    |------|------|
+    | `SpikeReport.tsx` | スパイク検出＋イベント表示コンポーネント（統計的検出: 平均+2σ） |
+    | `CorporateTrendsChart.tsx` | SpikeReportを週次推移グラフ上に表示 |
+    | `index.ts` | SpikeReport, SPIKE_EVENTS エクスポート追加 |
+  - デプロイ:
+    | 問題 | 解決策 |
+    |------|--------|
+    | 元プロジェクト「dashboard」のRoot Directory設定破損 | 新規プロジェクト「ajinomoto-dashboard」作成 |
+    | 環境変数未設定 | SUPABASE_URL/ANON_KEY/SERVICE_ROLE_KEY/GEMINI_API_KEY 追加 |
+  - 本番URL: https://ajinomoto-dashboard.vercel.app/corporate/1
 
 ### 2026-01-23（96回目）
 - **CLAUDE.md 一括作成（13フォルダ）**
@@ -133,29 +153,15 @@
 ## 未コミット変更
 
 ```
- M HANDOFF.md
- M dashboard/src/app/CLAUDE.md
- M dashboard/src/components/CLAUDE.md
- M dashboard/src/lib/CLAUDE.md
-?? dashboard/output/brands/CLAUDE.md
-?? dashboard/output/corporate/CLAUDE.md
-?? dashboard/output/personas/CLAUDE.md
-?? dashboard/output/reports/CLAUDE.md
-?? dashboard/progress/CLAUDE.md
-?? dashboard/src/app/corporate/CLAUDE.md
-?? dashboard/src/components/corporate-analytics/CLAUDE.md
-?? dashboard/src/components/corporate/CLAUDE.md
-?? dashboard/src/components/persona/CLAUDE.md
-?? dashboard/src/components/strategy/CLAUDE.md
-?? dashboard/src/lib/personality/CLAUDE.md
-?? dashboard/src/lib/report-quality/CLAUDE.md
-?? docs/CLAUDE.md
+ M src/components/corporate-analytics/CorporateTrendsChart.tsx
+ M src/components/corporate-analytics/index.ts
+?? src/components/corporate-analytics/SpikeReport.tsx
 ```
 
 ## 最新コミット
 
 ```
-020346b feat: Add automatic archive system for HANDOFF.md
+e349835 feat: add permissions config skill, sync local settings, and add 3 positioning map webapps
 ```
 
 ---

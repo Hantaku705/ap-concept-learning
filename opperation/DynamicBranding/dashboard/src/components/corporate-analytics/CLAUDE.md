@@ -11,9 +11,10 @@
 | `CorporateOverview.tsx` | KPI概要カード（投稿数、ポジティブ率、エンゲージメント等） |
 | `CorporateTopicChart.tsx` | トピック分布円グラフ |
 | `CorporateSentimentByTopic.tsx` | トピック別センチメント棒グラフ |
-| `CorporateTrendsChart.tsx` | 時系列推移折れ線グラフ |
+| `CorporateTrendsChart.tsx` | 時系列推移折れ線グラフ（**SpikeReport表示**） |
 | `CorporateSourceChart.tsx` | ソース（Twitter/Instagram等）分布 |
 | `CorporateTopPosts.tsx` | 高エンゲージメント投稿一覧 |
+| `SpikeReport.tsx` | **スパイク要因レポート（統計検出+イベントDB）** |
 | `index.ts` | バレルエクスポート |
 
 ## データソース
@@ -41,4 +42,5 @@
 
 ## 更新履歴
 
+- 2026-01-28: SpikeReport.tsx追加（7/28リュウジ味噌汁炎上事件レポート機能）
 - 2026-01-23: 初版作成

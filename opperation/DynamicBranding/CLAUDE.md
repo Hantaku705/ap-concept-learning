@@ -191,6 +191,7 @@ id,name,category,primary_emotion,secondary_emotion
 | `src/components/charts/PersonaDetailPanel.tsx` | **ペルソナ詳細パネル** |
 | `src/components/charts/PersonaQualityIndicator.tsx` | **品質インジケータ（信頼度・シルエットスコア）（NEW）** |
 | `src/lib/clustering/` | **k-meansクラスタリングライブラリ（NEW）** |
+| `src/components/corporate-analytics/SpikeReport.tsx` | **スパイク要因レポート（統計検出+イベントDB）** |
 
 ### API Routes
 
@@ -309,6 +310,8 @@ vercel --prod --yes
 - 2026-01-22: **コーポレートロイヤリティ機能追加（ファン資産にロイヤリティ高/中/低分布 + 代表口コミ表示）**
 - 2026-01-23: **世の中分析（World Analysis）機能追加（NewsAPI連携、LLM分析、7カテゴリ分類、18件テスト取得完了）**
 - 2026-01-23: **株価影響投稿改善（全件表示+整合優先ソート、ツールチップに投稿詳細表示）**
+- 2026-01-28: **スパイクレポート機能追加（SpikeReport.tsx、7/28リュウジ味噌汁炎上事件、統計的スパイク検出: 平均+2σ）**
+- 2026-01-28: **Vercel新プロジェクト作成（ajinomoto-dashboard）**、本番URL: https://ajinomoto-dashboard.vercel.app
 
 ---
 
