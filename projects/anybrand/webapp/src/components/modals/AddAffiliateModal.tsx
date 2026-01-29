@@ -117,12 +117,12 @@ export default function AddAffiliateModal({
                   アフィリエイトリンクをクリップボードにコピー
                 </p>
                 <div className="mt-3 flex items-center gap-2">
-                  <div className="flex-1 truncate rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm text-gray-600">
+                  <div className="min-w-0 flex-1 truncate rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm text-gray-600">
                     {affiliateUrl}
                   </div>
                   <button
                     onClick={handleCopyLink}
-                    className="flex items-center gap-1 rounded-lg bg-[#ff6b6b] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[#ee5a5a]"
+                    className="flex flex-shrink-0 items-center gap-1 rounded-lg bg-[#ff6b6b] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[#ee5a5a]"
                   >
                     {copiedLink ? (
                       <>
