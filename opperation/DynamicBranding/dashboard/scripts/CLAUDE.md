@@ -104,8 +104,9 @@ npx tsx scripts/label-ugc-multi.ts --dry-run
 | `check-ceps.ts` | CEPデータ確認 |
 | `recalc-weekly-trends.ts` | 週次トレンド再計算 |
 | `test-dpt.ts` | DPT生成APIテスト |
-| `analyze-tribes.ts` | **コーポレート投稿のトライブ分析（キーワードベース分類）（NEW）** |
+| `analyze-tribes.ts` | コーポレート投稿のトライブ分析（キーワードベース分類） |
 | `update-persona-urls.ts` | ペルソナ代表投稿URL更新スクリプト |
+| `analyze-low-loyalty-insights.ts` | **ロイヤリティ低層の隠れたインサイト分析（8カテゴリ分類）（NEW）** |
 
 ---
 
@@ -133,5 +134,6 @@ SERPAPI_KEY=...
 
 ## 更新履歴
 
+- 2026-01-29: analyze-low-loyalty-insights.ts追加（ロイヤリティ低層インサイト分析、8カテゴリ分類）
 - 2026-01-29: analyze-tribes.ts, update-persona-urls.ts追加（トライブ分析・ペルソナURL更新）
 - 2026-01-17: 初版作成（マルチプロバイダー並列処理ドキュメント）

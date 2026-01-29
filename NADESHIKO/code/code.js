@@ -288,11 +288,11 @@ for (let sortIdx = startSortIdx; sortIdx < sortedRows.length; sortIdx++) {
   slice[4] = info.type || slice[4] || INSIGHT_CONF.DEFAULT_TYPE;  // H: 種別
   // slice[5] は更新日（I列、別途書き込み）
   slice[6] = info.durationSec || slice[6] || '';                  // J: 動画尺
-  slice[7] = (info.view !== undefined && info.view !== null) ? info.view : slice[7];    // K: 再生数
-  slice[8] = (info.like !== undefined && info.like !== '') ? info.like : slice[8];      // L: いいね
-  slice[9] = (info.comment !== undefined && info.comment !== '') ? info.comment : slice[9]; // M: コメント
-  slice[10] = (info.share !== undefined && info.share !== '') ? info.share : slice[10]; // N: 共有
-  slice[11] = (info.save !== undefined && info.save !== '') ? info.save : slice[11];    // O: 保存
+  slice[7] = (info.view !== undefined && info.view !== null && info.view !== '') ? info.view : slice[7];    // K: 再生数
+  slice[8] = (info.like !== undefined && info.like !== null && info.like !== '') ? info.like : slice[8];      // L: いいね
+  slice[9] = (info.comment !== undefined && info.comment !== null && info.comment !== '') ? info.comment : slice[9]; // M: コメント
+  slice[10] = (info.share !== undefined && info.share !== null && info.share !== '') ? info.share : slice[10]; // N: 共有
+  slice[11] = (info.save !== undefined && info.save !== null && info.save !== '') ? info.save : slice[11];    // O: 保存
   
   try {
     // D〜H列（sns, アカウント, タイトル, URL, 種別）を書き込み
@@ -502,11 +502,11 @@ sortedRows.forEach((meta, sortIdx) => {
     // slice[5] は 更新日（I列、ここでは更新しない）
     // J列以降のデータ
     slice[6] = info.durationSec || slice[6] || '';                  // J: 動画尺（秒）
-    slice[7] = (info.view !== undefined && info.view !== null) ? info.view : slice[7];    // K: 再生数
-    slice[8] = (info.like !== undefined && info.like !== '') ? info.like : slice[8];      // L: いいね
-    slice[9] = (info.comment !== undefined && info.comment !== '') ? info.comment : slice[9]; // M: コメント
-    slice[10] = (info.share !== undefined && info.share !== '') ? info.share : slice[10]; // N: 共有
-    slice[11] = (info.save !== undefined && info.save !== '') ? info.save : slice[11];    // O: 保存
+    slice[7] = (info.view !== undefined && info.view !== null && info.view !== '') ? info.view : slice[7];    // K: 再生数
+    slice[8] = (info.like !== undefined && info.like !== null && info.like !== '') ? info.like : slice[8];      // L: いいね
+    slice[9] = (info.comment !== undefined && info.comment !== null && info.comment !== '') ? info.comment : slice[9]; // M: コメント
+    slice[10] = (info.share !== undefined && info.share !== null && info.share !== '') ? info.share : slice[10]; // N: 共有
+    slice[11] = (info.save !== undefined && info.save !== null && info.save !== '') ? info.save : slice[11];    // O: 保存
 
     // データ取得後すぐにシートに書き込む（タイムアウト対策）
     try {
@@ -686,6 +686,7 @@ function fetchTikTokInfo_(url) {
   }
 
   const st = data.statistics || data.stats || {};
+  Logger.log(`TikTok API response for ${url}: playCount=${st.playCount || st.play_count}, diggCount=${st.diggCount || st.digg_count}, shareCount=${st.shareCount || st.share_count}`);
   return {
     sns: 'TikTok',
     title: data.title || data.desc || '',

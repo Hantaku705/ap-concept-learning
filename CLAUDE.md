@@ -114,6 +114,7 @@ AP/
 | `frontend-patterns.md` | フロントエンドパターン |
 | `permissions-config.md` | Claude Code権限設定リファレンス（`permissions.allow`構文・ツール名・パス指定） |
 | `llm-to-static.md` | LLM事前生成→静的ファイル化パターン（動的API→静的JSON+データ解像度UP） |
+| `nadeshiko-views-update.md` | NADESHIKO再生数更新（構造解析スキップ、サマリー即時生成） |
 
 ### 既存コマンド一覧
 
@@ -630,6 +631,7 @@ vercel --prod --yes
 
 ## 更新履歴
 
+- 2026-01-29: **NADESHIKO再生数更新スキル作成**（`nadeshiko-views-update.md`、構造解析スキップ、サマリー即時生成）
 - 2026-01-28: **HANDOFFハイブリッド方式再構築**（ルート70行に軽量化、プロジェクト別HANDOFF.md 11件作成、HANDOFF_ARCHIVE.md削除、/handoffスキル更新）
 - 2026-01-28: **claude-code-starter APリポジトリ統合**（`.git`削除、`/update-claude-code-starter`同期コマンド作成、83ファイル同期、チームメンバー共有用）
 - 2026-01-28: **/auto-y コマンド作成**（セッション中に許可した権限を自動永続化、デバッグログから権限抽出、`settings.local.json`/`permissions-reference.md`に記録）

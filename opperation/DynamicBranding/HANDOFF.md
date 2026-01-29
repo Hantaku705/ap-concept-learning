@@ -10,9 +10,9 @@
 | データ分析 | 11-30回目 | SNS分析、Google Trends、仮説検証、ダッシュボード基盤構築 | 28件 |
 | ダッシュボード拡張 | 31-50回目 | CEP可視化、ラベリング、ブランド詳細ページ、レポート機能 | 24件 |
 | 高度機能 | 51-70回目 | W's詳細分析、DPT、ペルソナk-means、レポート98問構成 | 22件 |
-| 拡張機能 | 71-106回目 | ファイルベースレポート、コーポレート分析、世の中分析、スパイクレポート、戦略タブ、ロイヤリティインサイト、マルチペルソナ、静的化パフォーマンス改善、useEffect修正、代表口コミフィルター、戦略タブ移動、ペルソナ拡充＋カルーセルUI、LLM動的生成基盤、Brand Personality双極軸対応 | 31件 |
+| 拡張機能 | 71-107回目 | ファイルベースレポート、コーポレート分析、世の中分析、スパイクレポート、戦略タブ、ロイヤリティインサイト、マルチペルソナ、静的化パフォーマンス改善、useEffect修正、代表口コミフィルター、戦略タブ移動、ペルソナ拡充＋カルーセルUI、LLM動的生成基盤、Brand Personality双極軸対応、**ロイヤリティ低層隠れインサイト分析** | 32件 |
 
-**合計: 117件**
+**合計: 118件**
 詳細は [HANDOFF_ARCHIVE.md](./HANDOFF_ARCHIVE.md) を参照。
 
 ### 作業中のタスク
@@ -29,6 +29,39 @@
 ---
 
 ## セッション履歴（直近10回分）
+
+### 2026-01-29（107回目）
+- **ロイヤリティ低層の隠れたインサイト分析（Deep版）**
+  - 要件: 現在の3ペルソナ（添加物懸念層/インフルエンサー懐疑層/失望した株主）が「ありがち王道すぎる」ため、隠れたインサイトを発見
+  - 実装内容:
+    | 作業 | 詳細 |
+    |------|------|
+    | 初期分析スクリプト | `scripts/analyze-low-loyalty.ts`（10カテゴリ分類） |
+    | Deep分析スクリプト | `scripts/analyze-low-loyalty-deep.ts`（10新パターン探索） |
+    | 発見 | 「その他」65%の中に隠れた高エンゲージメントパターン |
+  - Deep分析結果（新発見）:
+    | カテゴリ | 件数 | エンゲージ | 特徴 |
+    |---------|------|----------|------|
+    | **アスパルテーム陰謀論** | 3 | **1,370いいね** | ファイザー/モンサント接続、製薬批判 |
+    | **SNS運用批判** | 8 | 148いいね | 「ミームに乗っかった悪ノリ」批判 |
+    | **BDS・社会運動** | 27 | - | 不買運動、レプリコンワクチン批判 |
+    | 陰謀論・都市伝説 | 14 | - | 食品添加物陰謀 |
+  - ペルソナ更新（3→5ペルソナ）:
+    | 変更 | 詳細 |
+    |------|------|
+    | 削除 | 失望した株主（実際の投稿3件のみ） |
+    | 追加① | アスパルテーム陰謀論者（最高エンゲージ1,370） |
+    | 追加② | SNS運用批判者（「バズ狙いすぎ」批判） |
+    | 追加③ | BDS/社会運動参加者（不買運動27件） |
+    | 残留 | 添加物懸念層、インフルエンサー懐疑層 |
+  - 変更ファイル:
+    | ファイル | 変更 |
+    |---------|------|
+    | `src/data/corporate-loyalty/corp-1-summary.json` | lowLoyalty 3→5ペルソナ |
+    | `scripts/analyze-low-loyalty.ts` | 新規（10カテゴリ分析） |
+    | `scripts/analyze-low-loyalty-deep.ts` | 新規（隠れパターン探索） |
+  - ビルド確認: 成功（57ページ生成）
+  - 本番デプロイ完了: https://ajinomoto-dashboard.vercel.app/corporate/1
 
 ### 2026-01-29（106回目）
 - **Brand Personality双極軸対応**
@@ -327,34 +360,17 @@
 ## 未コミット変更
 
 ```
- M ../../../HANDOFF.md
- M ../CLAUDE.md
- M ../HANDOFF.md
- M output/corporate/1-mvv.json
- M scripts/CLAUDE.md
- M src/app/api/corporate/[corpId]/loyalty-growth/route.ts
- M src/app/corporate/[corpId]/page.tsx
- M src/components/corporate/CLAUDE.md
- M src/components/corporate/CorporateLoyaltySection.tsx
- M src/components/corporate/LoyaltySummaryReport.tsx
- M src/components/corporate/MVVSection.tsx
- M src/components/corporate/PersonaCard.tsx
- M src/components/corporate/PersonalityRadar.tsx
- M src/data/corporate-loyalty/CLAUDE.md
  M src/data/corporate-loyalty/corp-1-summary.json
- M src/lib/CLAUDE.md
- M src/types/corporate.types.ts
-?? scripts/analyze-tribes.ts
-?? scripts/update-persona-urls.ts
-?? src/lib/loyalty-growth/
-?? supabase/migrations/023_loyalty_growth_cache.sql
-?? supabase/migrations/024_loyalty_growth_rpc.sql
+?? scripts/analyze-low-loyalty.ts
+?? scripts/analyze-low-loyalty-deep.ts
+?? scripts/analyze-low-loyalty-insights.ts
+?? output/low-loyalty-insights.json
 ```
 
 ## 最新コミット
 
 ```
-ad95267 docs: add URL sharing error check rule to deployment.md
+55cf048 feat: Brand Personality双極軸対応 + ロイヤリティ成長LLM基盤
 ```
 
 ---

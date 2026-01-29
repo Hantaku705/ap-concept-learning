@@ -4,9 +4,9 @@
 
 | 項目 | 値 |
 |------|-----|
-| 最終セッション | #146 |
+| 最終セッション | #148 |
 | 最終更新 | 2026-01-29 |
-| 最新コミット | ad95267 |
+| 最新コミット | 55cf048 |
 
 ### 作業中のタスク
 
@@ -25,19 +25,18 @@
 ## 未コミット変更
 
 ```
- M HANDOFF.md
+M HANDOFF.md
+ M NADESHIKO/code/code.js
  M opperation/DynamicBranding/CLAUDE.md
  M opperation/DynamicBranding/HANDOFF.md
- M opperation/DynamicBranding/dashboard/output/corporate/1-mvv.json
  M opperation/DynamicBranding/dashboard/scripts/CLAUDE.md
- M opperation/DynamicBranding/dashboard/src/app/api/corporate/[corpId]/loyalty-growth/route.ts
- M opperation/DynamicBranding/dashboard/src/app/corporate/[corpId]/page.tsx
- M opperation/DynamicBranding/dashboard/src/components/corporate/*.tsx (5ファイル)
- M opperation/DynamicBranding/dashboard/src/types/corporate.types.ts
-?? opperation/DynamicBranding/dashboard/scripts/analyze-tribes.ts
-?? opperation/DynamicBranding/dashboard/src/lib/loyalty-growth/
-?? opperation/DynamicBranding/dashboard/supabase/migrations/023_loyalty_growth_cache.sql
-?? opperation/DynamicBranding/dashboard/supabase/migrations/024_loyalty_growth_rpc.sql
+ M opperation/DynamicBranding/dashboard/src/data/corporate-loyalty/corp-1-summary.json
+?? .claude/skills/nadeshiko-views-update.md
+?? NADESHIKO/data/再生数シート/NADESHIKO 分析 - 1月 (2).csv
+?? opperation/DynamicBranding/dashboard/output/low-loyalty-insights.json
+?? opperation/DynamicBranding/dashboard/scripts/analyze-low-loyalty-deep.ts
+?? opperation/DynamicBranding/dashboard/scripts/analyze-low-loyalty-insights.ts
+?? opperation/DynamicBranding/dashboard/scripts/analyze-low-loyalty.ts
 ```
 
 ## プロジェクト別履歴
@@ -57,6 +56,42 @@
 | mascode | 2026-01-19 | - | [詳細](projects/mascode/HANDOFF.md) |
 
 ## セッション履歴
+
+### 2026-01-29（#148）
+- **NADESHIKO再生数更新スキル作成**
+  - 要件: 再生数シート更新時、ファイル構造解析をスキップして即座にサマリー生成
+  - 作成ファイル: `AP/.claude/skills/nadeshiko-views-update.md`
+  - スキル内容:
+    | セクション | 内容 |
+    |-----------|------|
+    | ファイル構造 | 固定（行2:全体、行12-14:Total、行17以降:投稿データ） |
+    | アカウント順序 | 15アカウント固定 |
+    | 出力フォーマット | 全体進捗 + アカウント別（達成/惜しい/課題） |
+  - 1月再生数サマリー（即時適用）:
+    | 項目 | 値 |
+    |------|-----|
+    | 目標 | 20,000,000 views |
+    | 現状 | 9,090,362 views |
+    | 進捗率 | 45.45% |
+    | 目標達成 | Maya grant(174.7%), 成分オタクちゃん(127.3%), 大学生(100.7%) |
+    | 惜しい | モテコスメちゃん(99.88%、あと2,395) |
+
+### 2026-01-29（#147）
+- **DynamicBranding ロイヤリティ低層の隠れたインサイト分析**
+  - 要件: sentiment='negative'（387件）のうち「添加物懸念」以外の隠れたインサイトを発見
+  - 分析スクリプト: `scripts/analyze-low-loyalty-insights.ts`（8カテゴリ・キーワードベース分類）
+  - 分析結果:
+    | カテゴリ | 件数 | 状態 |
+    |---------|------|------|
+    | 添加物懸念（既知） | 110 | 28.4% |
+    | ステマ・PR批判（既知） | 66 | 17.1% |
+    | **企業スキャンダル反応** | 23 | 🆕新発見 |
+    | **コスパ不満・代替品シフト** | 16 | 🆕新発見 |
+    | **ホワイト企業イメージギャップ** | 11 | 🆕新発見 |
+    | **品質・味への信頼喪失** | 7 | 🆕新発見 |
+    | **ポートフォリオ混乱批判** | 3 | 🆕新発見 |
+    | 未分類 | 196 | 50.6%（深掘り候補） |
+  - 出力ファイル: `output/low-loyalty-insights.json`
 
 ### 2026-01-29（#146）
 - **DynamicBranding 戦略提案タブ LLM動的生成基盤実装**

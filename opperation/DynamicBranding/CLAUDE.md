@@ -321,6 +321,7 @@ vercel --prod --yes
 - 2026-01-29: **戦略提案タブ LLM動的生成基盤** - SNS50,000件ベースのLLM動的生成インフラ実装。loyalty-growthモジュール（data-fetcher/metrics-calculator/llm-generator/cache）、Gemini 2.0 Flash + OpenAI GPT-4o-miniフォールバック、24時間TTLキャッシュ、isFallbackバッジ表示
 - 2026-01-29: **Brand Personality双極軸対応** - personality_shadow追加、代替案4案をカード形式で表示（食卓の頭脳派サポーター/研究熱心な料理の相棒/食の実験者/理系の料理好きおじさん）、PersonalityAlternative型追加
 - 2026-01-29: **PersonalityTraits双極軸化** - 0-100スケール → -50〜+50双極軸に変更。MVVSection.tsxにAxisScoreItem追加（左右ラベル表示）、PersonalityRadar.tsx双極軸対応
+- 2026-01-29: **ロイヤリティ低層隠れインサイト分析** - analyze-low-loyalty-insights.ts作成。387件negative投稿を8カテゴリ分類。新発見5カテゴリ（企業スキャンダル反応23件、コスパ不満16件、ホワイト企業ギャップ11件、品質・味7件、ポートフォリオ混乱3件）
 
 ---
 
